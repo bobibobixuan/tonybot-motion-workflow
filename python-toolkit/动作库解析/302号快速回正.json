@@ -1,0 +1,105 @@
+{
+  "path": "动作\\302号快速回正.rob",
+  "source_tag": "plain",
+  "magic": "ACT-40",
+  "frame_count": 1,
+  "length": 264,
+  "expected_length": 264,
+  "version": 2,
+  "reserved": 0,
+  "source_sha256": "5fba9df127b6f467f2d944eff65c960b27391c3683c15b7eba0e82738f94aee4",
+  "plain_sha256": "5fba9df127b6f467f2d944eff65c960b27391c3683c15b7eba0e82738f94aee4",
+  "total_duration": 500,
+  "frames": [
+    {
+      "index": 0,
+      "duration": 500,
+      "marker": 21845,
+      "reserved_a": 0,
+      "reserved_b": 0,
+      "active_channels": [
+        [
+          500,
+          0,
+          0
+        ],
+        [
+          387,
+          0,
+          0
+        ],
+        [
+          500,
+          0,
+          0
+        ],
+        [
+          593,
+          0,
+          0
+        ],
+        [
+          500,
+          0,
+          0
+        ],
+        [
+          575,
+          0,
+          0
+        ],
+        [
+          800,
+          0,
+          0
+        ],
+        [
+          724,
+          0,
+          0
+        ],
+        [
+          500,
+          0,
+          0
+        ],
+        [
+          612,
+          0,
+          0
+        ],
+        [
+          500,
+          0,
+          0
+        ],
+        [
+          406,
+          0,
+          0
+        ],
+        [
+          500,
+          0,
+          0
+        ],
+        [
+          425,
+          0,
+          0
+        ],
+        [
+          200,
+          0,
+          0
+        ],
+        [
+          275,
+          0,
+          0
+        ]
+      ],
+      "filler_ok": true
+    }
+  ]
+}

@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>164号工业校歌初稿时间线</title>
+  <style>
+    :root {
+      --bg: linear-gradient(135deg, #f3efe6 0%, #f6d8ae 45%, #d9ecff 100%);
+      --panel: rgba(255, 252, 245, 0.88);
+      --ink: #1f2a32;
+      --muted: #58666f;
+      --accent: #c95d38;
+      --accent-2: #2b7a78;
+      --warn: #d98f00;
+      --error: #b53232;
+      --line: rgba(31, 42, 50, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", "PingFang SC", sans-serif; color: var(--ink); background: var(--bg); }
+    main { max-width: 1180px; margin: 0 auto; padding: 32px 20px 56px; }
+    .hero { background: var(--panel); border: 1px solid var(--line); border-radius: 24px; padding: 28px; backdrop-filter: blur(12px); box-shadow: 0 14px 60px rgba(31, 42, 50, 0.08); }
+    h1, h2 { margin: 0 0 12px; }
+    p, li, td { line-height: 1.6; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 20px; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 20px; box-shadow: 0 10px 30px rgba(31, 42, 50, 0.06); }
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+    .metric { padding: 14px; border-radius: 16px; background: rgba(255,255,255,0.65); border: 1px solid var(--line); }
+    .metric strong { display: block; font-size: 24px; margin-bottom: 4px; color: var(--accent); }
+    .timeline { display: flex; gap: 10px; align-items: stretch; overflow-x: auto; padding-bottom: 10px; }
+    .segment { min-width: 180px; padding: 16px; border-radius: 18px; background: linear-gradient(180deg, rgba(201,93,56,0.16), rgba(43,122,120,0.10)); border: 1px solid rgba(31,42,50,0.14); flex: 0 0 auto; }
+    .segment-top { font-weight: 700; font-size: 18px; margin-bottom: 8px; }
+    .segment-meta { color: var(--muted); font-size: 13px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+    .level-ok td:nth-child(2) { color: var(--accent-2); font-weight: 700; }
+    .level-warn td:nth-child(2) { color: var(--warn); font-weight: 700; }
+    .level-error td:nth-child(2) { color: var(--error); font-weight: 700; }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <h1>164号工业校歌初稿时间线</h1>
+      <p>根据《工业校歌编舞》要求生成一版机器人展示舞初稿，整体风格兼顾机械感、队列感、青春感和工业学校气质，主歌偏稳健叙事，副歌强调校名记忆动作、庄重托举、花开展开与播种希望的高潮收束。</p>
+      <div class="metrics">
+        <div class="metric"><strong>694</strong><span>总帧数</span></div>
+        <div class="metric"><strong>250650</strong><span>总时长 ms</span></div>
+        <div class="metric"><strong>2251</strong><span>最大姿态跳变</span></div>
+        <div class="metric"><strong>0</strong><span>安全违规数</span></div>
+      </div>
+    </section>
+    <section class="grid">
+      <article class="card">
+        <h2>网页总结</h2>
+        <ul><li>整首舞蹈应保持机器人全程面向观众，避免过多转身，重点通过踏步、交替拳、展臂和托举建立工校展演气质。</li><li>主歌动作要稳、开阔、带叙事感，因此优先使用开场点头、展肩亮相、伸手展示、前行踏步和交替拳等模块组织句式。</li><li>副歌需要观众可记忆的固定动作，因此把“福建工校”“精英殿堂”“桃李芬芳”“播种希望”设计为重复出现的动作母题。</li><li>结尾不能突然断动作，需先完成希望主题的高位定格，再做礼貌谢幕并通过保护段回到稳定站姿。</li></ul>
+      </article>
+      <article class="card">
+        <h2>参考链接</h2>
+        <ul><li>暂无参考链接。</li></ul>
+      </article>
+      <article class="card">
+        <h2>输出文件</h2>
+        <ul>
+          <li>.rob: 动作\164号工业校歌初稿.rob</li>
+          <li>report: 编舞\164号工业校歌初稿.report.json</li>
+          <li>html: 编舞\164号工业校歌初稿.timeline.html</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>安全结论</h2>
+        <ul><li>violations=0</li></ul>
+      </article>
+    </section>
+    <section class="card" style="margin-top: 18px;">
+      <h2>动作时间线</h2>
+      <div class="timeline">
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">pre-quick-recenter</div>
+              <div class="segment-meta">302号快速回正.rob</div>
+              <div class="segment-meta">500 ms / 1 帧</div>
+              <div class="segment-meta">起始帧 0，结束帧 500</div>
+              <p>正式开场前先自动回正，消除上一个动作残余姿态。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">pre-stand-settle</div>
+              <div class="segment-meta">0号立正.rob</div>
+              <div class="segment-meta">1200 ms / 1 帧</div>
+              <div class="segment-meta">起始帧 500，结束帧 1700</div>
+              <p>回到标准站姿，作为校歌展示的安全起拍点。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">intro-awake</div>
+              <div class="segment-meta">391号手写开场点头.rob</div>
+              <div class="segment-meta">640 ms / 5 帧</div>
+              <div class="segment-meta">起始帧 1700，结束帧 2340</div>
+              <p>对应前奏开机苏醒，用轻点头表现机器人被唤醒。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">intro-open-shoulder</div>
+              <div class="segment-meta">392号手写展肩亮相.rob</div>
+              <div class="segment-meta">620 ms / 5 帧</div>
+              <div class="segment-meta">起始帧 2340，结束帧 2960</div>
+              <p>把肩线和胸口打开，建立科技展演的亮相感。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">intro-dual-beat</div>
+              <div class="segment-meta">357号手写双拍踏点.rob</div>
+              <div class="segment-meta">750 ms / 7 帧</div>
+              <div class="segment-meta">起始帧 2960，结束帧 3710</div>
+              <p>前奏进入节拍，用双拍踏点建立队列感。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">intro-display</div>
+              <div class="segment-meta">305号展示姿态.rob</div>
+              <div class="segment-meta">5000 ms / 7 帧</div>
+              <div class="segment-meta">起始帧 3710，结束帧 8710</div>
+              <p>第一次亮相定格，准备进入主歌。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-1-river</div>
+              <div class="segment-meta">328号伸右手.rob</div>
+              <div class="segment-meta">1100 ms / 2 帧</div>
+              <div class="segment-meta">起始帧 8710，结束帧 9810</div>
+              <p>对应“悠悠江畔”，用伸手与低位引导建立叙事开场。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-1-sail</div>
+              <div class="segment-meta">326号大鹏展翅.rob</div>
+              <div class="segment-meta">10700 ms / 30 帧</div>
+              <div class="segment-meta">起始帧 9810，结束帧 20510</div>
+              <p>对应“启新航”，用大幅打开动作做启航感。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-1-forward</div>
+              <div class="segment-meta">342号前行两步.rob</div>
+              <div class="segment-meta">4700 ms / 15 帧</div>
+              <div class="segment-meta">起始帧 20510，结束帧 25210</div>
+              <p>对应改革启航与前行推进，动作不大但方向明确。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-1-march</div>
+              <div class="segment-meta">308号标准踏步.rob</div>
+              <div class="segment-meta">2700 ms / 12 帧</div>
+              <div class="segment-meta">起始帧 25210，结束帧 27910</div>
+              <p>对应“步履铿锵”，强化队列步点。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-1-mech-punch</div>
+              <div class="segment-meta">370号手写左右交替拳.rob</div>
+              <div class="segment-meta">700 ms / 7 帧</div>
+              <div class="segment-meta">起始帧 27910，结束帧 28610</div>
+              <p>对应“军工豪情”，用交替拳模拟机械臂和硬朗口号感。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-1-bloom</div>
+              <div class="segment-meta">304号招手问候.rob</div>
+              <div class="segment-meta">3100 ms / 11 帧</div>
+              <div class="segment-meta">起始帧 28610，结束帧 31710</div>
+              <p>对应“春风化雨”，给一段更柔和的展开与送出感。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-1-lift</div>
+              <div class="segment-meta">305号展示姿态.rob</div>
+              <div class="segment-meta">5000 ms / 7 帧</div>
+              <div class="segment-meta">起始帧 31710，结束帧 36710</div>
+              <p>对应“育英才”，先以稳态展示做托举前的收束。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-1-rise</div>
+              <div class="segment-meta">326号大鹏展翅.rob</div>
+              <div class="segment-meta">10700 ms / 30 帧</div>
+              <div class="segment-meta">起始帧 36710，结束帧 47410</div>
+              <p>对应“意气风发、追风破浪”，用展臂扩大句子结尾。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">chorus-1-fjgx-a</div>
+              <div class="segment-meta">325号捶胸强调.rob</div>
+              <div class="segment-meta">6900 ms / 20 帧</div>
+              <div class="segment-meta">起始帧 47410，结束帧 54310</div>
+              <p>“福建工校”记忆动作前半句，用收胸强调校名。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">chorus-1-fjgx-b</div>
+              <div class="segment-meta">326号大鹏展翅.rob</div>
+              <div class="segment-meta">10700 ms / 30 帧</div>
+              <div class="segment-meta">起始帧 54310，结束帧 65010</div>
+              <p>“福建工校”记忆动作后半句，用双臂打开和上举感做招牌亮相。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">chorus-1-elite</div>
+              <div class="segment-meta">305号展示姿态.rob</div>
+              <div class="segment-meta">5000 ms / 7 帧</div>
+              <div class="segment-meta">起始帧 65010，结束帧 70010</div>
+              <p>对应“精英殿堂”，先用庄重定格建立殿堂感。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">chorus-1-elite-lift</div>
+              <div class="segment-meta">326号大鹏展翅.rob</div>
+              <div class="segment-meta">10700 ms / 30 帧</div>
+              <div class="segment-meta">起始帧 70010，结束帧 80710</div>
+              <p>继续做上举托起效果，表达托举殿堂。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">chorus-1-fjgx-variant</div>
+              <div class="segment-meta">370号手写左右交替拳.rob</div>
+              <div class="segment-meta">700 ms / 7 帧</div>
+              <div class="segment-meta">起始帧 80710，结束帧 81410</div>
+              <p>校名再次出现时加一点左右对称变化，避免完全重复。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">chorus-1-peach</div>
+              <div class="segment-meta">327号抱娃娃.rob</div>
+              <div class="segment-meta">1600 ms / 3 帧</div>
+              <div class="segment-meta">起始帧 81410，结束帧 83010</div>
+              <p>对应“桃李芬芳”，先收在胸前，准备花开。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">chorus-1-peach-open</div>
+              <div class="segment-meta">326号大鹏展翅.rob</div>
+              <div class="segment-meta">10700 ms / 30 帧</div>
+              <div class="segment-meta">起始帧 83010，结束帧 93710</div>
+              <p>再向外打开，形成花开式扩展。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">chorus-1-peach-send</div>
+              <div class="segment-meta">304号招手问候.rob</div>
+              <div class="segment-meta">3100 ms / 11 帧</div>
+              <div class="segment-meta">起始帧 93710，结束帧 96810</div>
+              <p>用轻挥手近似“送出花香”。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">chorus-1-values</div>
+              <div class="segment-meta">356号手写短拍踏点.rob</div>
+              <div class="segment-meta">580 ms / 5 帧</div>
+              <div class="segment-meta">起始帧 96810，结束帧 97390</div>
+              <p>对应“团结勤奋”，用短拍踏点和整齐落拍建立口号感。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">chorus-1-self-strength</div>
+              <div class="segment-meta">325号捶胸强调.rob</div>
+              <div class="segment-meta">6900 ms / 20 帧</div>
+              <div class="segment-meta">起始帧 97390，结束帧 104290</div>
+              <p>对应“自强不息”，保持偏硬的胸前强调。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">chorus-1-innovation</div>
+              <div class="segment-meta">328号伸右手.rob</div>
+              <div class="segment-meta">1100 ms / 2 帧</div>
+              <div class="segment-meta">起始帧 104290，结束帧 105390</div>
+              <p>对应“求实创新”，用指向与展开表达上下对照。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">chorus-1-hope</div>
+              <div class="segment-meta">327号抱娃娃.rob</div>
+              <div class="segment-meta">1600 ms / 3 帧</div>
+              <div class="segment-meta">起始帧 105390，结束帧 106990</div>
+              <p>对应“播种希望”，先双手合胸。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">chorus-1-hope-push</div>
+              <div class="segment-meta">328号伸右手.rob</div>
+              <div class="segment-meta">1100 ms / 2 帧</div>
+              <div class="segment-meta">起始帧 106990，结束帧 108090</div>
+              <p>再把希望从胸前送出。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">chorus-1-hope-rise</div>
+              <div class="segment-meta">326号大鹏展翅.rob</div>
+              <div class="segment-meta">10700 ms / 30 帧</div>
+              <div class="segment-meta">起始帧 108090，结束帧 118790</div>
+              <p>最后向上展开，形成第一轮高潮。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">interlude-reset</div>
+              <div class="segment-meta">390号手写低位回正.rob</div>
+              <div class="segment-meta">500 ms / 3 帧</div>
+              <div class="segment-meta">起始帧 118790，结束帧 119290</div>
+              <p>间奏做一次低位回正，给第二段主歌重新整理队列。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">interlude-ready</div>
+              <div class="segment-meta">308号标准踏步.rob</div>
+              <div class="segment-meta">2700 ms / 12 帧</div>
+              <div class="segment-meta">起始帧 119290，结束帧 121990</div>
+              <p>用踏步把节拍重新踩回中位。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-2-campus</div>
+              <div class="segment-meta">305号展示姿态.rob</div>
+              <div class="segment-meta">5000 ms / 7 帧</div>
+              <div class="segment-meta">起始帧 121990，结束帧 126990</div>
+              <p>对应“菁菁校园”，先打开舞台感和书卷气。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-2-fragrance</div>
+              <div class="segment-meta">304号招手问候.rob</div>
+              <div class="segment-meta">3100 ms / 11 帧</div>
+              <div class="segment-meta">起始帧 126990，结束帧 130090</div>
+              <p>对应“缅桂花开醉书香”，延续轻柔送出。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-2-youth</div>
+              <div class="segment-meta">342号前行两步.rob</div>
+              <div class="segment-meta">4700 ms / 15 帧</div>
+              <div class="segment-meta">起始帧 130090，结束帧 134790</div>
+              <p>对应“青春无悔”，用前行推进建立青春向前感。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-2-diligence</div>
+              <div class="segment-meta">370号手写左右交替拳.rob</div>
+              <div class="segment-meta">700 ms / 7 帧</div>
+              <div class="segment-meta">起始帧 134790，结束帧 135490</div>
+              <p>对应“力学笃行”，保持训练感与机械节奏。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-2-time</div>
+              <div class="segment-meta">356号手写短拍踏点.rob</div>
+              <div class="segment-meta">580 ms / 5 帧</div>
+              <div class="segment-meta">起始帧 135490，结束帧 136070</div>
+              <p>对应“惜韶光”，用紧致短拍做时间压缩感。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-2-sky</div>
+              <div class="segment-meta">326号大鹏展翅.rob</div>
+              <div class="segment-meta">10700 ms / 30 帧</div>
+              <div class="segment-meta">起始帧 136070，结束帧 146770</div>
+              <p>对应“搏击长空”，用大幅上冲和展开表现凌云志。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-2-knowledge</div>
+              <div class="segment-meta">305号展示姿态.rob</div>
+              <div class="segment-meta">5000 ms / 7 帧</div>
+              <div class="segment-meta">起始帧 146770，结束帧 151770</div>
+              <p>对应“知识托起”，先稳住胸前托举姿态。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-2-dream</div>
+              <div class="segment-meta">328号伸右手.rob</div>
+              <div class="segment-meta">1100 ms / 2 帧</div>
+              <div class="segment-meta">起始帧 151770，结束帧 152870</div>
+              <p>对应“放飞梦想”，从胸前向前送出。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-2-strong</div>
+              <div class="segment-meta">325号捶胸强调.rob</div>
+              <div class="segment-meta">6900 ms / 20 帧</div>
+              <div class="segment-meta">起始帧 152870，结束帧 159770</div>
+              <p>对应“发奋图强”，回到强拍强调。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">verse-2-pillar</div>
+              <div class="segment-meta">326号大鹏展翅.rob</div>
+              <div class="segment-meta">10700 ms / 30 帧</div>
+              <div class="segment-meta">起始帧 159770，结束帧 170470</div>
+              <p>对应“做栋梁”，用稳固展开做支柱收束。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">final-chorus-fjgx-1</div>
+              <div class="segment-meta">325号捶胸强调.rob</div>
+              <div class="segment-meta">6900 ms / 20 帧</div>
+              <div class="segment-meta">起始帧 170470，结束帧 177370</div>
+              <p>最后副歌把“福建工校”招牌动作做大，前半句双次强调。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">final-chorus-fjgx-2</div>
+              <div class="segment-meta">325号捶胸强调.rob</div>
+              <div class="segment-meta">6900 ms / 20 帧</div>
+              <div class="segment-meta">起始帧 177370，结束帧 184270</div>
+              <p>最后副歌把“福建工校”招牌动作做大，前半句双次强调。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">final-chorus-fjgx-open</div>
+              <div class="segment-meta">326号大鹏展翅.rob</div>
+              <div class="segment-meta">10700 ms / 30 帧</div>
+              <div class="segment-meta">起始帧 184270，结束帧 194970</div>
+              <p>最大一次校名亮相，用展臂和 V 字感撑住高潮。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">final-chorus-elite</div>
+              <div class="segment-meta">305号展示姿态.rob</div>
+              <div class="segment-meta">5000 ms / 7 帧</div>
+              <div class="segment-meta">起始帧 194970，结束帧 199970</div>
+              <p>再次对应“精英殿堂”，保持庄重。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">final-chorus-elite-rise</div>
+              <div class="segment-meta">326号大鹏展翅.rob</div>
+              <div class="segment-meta">10700 ms / 30 帧</div>
+              <div class="segment-meta">起始帧 199970，结束帧 210670</div>
+              <p>托举殿堂再抬高一层。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">final-chorus-peach</div>
+              <div class="segment-meta">327号抱娃娃.rob</div>
+              <div class="segment-meta">1600 ms / 3 帧</div>
+              <div class="segment-meta">起始帧 210670，结束帧 212270</div>
+              <p>最后一次“桃李芬芳”先收胸。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">final-chorus-peach-open</div>
+              <div class="segment-meta">326号大鹏展翅.rob</div>
+              <div class="segment-meta">10700 ms / 30 帧</div>
+              <div class="segment-meta">起始帧 212270，结束帧 222970</div>
+              <p>再做最大的花开式展开。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">final-chorus-passing</div>
+              <div class="segment-meta">304号招手问候.rob</div>
+              <div class="segment-meta">3100 ms / 11 帧</div>
+              <div class="segment-meta">起始帧 222970，结束帧 226070</div>
+              <p>对应“薪火相传”，用递送与挥出近似传递感。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">final-chorus-hope</div>
+              <div class="segment-meta">327号抱娃娃.rob</div>
+              <div class="segment-meta">1600 ms / 3 帧</div>
+              <div class="segment-meta">起始帧 226070，结束帧 227670</div>
+              <p>最后一次“播种希望”先从心口聚合。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">final-chorus-hope-push</div>
+              <div class="segment-meta">328号伸右手.rob</div>
+              <div class="segment-meta">1100 ms / 2 帧</div>
+              <div class="segment-meta">起始帧 227670，结束帧 228770</div>
+              <p>把希望向前推出。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">final-chorus-hope-finale</div>
+              <div class="segment-meta">326号大鹏展翅.rob</div>
+              <div class="segment-meta">10700 ms / 30 帧</div>
+              <div class="segment-meta">起始帧 228770，结束帧 239470</div>
+              <p>双臂高举，作为全舞最大记忆点。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">ending-hold</div>
+              <div class="segment-meta">305号展示姿态.rob</div>
+              <div class="segment-meta">5000 ms / 7 帧</div>
+              <div class="segment-meta">起始帧 239470，结束帧 244470</div>
+              <p>高点后稍作稳定定格，不让音乐一停就断动作。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">ending-bow</div>
+              <div class="segment-meta">303号礼貌鞠躬.rob</div>
+              <div class="segment-meta">4000 ms / 7 帧</div>
+              <div class="segment-meta">起始帧 244470，结束帧 248470</div>
+              <p>最终谢幕。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">ending-bow-recover</div>
+              <div class="segment-meta">386号手写礼后回正.rob</div>
+              <div class="segment-meta">480 ms / 3 帧</div>
+              <div class="segment-meta">起始帧 248470，结束帧 248950</div>
+              <p>谢幕后先从礼姿恢复到站姿，再交给保护段收尾。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">post-quick-recenter</div>
+              <div class="segment-meta">302号快速回正.rob</div>
+              <div class="segment-meta">500 ms / 1 帧</div>
+              <div class="segment-meta">起始帧 248950，结束帧 249450</div>
+              <p>谢幕后自动回正，避免停机时残留礼姿。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">post-stand-settle</div>
+              <div class="segment-meta">0号立正.rob</div>
+              <div class="segment-meta">1200 ms / 1 帧</div>
+              <div class="segment-meta">起始帧 249450，结束帧 250650</div>
+              <p>最终回到立正站姿，方便结束展示。</p>
+            </article>
+            </div>
+    </section>
+    <section class="card" style="margin-top: 18px;">
+      <h2>拼接边界审计</h2>
+      <table>
+        <thead>
+          <tr><th>边界</th><th>级别</th><th>最大关节差</th><th>L1 总差</th></tr>
+        </thead>
+        <tbody>
+            <tr class="level-ok">
+              <td>pre-quick-recenter -> pre-stand-settle</td>
+              <td>ok</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>pre-stand-settle -> intro-awake</td>
+              <td>ok</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>intro-awake -> intro-open-shoulder</td>
+              <td>ok</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>intro-open-shoulder -> intro-dual-beat</td>
+              <td>ok</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>intro-dual-beat -> intro-display</td>
+              <td>ok</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>intro-display -> verse-1-river</td>
+              <td>ok</td>
+              <td>1</td>
+              <td>3</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-1-river -> verse-1-sail</td>
+              <td>ok</td>
+              <td>394</td>
+              <td>1350</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-1-sail -> verse-1-forward</td>
+              <td>ok</td>
+              <td>60</td>
+              <td>441</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-1-forward -> verse-1-march</td>
+              <td>ok</td>
+              <td>68</td>
+              <td>219</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-1-march -> verse-1-mech-punch</td>
+              <td>ok</td>
+              <td>8</td>
+              <td>15</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-1-mech-punch -> verse-1-bloom</td>
+              <td>ok</td>
+              <td>75</td>
+              <td>152</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-1-bloom -> verse-1-lift</td>
+              <td>ok</td>
+              <td>8</td>
+              <td>17</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-1-lift -> verse-1-rise</td>
+              <td>ok</td>
+              <td>197</td>
+              <td>805</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-1-rise -> chorus-1-fjgx-a</td>
+              <td>ok</td>
+              <td>197</td>
+              <td>940</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>chorus-1-fjgx-a -> chorus-1-fjgx-b</td>
+              <td>ok</td>
+              <td>75</td>
+              <td>150</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>chorus-1-fjgx-b -> chorus-1-elite</td>
+              <td>ok</td>
+              <td>8</td>
+              <td>15</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>chorus-1-elite -> chorus-1-elite-lift</td>
+              <td>ok</td>
+              <td>197</td>
+              <td>805</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>chorus-1-elite-lift -> chorus-1-fjgx-variant</td>
+              <td>ok</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>chorus-1-fjgx-variant -> chorus-1-peach</td>
+              <td>ok</td>
+              <td>7</td>
+              <td>16</td>
+            </tr>
+            
+            <tr class="level-warn">
+              <td>chorus-1-peach -> chorus-1-peach-open</td>
+              <td>warn</td>
+              <td>347</td>
+              <td>2063</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>chorus-1-peach-open -> chorus-1-peach-send</td>
+              <td>ok</td>
+              <td>75</td>
+              <td>152</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>chorus-1-peach-send -> chorus-1-values</td>
+              <td>ok</td>
+              <td>8</td>
+              <td>17</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>chorus-1-values -> chorus-1-self-strength</td>
+              <td>ok</td>
+              <td>197</td>
+              <td>955</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>chorus-1-self-strength -> chorus-1-innovation</td>
+              <td>ok</td>
+              <td>197</td>
+              <td>956</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>chorus-1-innovation -> chorus-1-hope</td>
+              <td>ok</td>
+              <td>394</td>
+              <td>544</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>chorus-1-hope -> chorus-1-hope-push</td>
+              <td>ok</td>
+              <td>348</td>
+              <td>1259</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>chorus-1-hope-push -> chorus-1-hope-rise</td>
+              <td>ok</td>
+              <td>394</td>
+              <td>1350</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>chorus-1-hope-rise -> interlude-reset</td>
+              <td>ok</td>
+              <td>338</td>
+              <td>1368</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>interlude-reset -> interlude-ready</td>
+              <td>ok</td>
+              <td>68</td>
+              <td>219</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>interlude-ready -> verse-2-campus</td>
+              <td>ok</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-2-campus -> verse-2-fragrance</td>
+              <td>ok</td>
+              <td>75</td>
+              <td>167</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-2-fragrance -> verse-2-youth</td>
+              <td>ok</td>
+              <td>60</td>
+              <td>439</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-2-youth -> verse-2-diligence</td>
+              <td>ok</td>
+              <td>8</td>
+              <td>15</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-2-diligence -> verse-2-time</td>
+              <td>ok</td>
+              <td>8</td>
+              <td>15</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-2-time -> verse-2-sky</td>
+              <td>ok</td>
+              <td>197</td>
+              <td>805</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-2-sky -> verse-2-knowledge</td>
+              <td>ok</td>
+              <td>8</td>
+              <td>15</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-2-knowledge -> verse-2-dream</td>
+              <td>ok</td>
+              <td>1</td>
+              <td>3</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-2-dream -> verse-2-strong</td>
+              <td>ok</td>
+              <td>394</td>
+              <td>1350</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-2-strong -> verse-2-pillar</td>
+              <td>ok</td>
+              <td>75</td>
+              <td>150</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>verse-2-pillar -> final-chorus-fjgx-1</td>
+              <td>ok</td>
+              <td>197</td>
+              <td>940</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>final-chorus-fjgx-1 -> final-chorus-fjgx-2</td>
+              <td>ok</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>final-chorus-fjgx-2 -> final-chorus-fjgx-open</td>
+              <td>ok</td>
+              <td>75</td>
+              <td>150</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>final-chorus-fjgx-open -> final-chorus-elite</td>
+              <td>ok</td>
+              <td>8</td>
+              <td>15</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>final-chorus-elite -> final-chorus-elite-rise</td>
+              <td>ok</td>
+              <td>197</td>
+              <td>805</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>final-chorus-elite-rise -> final-chorus-peach</td>
+              <td>ok</td>
+              <td>7</td>
+              <td>16</td>
+            </tr>
+            
+            <tr class="level-warn">
+              <td>final-chorus-peach -> final-chorus-peach-open</td>
+              <td>warn</td>
+              <td>347</td>
+              <td>2063</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>final-chorus-peach-open -> final-chorus-passing</td>
+              <td>ok</td>
+              <td>75</td>
+              <td>152</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>final-chorus-passing -> final-chorus-hope</td>
+              <td>ok</td>
+              <td>7</td>
+              <td>14</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>final-chorus-hope -> final-chorus-hope-push</td>
+              <td>ok</td>
+              <td>348</td>
+              <td>1259</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>final-chorus-hope-push -> final-chorus-hope-finale</td>
+              <td>ok</td>
+              <td>394</td>
+              <td>1350</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>final-chorus-hope-finale -> ending-hold</td>
+              <td>ok</td>
+              <td>8</td>
+              <td>15</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>ending-hold -> ending-bow</td>
+              <td>ok</td>
+              <td>197</td>
+              <td>955</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>ending-bow -> ending-bow-recover</td>
+              <td>ok</td>
+              <td>197</td>
+              <td>940</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>ending-bow-recover -> post-quick-recenter</td>
+              <td>ok</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>post-quick-recenter -> post-stand-settle</td>
+              <td>ok</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

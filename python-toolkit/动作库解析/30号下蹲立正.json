@@ -1,0 +1,105 @@
+{
+  "path": "动作\\30号下蹲立正.rob",
+  "source_tag": "plain",
+  "magic": "ACT-40",
+  "frame_count": 1,
+  "length": 264,
+  "expected_length": 264,
+  "version": 2,
+  "reserved": 0,
+  "source_sha256": "e9c94c404ed35add06460e40eb2fb794da22d6e2c7fc876b16178a6cb1887cfe",
+  "plain_sha256": "e9c94c404ed35add06460e40eb2fb794da22d6e2c7fc876b16178a6cb1887cfe",
+  "total_duration": 1200,
+  "frames": [
+    {
+      "index": 0,
+      "duration": 1200,
+      "marker": 21845,
+      "reserved_a": 0,
+      "reserved_b": 0,
+      "active_channels": [
+        [
+          500,
+          0,
+          0
+        ],
+        [
+          200,
+          0,
+          0
+        ],
+        [
+          838,
+          0,
+          0
+        ],
+        [
+          744,
+          0,
+          0
+        ],
+        [
+          500,
+          0,
+          0
+        ],
+        [
+          575,
+          0,
+          0
+        ],
+        [
+          800,
+          0,
+          0
+        ],
+        [
+          725,
+          0,
+          0
+        ],
+        [
+          500,
+          0,
+          0
+        ],
+        [
+          800,
+          0,
+          0
+        ],
+        [
+          162,
+          0,
+          0
+        ],
+        [
+          256,
+          0,
+          0
+        ],
+        [
+          500,
+          0,
+          0
+        ],
+        [
+          425,
+          0,
+          0
+        ],
+        [
+          200,
+          0,
+          0
+        ],
+        [
+          275,
+          0,
+          0
+        ]
+      ],
+      "filler_ok": true
+    }
+  ]
+}

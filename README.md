@@ -13,7 +13,7 @@ Tonybot Motion Workflow 是一个围绕 Tonybot 机器人动作文件构建的�
 
 ## 项目信息
 
-- 当前版本：`0.1.1`
+- 当前版本：`0.4.0`
 - 仓库状态：`Public / Active`
 - 默认分支：`main`
 - 平台环境：`Windows + Python 3.13`
@@ -21,34 +21,47 @@ Tonybot Motion Workflow 是一个围绕 Tonybot 机器人动作文件构建的�
 
 ## 仓库首页导读
 
-如果第一次进入这个仓库，推荐按下面顺序阅读：
+如果第一次进入这个仓库，推荐先从新的文档目录进入：
 
-1. [README.md](README.md)：看项目范围、目录结构和常用命令。
-2. [动作文件逆向说明.md](动作文件逆向说明.md)：看 `.rob` / `EYPT` 逆向结果。
-3. [动作安全规范.md](动作安全规范.md)：看动作安全边界和审计规则。
-4. [编舞工作流说明.md](编舞工作流说明.md)：看从需求到 `.rob` 的工作流。
-5. [算法指南.md](算法指南.md)：看设备端行为逻辑。
+1. [python-toolkit/文档/README.md](python-toolkit/文档/README.md)：文档总索引和阅读路径。
+2. [python-toolkit/文档/01-项目总览.md](python-toolkit/文档/01-项目总览.md)：看项目定位、边界和目录分工。
+3. [python-toolkit/文档/02-动作文件与逆向.md](python-toolkit/文档/02-动作文件与逆向.md)：看 `.rob` / `EYPT` 逆向结论。
+4. [python-toolkit/文档/03-安全模型与约束.md](python-toolkit/文档/03-安全模型与约束.md)：看安全模型、回正规范和约束边界。
+5. [python-toolkit/文档/04-编舞规范与工作流.md](python-toolkit/文档/04-编舞规范与工作流.md)：看从需求到 `.rob` 的生成流程。
+6. [python-toolkit/文档/05-设备控制算法.md](python-toolkit/文档/05-设备控制算法.md)：看设备端行为逻辑。
+7. [python-toolkit/文档/06-验证与发布.md](python-toolkit/文档/06-验证与发布.md)：看验证命令和发版规则。
+8. [python-toolkit/文档/07-动作库目录.md](python-toolkit/文档/07-动作库目录.md)：**官方动作库完整索引**，编舞选段第一参考。
+9. [python-toolkit/文档/08-编舞标准化工作流.md](python-toolkit/文档/08-编舞标准化工作流.md)：**标准化 SOP**，从舞蹈创意到 .rob 的完整流程。
+10. [python-toolkit/文档/09-Python开发指南.md](python-toolkit/文档/09-Python开发指南.md)：**Python 开发指南**，三种方式用代码生成 .rob 动作文件。
+
+历史文档（动作文件逆向说明、动作安全规范、编舞工作流说明、算法指南）已随工具链迁移到 `python-toolkit/` 目录。
 
 ## 版本与发布文件
 
 - [VERSION](VERSION)：当前仓库版本号。
 - [CHANGELOG.md](CHANGELOG.md)：版本变更记录。
+- [文档/](文档/)：新的专题文档目录。
 - [LICENSE](LICENSE)：当前仓库许可说明。
 
 ## 目录结构
 
+当前仓库分为两个区域：
+
+- **`python-toolkit/`** — 现有 Python 工具链（v0.4.0 整合），包含所有源码、动作库、编舞和文档。
+- **根目录** — 预留给新的 Python 架构实现。
+
+`python-toolkit/` 内部结构：
+
 - `main.py`：Tonybot 设备端 MicroPython 主程序。
+- `文档/`：整合后的专题文档目录。
 - `动作/`：官方动作库、解密后的明文样本和生成的 `.rob` 动作文件。
 - `编舞/`：编舞 JSON、编译报告 JSON 和时间线 HTML。
 - `rob_reverse.py`：解析 `.rob` / `ACT-40` 文件。
 - `rob_crypto.py`：独立实现 `EYPT` 的 `TEA-32` 加解密。
+- `rob_library.py`：批量破解、解析和导出动作库。
 - `rob_safety.py`：从官方动作库学习安全包络并执行审计。
 - `rob_compose.py`：把动作段拼接成新的 `.rob` 文件。
 - `dance_workflow.py`：把舞蹈需求 JSON 编译成 `.rob`、报告 JSON 和时间线 HTML。
-- `算法指南.md`：设备端主逻辑说明。
-- `动作文件逆向说明.md`：动作容器和 `EYPT` 逆向结论。
-- `动作安全规范.md`：安全包络与编舞审查规则。
-- `编舞工作流说明.md`：需求到 `.rob` 的工作流说明。
 
 ## 当前结论
 
@@ -83,15 +96,19 @@ Tonybot Motion Workflow 是一个围绕 Tonybot 机器人动作文件构建的�
 
 ## 快速开始
 
+以下命令在 `python-toolkit/` 目录下执行：
+
 ### 1. 生成编舞模板
 
 ```powershell
+cd python-toolkit
 python dance_workflow.py init 编舞/示例舞蹈.json --name 示例舞蹈 --prompt "做一段适合展示的机器人舞蹈"
 ```
 
 ### 2. 构建 `.rob`、报告和时间线
 
 ```powershell
+cd python-toolkit
 python dance_workflow.py build 编舞/159号自制舞蹈.json
 ```
 
@@ -104,15 +121,32 @@ python dance_workflow.py build 编舞/159号自制舞蹈.json
 ### 3. 单独执行安全审计
 
 ```powershell
+cd python-toolkit
 python rob_safety.py "动作/159号自制舞蹈.rob"
 ```
 
 ### 4. 单独解密 / 重加密 `EYPT`
 
 ```powershell
+cd python-toolkit
 python rob_crypto.py decrypt-file "动作/1号前进.rob" "动作/1号前进.python.plain.rob"
 python rob_crypto.py encrypt-file "动作/1号前进.plain.rob" "动作/1号前进.python.rob"
 ```
+
+### 5. 批量破解和导出动作库
+
+```powershell
+cd python-toolkit
+python rob_library.py analyze
+python rob_library.py export-json
+python rob_library.py decrypt-eypt
+```
+
+默认产物：
+
+1. `python-toolkit/动作库解析报告.json`
+2. `python-toolkit/动作库解析/*.json`
+3. `python-toolkit/动作库解密/*.plain.rob`
 
 ## 环境说明
 
@@ -125,9 +159,10 @@ python rob_crypto.py encrypt-file "动作/1号前进.plain.rob" "动作/1号前�
 当前仓库已经具备：
 
 1. `ACT-40` / `EYPT` 文件格式解析与独立加解密实现。
-2. 基于官方动作库样本学习的安全审计工具。
-3. JSON 驱动的编舞工作流、报告 JSON 和 HTML 时间线可视化。
-4. 一个已验证通过安全审计的示例舞蹈：`动作/159号自制舞蹈.rob`。
+2. 动作库批量破解、逐动作 JSON 导出和库级字段统计。
+3. 基于官方动作库样本学习的安全审计工具。
+4. JSON 驱动的编舞工作流、报告 JSON 和 HTML 时间线可视化。
+5. 一个已验证通过安全审计的示例舞蹈：`动作/159号自制舞蹈.rob`。
 
 ## GitHub 仓库描述建议
 
@@ -137,8 +172,8 @@ python rob_crypto.py encrypt-file "动作/1号前进.plain.rob" "动作/1号前�
 
 ## 仓库约定
 
-- 官方与生成动作文件统一放在 `动作/` 目录。
-- 编舞输入和可视化产物统一放在 `编舞/` 目录。
+- 官方与生成动作文件统一放在 `python-toolkit/动作/` 目录。
+- 编舞输入和可视化产物统一放在 `python-toolkit/编舞/` 目录。
 - `.rob` 文件在 git 中按二进制处理，不做文本 diff。
 - 本地虚拟环境、缓存文件和 Python 编译产物不会纳入版本控制。
 

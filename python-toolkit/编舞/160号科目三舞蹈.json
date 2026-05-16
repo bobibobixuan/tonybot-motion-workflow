@@ -1,0 +1,100 @@
+{
+  "name": "160号科目三舞蹈",
+  "prompt": "生成一段带有科目三节奏感的机器人展示舞蹈，突出原地踏步、左右侧滑和扭腰循环，整体要易识别、节奏明确，并在结尾回到稳定站姿。",
+  "research": {
+    "query": "科目三 舞蹈 动作 特点 节奏 教学",
+    "summary": [
+      "科目三的传播点在于节奏重复、动作简单、容易模仿，核心观感通常来自脚下连续步点和上半身跟拍摆动。",
+      "教学和讨论资料里常见的拆解重点是原地踏步、左右横移、身体扭摆和短句循环，因此机器人版本适合映射成踏步、侧滑、扭腰的安全组合。",
+      "项目当前不直接手写新的底层舵机轨迹，所以这里采用官方动作库做风格近似，而不是追求逐帧复刻真人舞步。"
+    ],
+    "references": [
+      {
+        "title": "极其抽象的文化输出，中国科目三舞统全球 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/672982001"
+      },
+      {
+        "title": "科目三舞蹈教学（逐个动作分析，详细完整） - 哔哩哔哩",
+        "url": "https://www.bilibili.com/list/ml2800546374?oid=538586355&bvid=BV1Wi4y1B7Pn"
+      },
+      {
+        "title": "“科目三”舞蹈的审美解析与文化研究",
+        "url": "https://www.zgwypl.com/content/details16_442666.html"
+      }
+    ]
+  },
+  "visualization": {
+    "title": "160号科目三舞蹈时间线",
+    "theme": "sunset"
+  },
+  "output": {
+    "rob": "动作/160号科目三舞蹈.rob",
+    "report_json": "编舞/160号科目三舞蹈.report.json",
+    "visualization_html": "编舞/160号科目三舞蹈.timeline.html"
+  },
+  "segments": [
+    {
+      "label": "intro-stand",
+      "source": "0号立正.rob",
+      "notes": "先回到标准站姿，作为整段舞蹈的安全起点。"
+    },
+    {
+      "label": "count-in-step",
+      "source": "49号原地踏步.rob",
+      "frame_range": [0, 12],
+      "notes": "用短踏步建立科目三常见的脚下节奏感。"
+    },
+    {
+      "label": "left-slide",
+      "source": "11号左侧滑.rob",
+      "notes": "对应舞蹈中的横向移动感。"
+    },
+    {
+      "label": "right-slide",
+      "source": "12号右侧滑.rob",
+      "notes": "与左侧滑对称，形成左右来回。"
+    },
+    {
+      "label": "waist-groove-a",
+      "source": "50号扭腰.rob",
+      "notes": "用扭腰模拟上半身跟拍的摆动感。"
+    },
+    {
+      "label": "waist-groove-b",
+      "source": "50号扭腰.rob",
+      "repeat": 1,
+      "notes": "继续重复同一节奏句，强化科目三的循环感。"
+    },
+    {
+      "label": "mid-step",
+      "source": "49号原地踏步.rob",
+      "frame_range": [0, 16],
+      "notes": "回到踏步，给节奏重新落拍。"
+    },
+    {
+      "label": "pose-break",
+      "source": "48号介绍动作.rob",
+      "notes": "插入一个展示姿态，避免整段只有单一脚步动作。"
+    },
+    {
+      "label": "left-slide-return",
+      "source": "11号左侧滑.rob",
+      "notes": "二次横移，延续流行舞里反复出现的侧向律动。"
+    },
+    {
+      "label": "right-slide-return",
+      "source": "12号右侧滑.rob",
+      "notes": "左右对称收束。"
+    },
+    {
+      "label": "closing-bow",
+      "source": "10号鞠躬.rob",
+      "notes": "展示结束后礼貌收尾。"
+    },
+    {
+      "label": "outro-stand",
+      "source": "0号立正.rob",
+      "notes": "最终回到稳定站姿，便于安全结束。"
+    }
+  ]
+}

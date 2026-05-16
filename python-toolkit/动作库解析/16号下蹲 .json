@@ -1,0 +1,105 @@
+{
+  "path": "动作\\16号下蹲 .rob",
+  "source_tag": "plain",
+  "magic": "ACT-40",
+  "frame_count": 1,
+  "length": 264,
+  "expected_length": 264,
+  "version": 2,
+  "reserved": 0,
+  "source_sha256": "b775d0882f66383691fde7c011c4ab70a7df1395b3d9b37b2b7632aa6d50bc39",
+  "plain_sha256": "b775d0882f66383691fde7c011c4ab70a7df1395b3d9b37b2b7632aa6d50bc39",
+  "total_duration": 1200,
+  "frames": [
+    {
+      "index": 0,
+      "duration": 1200,
+      "marker": 21845,
+      "reserved_a": 0,
+      "reserved_b": 0,
+      "active_channels": [
+        [
+          500,
+          0,
+          0
+        ],
+        [
+          204,
+          0,
+          0
+        ],
+        [
+          916,
+          0,
+          0
+        ],
+        [
+          819,
+          0,
+          0
+        ],
+        [
+          500,
+          0,
+          0
+        ],
+        [
+          538,
+          0,
+          0
+        ],
+        [
+          800,
+          0,
+          0
+        ],
+        [
+          725,
+          0,
+          0
+        ],
+        [
+          500,
+          0,
+          0
+        ],
+        [
+          796,
+          0,
+          0
+        ],
+        [
+          84,
+          0,
+          0
+        ],
+        [
+          181,
+          0,
+          0
+        ],
+        [
+          500,
+          0,
+          0
+        ],
+        [
+          462,
+          0,
+          0
+        ],
+        [
+          200,
+          0,
+          0
+        ],
+        [
+          275,
+          0,
+          0
+        ]
+      ],
+      "filler_ok": true
+    }
+  ]
+}

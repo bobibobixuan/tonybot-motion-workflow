@@ -1,0 +1,311 @@
+{
+  "name": "164号工业校歌初稿",
+  "prompt": "根据《工业校歌编舞》要求生成一版机器人展示舞初稿，整体风格兼顾机械感、队列感、青春感和工业学校气质，主歌偏稳健叙事，副歌强调校名记忆动作、庄重托举、花开展开与播种希望的高潮收束。",
+  "research": {
+    "query": "校歌 机器人 编舞 展示 工业学校 机械感 队列感",
+    "summary": [
+      "整首舞蹈应保持机器人全程面向观众，避免过多转身，重点通过踏步、交替拳、展臂和托举建立工校展演气质。",
+      "主歌动作要稳、开阔、带叙事感，因此优先使用开场点头、展肩亮相、伸手展示、前行踏步和交替拳等模块组织句式。",
+      "副歌需要观众可记忆的固定动作，因此把“福建工校”“精英殿堂”“桃李芬芳”“播种希望”设计为重复出现的动作母题。",
+      "结尾不能突然断动作，需先完成希望主题的高位定格，再做礼貌谢幕并通过保护段回到稳定站姿。"
+    ]
+  },
+  "visualization": {
+    "title": "164号工业校歌初稿时间线",
+    "theme": "sunrise"
+  },
+  "output": {
+    "rob": "动作/164号工业校歌初稿.rob",
+    "report_json": "编舞/164号工业校歌初稿.report.json",
+    "visualization_html": "编舞/164号工业校歌初稿.timeline.html"
+  },
+  "guards": {
+    "pre_segments": [
+      {
+        "label": "pre-quick-recenter",
+        "source": "302号快速回正.rob",
+        "notes": "正式开场前先自动回正，消除上一个动作残余姿态。"
+      },
+      {
+        "label": "pre-stand-settle",
+        "source": "0号立正.rob",
+        "notes": "回到标准站姿，作为校歌展示的安全起拍点。"
+      }
+    ],
+    "post_segments": [
+      {
+        "label": "post-quick-recenter",
+        "source": "302号快速回正.rob",
+        "notes": "谢幕后自动回正，避免停机时残留礼姿。"
+      },
+      {
+        "label": "post-stand-settle",
+        "source": "0号立正.rob",
+        "notes": "最终回到立正站姿，方便结束展示。"
+      }
+    ]
+  },
+  "segments": [
+    {
+      "label": "intro-awake",
+      "source": "391号手写开场点头.rob",
+      "notes": "对应前奏开机苏醒，用轻点头表现机器人被唤醒。"
+    },
+    {
+      "label": "intro-open-shoulder",
+      "source": "392号手写展肩亮相.rob",
+      "notes": "把肩线和胸口打开，建立科技展演的亮相感。"
+    },
+    {
+      "label": "intro-dual-beat",
+      "source": "357号手写双拍踏点.rob",
+      "notes": "前奏进入节拍，用双拍踏点建立队列感。"
+    },
+    {
+      "label": "intro-display",
+      "source": "305号展示姿态.rob",
+      "notes": "第一次亮相定格，准备进入主歌。"
+    },
+
+    {
+      "label": "verse-1-river",
+      "source": "328号伸右手.rob",
+      "notes": "对应“悠悠江畔”，用伸手与低位引导建立叙事开场。"
+    },
+    {
+      "label": "verse-1-sail",
+      "source": "326号大鹏展翅.rob",
+      "notes": "对应“启新航”，用大幅打开动作做启航感。"
+    },
+    {
+      "label": "verse-1-forward",
+      "source": "342号前行两步.rob",
+      "notes": "对应改革启航与前行推进，动作不大但方向明确。"
+    },
+    {
+      "label": "verse-1-march",
+      "source": "308号标准踏步.rob",
+      "notes": "对应“步履铿锵”，强化队列步点。"
+    },
+    {
+      "label": "verse-1-mech-punch",
+      "source": "370号手写左右交替拳.rob",
+      "notes": "对应“军工豪情”，用交替拳模拟机械臂和硬朗口号感。"
+    },
+    {
+      "label": "verse-1-bloom",
+      "source": "304号招手问候.rob",
+      "notes": "对应“春风化雨”，给一段更柔和的展开与送出感。"
+    },
+    {
+      "label": "verse-1-lift",
+      "source": "305号展示姿态.rob",
+      "notes": "对应“育英才”，先以稳态展示做托举前的收束。"
+    },
+    {
+      "label": "verse-1-rise",
+      "source": "326号大鹏展翅.rob",
+      "notes": "对应“意气风发、追风破浪”，用展臂扩大句子结尾。"
+    },
+
+    {
+      "label": "chorus-1-fjgx-a",
+      "source": "325号捶胸强调.rob",
+      "notes": "“福建工校”记忆动作前半句，用收胸强调校名。"
+    },
+    {
+      "label": "chorus-1-fjgx-b",
+      "source": "326号大鹏展翅.rob",
+      "notes": "“福建工校”记忆动作后半句，用双臂打开和上举感做招牌亮相。"
+    },
+    {
+      "label": "chorus-1-elite",
+      "source": "305号展示姿态.rob",
+      "notes": "对应“精英殿堂”，先用庄重定格建立殿堂感。"
+    },
+    {
+      "label": "chorus-1-elite-lift",
+      "source": "326号大鹏展翅.rob",
+      "notes": "继续做上举托起效果，表达托举殿堂。"
+    },
+    {
+      "label": "chorus-1-fjgx-variant",
+      "source": "370号手写左右交替拳.rob",
+      "notes": "校名再次出现时加一点左右对称变化，避免完全重复。"
+    },
+    {
+      "label": "chorus-1-peach",
+      "source": "327号抱娃娃.rob",
+      "notes": "对应“桃李芬芳”，先收在胸前，准备花开。"
+    },
+    {
+      "label": "chorus-1-peach-open",
+      "source": "326号大鹏展翅.rob",
+      "notes": "再向外打开，形成花开式扩展。"
+    },
+    {
+      "label": "chorus-1-peach-send",
+      "source": "304号招手问候.rob",
+      "notes": "用轻挥手近似“送出花香”。"
+    },
+    {
+      "label": "chorus-1-values",
+      "source": "356号手写短拍踏点.rob",
+      "notes": "对应“团结勤奋”，用短拍踏点和整齐落拍建立口号感。"
+    },
+    {
+      "label": "chorus-1-self-strength",
+      "source": "325号捶胸强调.rob",
+      "notes": "对应“自强不息”，保持偏硬的胸前强调。"
+    },
+    {
+      "label": "chorus-1-innovation",
+      "source": "328号伸右手.rob",
+      "notes": "对应“求实创新”，用指向与展开表达上下对照。"
+    },
+    {
+      "label": "chorus-1-hope",
+      "source": "327号抱娃娃.rob",
+      "notes": "对应“播种希望”，先双手合胸。"
+    },
+    {
+      "label": "chorus-1-hope-push",
+      "source": "328号伸右手.rob",
+      "notes": "再把希望从胸前送出。"
+    },
+    {
+      "label": "chorus-1-hope-rise",
+      "source": "326号大鹏展翅.rob",
+      "notes": "最后向上展开，形成第一轮高潮。"
+    },
+
+    {
+      "label": "interlude-reset",
+      "source": "390号手写低位回正.rob",
+      "notes": "间奏做一次低位回正，给第二段主歌重新整理队列。"
+    },
+    {
+      "label": "interlude-ready",
+      "source": "308号标准踏步.rob",
+      "notes": "用踏步把节拍重新踩回中位。"
+    },
+
+    {
+      "label": "verse-2-campus",
+      "source": "305号展示姿态.rob",
+      "notes": "对应“菁菁校园”，先打开舞台感和书卷气。"
+    },
+    {
+      "label": "verse-2-fragrance",
+      "source": "304号招手问候.rob",
+      "notes": "对应“缅桂花开醉书香”，延续轻柔送出。"
+    },
+    {
+      "label": "verse-2-youth",
+      "source": "342号前行两步.rob",
+      "notes": "对应“青春无悔”，用前行推进建立青春向前感。"
+    },
+    {
+      "label": "verse-2-diligence",
+      "source": "370号手写左右交替拳.rob",
+      "notes": "对应“力学笃行”，保持训练感与机械节奏。"
+    },
+    {
+      "label": "verse-2-time",
+      "source": "356号手写短拍踏点.rob",
+      "notes": "对应“惜韶光”，用紧致短拍做时间压缩感。"
+    },
+    {
+      "label": "verse-2-sky",
+      "source": "326号大鹏展翅.rob",
+      "notes": "对应“搏击长空”，用大幅上冲和展开表现凌云志。"
+    },
+    {
+      "label": "verse-2-knowledge",
+      "source": "305号展示姿态.rob",
+      "notes": "对应“知识托起”，先稳住胸前托举姿态。"
+    },
+    {
+      "label": "verse-2-dream",
+      "source": "328号伸右手.rob",
+      "notes": "对应“放飞梦想”，从胸前向前送出。"
+    },
+    {
+      "label": "verse-2-strong",
+      "source": "325号捶胸强调.rob",
+      "notes": "对应“发奋图强”，回到强拍强调。"
+    },
+    {
+      "label": "verse-2-pillar",
+      "source": "326号大鹏展翅.rob",
+      "notes": "对应“做栋梁”，用稳固展开做支柱收束。"
+    },
+
+    {
+      "label": "final-chorus-fjgx",
+      "source": "325号捶胸强调.rob",
+      "repeat": 2,
+      "notes": "最后副歌把“福建工校”招牌动作做大，前半句双次强调。"
+    },
+    {
+      "label": "final-chorus-fjgx-open",
+      "source": "326号大鹏展翅.rob",
+      "notes": "最大一次校名亮相，用展臂和 V 字感撑住高潮。"
+    },
+    {
+      "label": "final-chorus-elite",
+      "source": "305号展示姿态.rob",
+      "notes": "再次对应“精英殿堂”，保持庄重。"
+    },
+    {
+      "label": "final-chorus-elite-rise",
+      "source": "326号大鹏展翅.rob",
+      "notes": "托举殿堂再抬高一层。"
+    },
+    {
+      "label": "final-chorus-peach",
+      "source": "327号抱娃娃.rob",
+      "notes": "最后一次“桃李芬芳”先收胸。"
+    },
+    {
+      "label": "final-chorus-peach-open",
+      "source": "326号大鹏展翅.rob",
+      "notes": "再做最大的花开式展开。"
+    },
+    {
+      "label": "final-chorus-passing",
+      "source": "304号招手问候.rob",
+      "notes": "对应“薪火相传”，用递送与挥出近似传递感。"
+    },
+    {
+      "label": "final-chorus-hope",
+      "source": "327号抱娃娃.rob",
+      "notes": "最后一次“播种希望”先从心口聚合。"
+    },
+    {
+      "label": "final-chorus-hope-push",
+      "source": "328号伸右手.rob",
+      "notes": "把希望向前推出。"
+    },
+    {
+      "label": "final-chorus-hope-finale",
+      "source": "326号大鹏展翅.rob",
+      "notes": "双臂高举，作为全舞最大记忆点。"
+    },
+    {
+      "label": "ending-hold",
+      "source": "305号展示姿态.rob",
+      "notes": "高点后稍作稳定定格，不让音乐一停就断动作。"
+    },
+    {
+      "label": "ending-bow",
+      "source": "303号礼貌鞠躬.rob",
+      "notes": "最终谢幕。"
+    },
+    {
+      "label": "ending-bow-recover",
+      "source": "386号手写礼后回正.rob",
+      "notes": "谢幕后先从礼姿恢复到站姿，再交给保护段收尾。"
+    }
+  ]
+}

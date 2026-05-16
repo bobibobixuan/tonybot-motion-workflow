@@ -1,0 +1,14 @@
+{
+  "name": "336号LaSong节奏",
+  "prompt": "La Song 片段模块。",
+  "output": {
+    "rob": "动作/336号LaSong节奏.rob"
+  },
+  "segments": [
+    {
+      "label": "153号La Song舞蹈",
+      "source": "153号La Song舞蹈.rob",
+      "notes": "La Song 片段。"
+    }
+  ]
+}
