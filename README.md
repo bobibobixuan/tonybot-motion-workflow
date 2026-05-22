@@ -13,7 +13,7 @@ Tonybot Motion Workflow 是一个围绕 Tonybot 机器人动作文件构建的�
 
 ## 项目信息
 
-- 当前版本：`0.4.0`
+- 当前版本：`0.4.6`
 - 仓库状态：`Public / Active`
 - 默认分支：`main`
 - 平台环境：`Windows + Python 3.13`
@@ -33,6 +33,7 @@ Tonybot Motion Workflow 是一个围绕 Tonybot 机器人动作文件构建的�
 8. [python-toolkit/文档/07-动作库目录.md](python-toolkit/文档/07-动作库目录.md)：**官方动作库完整索引**，编舞选段第一参考。
 9. [python-toolkit/文档/08-编舞标准化工作流.md](python-toolkit/文档/08-编舞标准化工作流.md)：**标准化 SOP**，从舞蹈创意到 .rob 的完整流程。
 10. [python-toolkit/文档/09-Python开发指南.md](python-toolkit/文档/09-Python开发指南.md)：**Python 开发指南**，三种方式用代码生成 .rob 动作文件。
+11. [python-toolkit/文档/10-队列安全动作分组.md](python-toolkit/文档/10-队列安全动作分组.md)：**多机并排同跳安全分组**，整理禁用动作、谨慎动作和队列安全动作。
 
 历史文档（动作文件逆向说明、动作安全规范、编舞工作流说明、算法指南）已随工具链迁移到 `python-toolkit/` 目录。
 
@@ -45,10 +46,11 @@ Tonybot Motion Workflow 是一个围绕 Tonybot 机器人动作文件构建的�
 
 ## 目录结构
 
-当前仓库分为两个区域：
+当前仓库分为三个区域：
 
 - **`python-toolkit/`** — 现有 Python 工具链（v0.4.0 整合），包含所有源码、动作库、编舞和文档。
-- **根目录** — 预留给新的 Python 架构实现。
+- **`wondercode-toolkit/`** — 面向 WonderCode / 官方积木转换工具的 Python API 对齐文档与示例。
+- **根目录** — 仓库级版本文件、说明和后续扩展入口。
 
 `python-toolkit/` 内部结构：
 

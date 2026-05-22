@@ -1,5 +1,99 @@
 # Changelog
 
+## 0.4.8 - 2026-05-22
+
+### Changed
+
+- 将 `python-toolkit/build_industrial_school_song_queue_safe_merged.py` 重构为 `169号工业校歌官方上半身队列版` 生成器，不再从 `167/168` 直接拼接旧规格，而是只允许引用官方 `0-104` 号动作库。
+- 重写 `python-toolkit/编舞/169号工业校歌队列广播体操合并版.json`，把原有手写模块和预设模块全部替换为官方动作切片；主体仅保留 `9/26/27/48/53/54/57/58/62` 等上肢主导动作，并移除鞠躬、扭腰、交替拳手写段等非纯官方来源。
+- 重新生成 `python-toolkit/动作/169号工业校歌队列广播体操合并版.rob`、对应 `report.json` 和 `timeline.html`；新版为 `369` 帧、总时长 `150500ms`，相对旧版 `150490ms` 的差值为 `+10ms`，这是纯官方上半身片段 `50ms` 裁切粒度下的最近可实现值。
+
+### Verified
+
+- `C:\\Users\\21996\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe python-toolkit/build_industrial_school_song_queue_safe_merged.py`
+
+## 0.4.7 - 2026-05-18
+
+### Fixed
+
+- `python-toolkit/编舞/167号工业校歌队列广播体操版A.json` 的 `beat-07-reform-spring` 从 `389号手写低位提振` 改为 `391号手写开场点头`，修正真机在约 `17s~18s` 出现的失稳风险。
+- `python-toolkit/编舞/169号工业校歌队列广播体操合并版.json` 同步移除 `389号手写低位提振`，确保合并版不再带入该危险段。
+
+### Changed
+
+- 更新 `python-toolkit/文档/10-队列安全动作分组.md`，将 `389号手写低位提振` 从队列推荐动作中移出并标记为谨慎动作，避免继续误判为稳定队列段。
+
+## 0.4.6 - 2026-05-17
+
+### Added
+
+- 新增 `python-toolkit/build_industrial_school_song_queue_safe_merged.py`，自动生成并构建 `169号工业校歌队列广播体操合并版`，把 A/B 两段队列安全版压缩到单文件 510 帧限制以内。
+- 新增 `python-toolkit/build_breakdance_showcase.py`，自动生成并构建 `170号霹雳舞炫技版`。
+
+### Changed
+
+- 将 PowerShell 7 偏好追加到全局 `C:\\Users\\21996\\.codex\\AGENTS.md`，后续默认优先用 `pwsh`，必要时可由 `cmd` 拉起，避免中文输出乱码。
+
+## 0.4.5 - 2026-05-17
+
+### Added
+
+- 新增 `python-toolkit/文档/10-队列安全动作分组.md`，把动作库整理为禁用动作、谨慎动作和多人队列表演推荐动作，明确将 `17号/326号大鹏展翅`、侧滑、前进、转向等列为队列安全黑名单。
+- 新增 `python-toolkit/编舞/167号工业校歌队列广播体操版A.json`，作为工业校歌多人队列表演安全版 Part A。
+- 新增 `python-toolkit/编舞/168号工业校歌队列广播体操版B.json`，作为工业校歌多人队列表演安全版 Part B。
+
+### Changed
+
+- 更新 `python-toolkit/文档/README.md` 和根目录 `README.md`，补充队列安全动作分组文档入口。
+- 工业校歌新的队列版明确禁用 `326号大鹏展翅`、`311号左右侧滑往返`、`342号前行两步` 以及全部转向/位移动作，改用展示姿态、招手问候、捶胸强调、伸右手、手写扭腰和交替拳构成广播体操风格上半身编舞。
+
+## 0.4.4 - 2026-05-17
+
+### Added
+
+- 新增 `wondercode-toolkit/文档/03-融合工作流.md`，明确 `python-toolkit/` 负责生成新动作组，`wondercode-toolkit/` 负责以官方转换风格主程序调用这些动作组。
+- 新增 `wondercode-toolkit/examples/tonybot_custom_action_bridge.py`，示范如何从官方风格主程序里调用已由 `python-toolkit` 生成并部署到设备上的自定义动作组。
+
+### Changed
+
+- 更新 `wondercode-toolkit/README.md`，把目录定位从“仅官方转换记录”扩展为“官方调用层 + 自定义动作组桥接层”。
+
+## 0.4.3 - 2026-05-17
+
+### Fixed
+
+- 通过 `python-toolkit/` 动作库索引与 `wondercode-toolkit/` 官方转换样例交叉验证后，修正 `wondercode-toolkit/examples/tonybot_simple_dance.py` 的鞠躬动作编号：`303` 改为原厂 `10`，避免把预设模块编号误当成出厂动作号直接调用。
+
+### Changed
+
+- 更新 `wondercode-toolkit/README.md`，补充当前交叉验证结论，明确原厂动作号与预设模块号的区别。
+
+## 0.4.2 - 2026-05-17
+
+### Added
+
+- 新增 `wondercode-toolkit/examples/tonybot_simple_dance.py`，提供一个可直接试跑的 Tonybot 简易舞蹈示例：立正 -> 原地踏步 -> 扭腰 -> 挥手 -> 鞠躬 -> 立正。
+
+### Changed
+
+- 更新 `wondercode-toolkit/README.md` 示例索引，补充简易舞蹈入口。
+
+## 0.4.1 - 2026-05-17
+
+### Added
+
+- 新增 `wondercode-toolkit/` 子目录，专门整理 WonderCode / Tonybot 官方积木转换工具导出的 Python 路线。
+- 新增 `wondercode-toolkit/README.md`，明确该目录以官方转换结果为准，不再以反向编译为核心。
+- 新增 `wondercode-toolkit/文档/01-官方转换工具路线.md`，说明积木 -> 官方转换工具 -> Python 的工作流边界。
+- 新增 `wondercode-toolkit/文档/02-完整积木指令映射.md`，整理 Tonybot 主程序、蜂鸣器、IMU、蓝牙、UART 的积木到 Python API 映射。
+- 新增 `wondercode-toolkit/examples/tonybot_complete_blocks.py`，收录你提供的完整官方转换示例代码。
+- 新增 `wondercode-toolkit/examples/tonybot_control_flow_blocks.py`，收录流程控制积木的官方转换示例代码。
+
+### Changed
+
+- 更新 `README.md` 目录结构说明，补充 `wondercode-toolkit/` 的定位。
+- 更新 `wondercode-toolkit/文档/02-完整积木指令映射.md`，补充等待、系统时间、循环、条件、返回、结束循环的导出规则。
+
 ## 0.4.0 - 2026-05-17
 
 ### Changed

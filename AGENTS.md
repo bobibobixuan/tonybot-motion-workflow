@@ -108,6 +108,7 @@ cd python-toolkit && uv run python rob_safety.py "动作\159号自制舞蹈.rob"
 3. `apply_patch` 或某些写文件方式可能产生 NTFS `ReparsePoint` 属性。
 4. 编辑后如果怀疑文件属性异常，用 `[System.IO.File]::ReadAllBytes` + `WriteAllBytes` 原地重写正式路径。
 5. 不要用会破坏中文编码的 ANSI 读写方式处理 JSON、Markdown 或 lang 类文件。
+6. 后续命令默认优先使用 PowerShell 7（`pwsh`），这样中文输出更稳定，不容易乱码；只有在 `pwsh` 明确不可用或宿主限制时才退回其他 shell。
 
 ## 8. Git 工作区规则
 
@@ -123,4 +124,3 @@ cd python-toolkit && uv run python rob_safety.py "动作\159号自制舞蹈.rob"
 3. 二进制解析保持小端规则明确，不要引入隐式平台端序。
 4. 新增错误信息要直接指出文件、帧、槽位或字段。
 5. 文档用中文说明工程结论，用命令块给出可复现步骤。
-
