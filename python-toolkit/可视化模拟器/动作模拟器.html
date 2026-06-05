@@ -610,75 +610,7 @@
       return Math.min(ankle[2], footCenter[2]) - FOOT_PLATE.thickness * 0.5;
     }
 
-    function makeFootprint(center, yaw = 0, side = 'r', halfLength = FOOT_PLATE.halfLength, halfWidth = FOOT_PLATE.halfWidth) {
-      // Internal ground coords: X=forward, Y=left. The footprint stays horizontal,
-      // but it can rotate around the vertical axis when hip_yaw turns the toe outward.
-      const f = footForwardVector(yaw, side);
-      const left = [-f[1], f[0]];
-      return [
-        [center[0] - f[0] * halfLength - left[0] * halfWidth, center[1] - f[1] * halfLength - left[1] * halfWidth],
-        [center[0] + f[0] * halfLength - left[0] * halfWidth, center[1] + f[1] * halfLength - left[1] * halfWidth],
-        [center[0] + f[0] * halfLength + left[0] * halfWidth, center[1] + f[1] * halfLength + left[1] * halfWidth],
-        [center[0] - f[0] * halfLength + left[0] * halfWidth, center[1] - f[1] * halfLength + left[1] * halfWidth],
-      ];
-    }
-
-    function cross2(o, a, b) {
-      return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
-    }
-
-    function convexHull(points) {
-      const pts = [...points].sort((a, b) => (a[0] - b[0]) || (a[1] - b[1]));
-      if (pts.length <= 1) return pts;
-      const lower = [];
-      for (const p of pts) {
-        while (lower.length >= 2 && cross2(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) lower.pop();
-        lower.push(p);
-      }
-      const upper = [];
-      for (let i = pts.length - 1; i >= 0; i--) {
-        const p = pts[i];
-        while (upper.length >= 2 && cross2(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop();
-        upper.push(p);
-      }
-      lower.pop();
-      upper.pop();
-      return lower.concat(upper);
-    }
-
-    function computeContactAwareSupport(rAnkle, rFoot, lAnkle, lFoot, rYaw = 0, lYaw = 0) {
-      // If one foot is visibly higher, it must not enlarge the support polygon.
-      // This fixes poses like “大鹏展翅”, where the right foot is lifted.
-      const threshold = 0.75; // cm; tiny FK noise still counts as contact.
-      const rBaseZ = footContactBaseZ(rAnkle, rFoot);
-      const lBaseZ = footContactBaseZ(lAnkle, lFoot);
-      const lowest = Math.min(rBaseZ, lBaseZ);
-      let rightContact = rBaseZ <= lowest + threshold;
-      let leftContact = lBaseZ <= lowest + threshold;
-
-      if (!rightContact && !leftContact) {
-        if (rBaseZ <= lBaseZ) rightContact = true;
-        else leftContact = true;
-      }
-
-      const rSupport = [rFoot[0], rFoot[1]];
-      const lSupport = [lFoot[0], lFoot[1]];
-      let polygonPoints = [];
-      if (rightContact) polygonPoints.push(...makeFootprint(rSupport, rYaw, 'r'));
-      if (leftContact) polygonPoints.push(...makeFootprint(lSupport, lYaw, 'l'));
-      const supportPolygon = polygonPoints.length > 4 ? convexHull(polygonPoints) : polygonPoints;
-
-      return {
-        supportPolygon,
-        rSupport,
-        lSupport,
-        rightContact,
-        leftContact,
-        rClearance: Math.max(0, rBaseZ - lowest),
-        lClearance: Math.max(0, lBaseZ - lowest),
-        contactCount: (rightContact ? 1 : 0) + (leftContact ? 1 : 0),
-      };
-    }
+    // makeFootprint / cross2 / convexHull / computeContactAwareSupport removed — no audit
 
     function forwardKinematics(pose) {
       const angles = poseToJointAngles(pose);
@@ -771,70 +703,8 @@
       const lForearmCom = vmid(lElbow, lHand);
       const lHandCom = lHand;
 
-      // --- total COM ---
-      const allSegments = [
-        [torsoCom, SEGMENTS.torso.mass],
-        [rUpperCom, SEGMENTS.upper_leg.mass],
-        [rLowerCom, SEGMENTS.lower_leg.mass],
-        [rFootCom, SEGMENTS.foot.mass],
-        [lUpperCom, SEGMENTS.upper_leg.mass],
-        [lLowerCom, SEGMENTS.lower_leg.mass],
-        [lFootCom, SEGMENTS.foot.mass],
-        [rUpperArmCom, SEGMENTS.upper_arm.mass],
-        [rForearmCom, SEGMENTS.forearm.mass],
-        [rHandCom, SEGMENTS.hand.mass],
-        [lUpperArmCom, SEGMENTS.upper_arm.mass],
-        [lForearmCom, SEGMENTS.forearm.mass],
-        [lHandCom, SEGMENTS.hand.mass],
-      ];
-
-      const totalMass = allSegments.reduce((sum, [, m]) => sum + m, 0);
-      const com = [0, 0, 0];
-      for (const [pos, mass] of allSegments) {
-        for (let i = 0; i < 3; i++) com[i] += pos[i] * mass;
-      }
-      for (let i = 0; i < 3; i++) com[i] /= totalMass;
-
-      // --- contact-aware support polygon ---
-      const contact = computeContactAwareSupport(rAnkle, rFoot, lAnkle, lFoot, rHipYaw, lHipYaw);
-      const supportPolygon = contact.supportPolygon;
-
-      // --- balance metrics ---
-      const comGround = [com[0], com[1]];
-      const polyCenter = [
-        supportPolygon.reduce((s, p) => s + p[0], 0) / supportPolygon.length,
-        supportPolygon.reduce((s, p) => s + p[1], 0) / supportPolygon.length,
-      ];
-      const comOffset = Math.sqrt(
-        (comGround[0] - polyCenter[0]) ** 2 + (comGround[1] - polyCenter[1]) ** 2
-      );
-      const supportWidth = contact.contactCount >= 2
-        ? Math.abs(contact.rSupport[1] - contact.lSupport[1])
-        : 1.5;
-      const stabilityMargin = pointToPolygonDist(comGround, supportPolygon);
-      const comHeight = com[2];
-
-      let score = 100;
-      if (comHeight > 14) score -= (comHeight - 14) * 8;
-      score -= comOffset * 6;
-      if (stabilityMargin > -1.0) score -= (stabilityMargin + 1.0) * 15;
-      if (stabilityMargin > 0) score -= 30;
-      if (supportWidth > 4) score += Math.min(10, (supportWidth - 4) * 3);
-      if (contact.contactCount === 1) score -= 25; // 单脚支撑惩罚，防止抬脚姿态假稳。
-      const balanceScore = Math.max(0, Math.min(100, score));
-
+      // --- return joints only (no COM / balance / support audit) ---
       return {
-        com, comGround, comHeight, comOffset,
-        supportPolygon, supportWidth,
-        stabilityMargin,
-        footContacts: {
-          right: contact.rightContact,
-          left: contact.leftContact,
-          rightClearance: Math.round(contact.rClearance * 10) / 10,
-          leftClearance: Math.round(contact.lClearance * 10) / 10,
-          count: contact.contactCount,
-        },
-        balanceScore: Math.round(balanceScore * 10) / 10,
         joints: {
           rHip, rKnee, rAnkle, rFoot,
           lHip, lKnee, lAnkle, lFoot,
@@ -842,33 +712,10 @@
           rShoulder, rElbow, rHand,
           lShoulder, lElbow, lHand,
         },
-        segmentComs: {
-          torsoCom,
-          rUpperCom, rLowerCom, rFootCom,
-          lUpperCom, lLowerCom, lFootCom,
-          rUpperArmCom, rForearmCom, rHandCom,
-          lUpperArmCom, lForearmCom, lHandCom,
-        },
       };
     }
 
-    function pointToPolygonDist(point, polygon) {
-      let minDist = Infinity;
-      const n = polygon.length;
-      for (let i = 0; i < n; i++) {
-        const a = polygon[i];
-        const b = polygon[(i + 1) % n];
-        const edge = [b[0] - a[0], b[1] - a[1]];
-        const edgeLen = Math.sqrt(edge[0] ** 2 + edge[1] ** 2);
-        if (edgeLen < 0.001) continue;
-        const edgeUnit = [edge[0] / edgeLen, edge[1] / edgeLen];
-        const normal = [edgeUnit[1], -edgeUnit[0]];
-        const vecToPoint = [point[0] - a[0], point[1] - a[1]];
-        const dist = vecToPoint[0] * normal[0] + vecToPoint[1] * normal[1];
-        minDist = Math.min(minDist, dist);
-      }
-      return minDist;
-    }
+    // pointToPolygonDist removed — no audit
 
     // ============================================================
     // 3. PRESET POSES (from tonybot_physics.py)
