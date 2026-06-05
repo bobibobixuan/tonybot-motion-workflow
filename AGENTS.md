@@ -10,6 +10,7 @@
 2. 独立复现 `EYPT` 保护层的 `TEA-32` 加解密。
 3. 基于官方动作库做安全动作拼接和编舞。
 4. 把编舞 JSON 编译成 `.rob`、审计报告和时间线 HTML。
+5. 用 3D FK 模拟器可视化预览舵机姿态、质心、支撑面和平衡得分。
 
 项目有两层知识来源：
 - **官方 SDK 层**：Hiwonder Python SDK（`Hiwonder.Tonybot`、`Hiwonder.Buzzer`、`Hiwonder_IIC` 等）已从官方示例和 `main.py` 设备端源码中提取完整 API 参考，见记忆 `[[tonybot-python-api]]`。
@@ -28,6 +29,7 @@
 5. `python-toolkit/编舞工作流说明.md`：从需求到 `.rob` 的工作流。
 6. `python-toolkit/算法指南.md`：设备端控制逻辑（含官方 SDK API 调用方式）。
 7. `python-toolkit/文档/09-Python开发指南.md`：**Python API 参考**，三种方式用代码生成 .rob 文件。
+8. `python-toolkit/可视化模拟器/动作模拟器.html`：**3D FK 模拟器**，双击即开，实时预览姿态和平衡。
 
 ## 3. 逆向工程规则
 

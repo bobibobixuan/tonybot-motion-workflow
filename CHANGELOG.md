@@ -1,5 +1,44 @@
 # Changelog
 
+## 0.5.1 - 2026-06-05
+
+### Changed
+
+- **3D 模拟器去审计化**：从 `动作模拟器.html` 彻底删除安全审计/平衡判断/支撑面分析功能，定位改为纯 FK 骨骼姿态预览器。
+  - 删除顶部平衡分显示（`bal-score`/`bal-status`/平衡仪表）。
+  - 删除物理切换按钮（`btn-toggle-physics`/⚖️）。
+  - 删除 COM 质心可视化（红球 + 投影虚线）。
+  - 删除支撑多边形可视化（绿色半透明面 + 边框）。
+  - 删除双脚地面指示环（`rFootRing`/`lFootRing`）。
+  - 删除 `updatePhysicsLayer()` 和 `updateBalanceUI()` 函数。
+  - 删除 `physicsGroup` 及全部子对象。
+  - 标题改为「Tonybot 3D 动作预览器 · 无安全审计版」。
+  - 保留全部 FK 骨骼渲染、16 舵机滑块、.rob 加载/帧播放、预设姿态。
+
+## 0.5.0 - 2026-01-20
+
+### Added
+
+- 新增 `python-toolkit/可视化模拟器/动作模拟器.html`：基于 Three.js 的 Tonybot 3D FK 动作模拟器，支持实时姿态预览、平衡分析和 `.rob` 动作帧播放。
+  - 16 舵机滑块面板，按右臂/左臂/右腿/左腿分组，实时驱动 3D 骨骼模型。
+  - 完整翻译 `tonybot_physics.py` 正向运动学（FK）到 JavaScript，包含 `SERVO_NEUTRAL`、`SERVO_DIRECTION`、关节角度映射、质心计算、支撑多边形和平衡评分。
+  - 物理可视化层：红色 COM 球 + 投影虚线、半透明绿色支撑多边形、双脚地面指示环、0–100 平衡得分实时仪表。
+  - 支持加载 `.rob` 文件（ACT-40 二进制 + EYPT TEA-32 解密），逐帧播放/自动循环播放，速度可调。
+  - 7 组预设姿态一键切换（立正/军礼/展臂/捶胸/正步/伸手/大鹏展翅）。
+  - OrbitControls 相机控制、拖拽/快捷键操作、深浅色主题自适应。
+
+## 0.4.9 - 2026-05-22
+
+### Changed
+
+- 按新要求把 `python-toolkit/build_industrial_school_song_queue_safe_merged.py` 和 `169号工业校歌队列广播体操合并版` 重构为 `1分16秒精简版`：保留前半段主歌到第一轮收束，删除后半段重复展开。
+- 调整 `169` 的收尾结构，改为 `beat-30-torch-passing` 之后直接接短收势，再用 `19号快速立正` 回正，不再保留原先更长的后半段和最终立正保护段。
+- 重新生成 `python-toolkit/动作/169号工业校歌队列广播体操合并版.rob`、对应 `report.json` 和 `timeline.html`；新版为 `193` 帧、总时长 `76000ms`，且保持 `violations=0`。
+
+### Verified
+
+- `C:\\Users\\21996\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe python-toolkit/build_industrial_school_song_queue_safe_merged.py`
+
 ## 0.4.8 - 2026-05-22
 
 ### Changed

@@ -13,7 +13,7 @@ Tonybot Motion Workflow 是一个围绕 Tonybot 机器人动作文件构建的�
 
 ## 项目信息
 
-- 当前版本：`0.4.6`
+- 当前版本：`0.5.0`
 - 仓库状态：`Public / Active`
 - 默认分支：`main`
 - 平台环境：`Windows + Python 3.13`
@@ -64,6 +64,8 @@ Tonybot Motion Workflow 是一个围绕 Tonybot 机器人动作文件构建的�
 - `rob_safety.py`：从官方动作库学习安全包络并执行审计。
 - `rob_compose.py`：把动作段拼接成新的 `.rob` 文件。
 - `dance_workflow.py`：把舞蹈需求 JSON 编译成 `.rob`、报告 JSON 和时间线 HTML。
+- `tonybot_physics.py`：正向运动学（FK）模型，计算 16 舵机姿态的质心、支撑多边形和平衡得分。
+- `可视化模拟器/动作模拟器.html`：**3D FK 动作模拟器**，Three.js 渲染机器人骨骼，16 舵机滑块实时驱动，支持 `.rob` 加载与帧播放，物理层可视化 COM/支撑面/平衡仪表。
 
 ## 当前结论
 

@@ -1,0 +1,1885 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tonybot 3D FK 动作模拟器 - 动作对应修正版</title>
+  <style>
+    :root {
+      --bg: #1a1d23;
+      --panel-bg: #21252b;
+      --panel-border: #333842;
+      --text: #c8ccd4;
+      --text-muted: #7a8190;
+      --accent: #e06c75;
+      --accent2: #61afef;
+      --accent3: #98c379;
+      --warn: #e5c07b;
+      --danger: #e06c75;
+      --slider-track: #3a3f4b;
+      --slider-fill: #61afef;
+      --group-r: #e06c75;
+      --group-l: #61afef;
+      --font: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #topbar {
+      height: 40px;
+      background: var(--panel-bg);
+      border-bottom: 1px solid var(--panel-border);
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    #topbar h1 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent2);
+      white-space: nowrap;
+    }
+
+    #topbar .spacer {
+      flex: 1;
+    }
+
+    #topbar button {
+      background: var(--slider-track);
+      color: var(--text);
+      border: 1px solid var(--panel-border);
+      padding: 4px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: var(--font);
+      white-space: nowrap;
+    }
+
+    #topbar button:hover {
+      background: #4a5060;
+    }
+
+    #topbar button.active {
+      background: var(--accent2);
+      color: #fff;
+      border-color: var(--accent2);
+    }
+
+    #main {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    #viewport {
+      flex: 1;
+      position: relative;
+      cursor: grab;
+    }
+
+    #viewport:active {
+      cursor: grabbing;
+    }
+
+    #viewport canvas {
+      display: block;
+    }
+
+    #panel {
+      width: 320px;
+      background: var(--panel-bg);
+      border-left: 1px solid var(--panel-border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    #panel-header {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--panel-border);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    #sliders-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 8px 12px;
+    }
+
+    .slider-group {
+      margin-bottom: 14px;
+    }
+
+    .slider-group-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      display: inline-block;
+    }
+
+    .slider-group-title.group-r {
+      background: rgba(224, 108, 117, 0.2);
+      color: var(--group-r);
+    }
+
+    .slider-group-title.group-l {
+      background: rgba(97, 175, 239, 0.2);
+      color: var(--group-l);
+    }
+
+    .slider-group-title.group-u {
+      background: rgba(122, 129, 144, 0.2);
+      color: var(--text-muted);
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 5px;
+      font-size: 11px;
+    }
+
+    .slider-row label {
+      width: 85px;
+      text-align: right;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .slider-row input[type=range] {
+      flex: 1;
+      -webkit-appearance: none;
+      height: 4px;
+      background: var(--slider-track);
+      border-radius: 2px;
+      outline: none;
+      min-width: 0;
+    }
+
+    .slider-row input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent2);
+      cursor: pointer;
+      border: 2px solid var(--panel-bg);
+    }
+
+    .slider-row .val {
+      width: 38px;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .slider-row .deg {
+      width: 36px;
+      text-align: right;
+      color: var(--text-muted);
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+
+    #panel-presets {
+      padding: 8px 12px;
+      border-top: 1px solid var(--panel-border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+
+    #panel-presets button {
+      background: var(--slider-track);
+      color: var(--text);
+      border: 1px solid var(--panel-border);
+      padding: 3px 8px;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 10px;
+      font-family: var(--font);
+      white-space: nowrap;
+    }
+
+    #panel-presets button:hover {
+      background: #4a5060;
+    }
+
+    #timeline {
+      height: 52px;
+      background: var(--panel-bg);
+      border-top: 1px solid var(--panel-border);
+      display: none;
+      align-items: center;
+      padding: 0 12px;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    #timeline.visible {
+      display: flex;
+    }
+
+    #timeline button {
+      background: var(--slider-track);
+      color: var(--text);
+      border: 1px solid var(--panel-border);
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: var(--font);
+    }
+
+    #timeline button:hover {
+      background: #4a5060;
+    }
+
+    #timeline .frame-info {
+      font-size: 11px;
+      color: var(--text-muted);
+      min-width: 100px;
+    }
+
+    #timeline input[type=range] {
+      flex: 1;
+      -webkit-appearance: none;
+      height: 4px;
+      background: var(--slider-track);
+      border-radius: 2px;
+      outline: none;
+    }
+
+    #timeline input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent3);
+      cursor: pointer;
+      border: 2px solid var(--panel-bg);
+    }
+
+    #timeline .speed-label {
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    #overlay-msg {
+      position: fixed;
+      top: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent3);
+      color: #1a1d23;
+      padding: 6px 16px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 100;
+    }
+
+    #overlay-msg.show {
+      opacity: 1;
+    }
+
+    /* scrollbar */
+    #sliders-scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+
+    #sliders-scroll::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    #sliders-scroll::-webkit-scrollbar-thumb {
+      background: var(--slider-track);
+      border-radius: 3px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="topbar">
+    <h1>🤖 Tonybot 3D FK 动作预览器 · 无安全审计版</h1>
+    <span style="font-size:11px;color:var(--warn);">仅做骨骼姿态预览，不输出平衡/安全结论</span>
+    <span class="spacer"></span>
+    <button id="btn-load-rob">📂 加载 .rob</button>
+    <button id="btn-reset-view" title="重置视角">🔄</button>
+    <button id="btn-toggle-grid" class="active" title="切换网格">📐</button>
+    <button id="btn-toggle-servo-labels" class="active" title="切换舵机编号标签">🏷️</button>
+  </div>
+
+  <div id="main">
+    <div id="viewport"></div>
+    <div id="panel">
+      <div id="panel-header">🦾 舵机通道 / 姿态预览 (0–1000)</div>
+      <div id="sliders-scroll"></div>
+      <div id="panel-presets"></div>
+    </div>
+  </div>
+
+  <div id="timeline">
+    <button id="btn-prev" title="上一帧">⏮</button>
+    <button id="btn-play" title="播放/暂停">▶</button>
+    <button id="btn-next" title="下一帧">⏭</button>
+    <span class="frame-info" id="frame-info">未加载</span>
+    <input type="range" id="frame-slider" min="0" max="0" value="0" step="1">
+    <span class="speed-label">速度:</span>
+    <select id="speed-select"
+      style="background:var(--slider-track);color:var(--text);border:1px solid var(--panel-border);border-radius:3px;font-size:11px;padding:2px 4px;">
+      <option value="0.25">0.25x</option>
+      <option value="0.5">0.5x</option>
+      <option value="1" selected>1x</option>
+      <option value="2">2x</option>
+      <option value="4">4x</option>
+    </select>
+  </div>
+
+  <div id="overlay-msg"></div>
+
+  <input type="file" id="file-input" accept=".rob" style="display:none">
+
+  <script type="importmap">
+{
+  "imports": {
+    "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    // ============================================================
+    // 1. PHYSICS CONSTANTS (from tonybot_physics.py)
+    // ============================================================
+
+    const SEGMENTS = {
+      upper_leg: { length: 6.0, mass: 0.12 },
+      lower_leg: { length: 5.5, mass: 0.08 },
+      foot: { length: 2.0, mass: 0.03 },
+      torso: { length: 8.0, mass: 0.30 },
+      upper_arm: { length: 5.0, mass: 0.06 },
+      forearm: { length: 4.0, mass: 0.04 },
+      hand: { length: 1.5, mass: 0.01 },
+    };
+
+    const SERVO_NEUTRAL = {
+      r_hip_yaw: 500,  // ID1  (estimated neutral)
+      r_ankle: 387,  // ID2
+      r_knee: 500,  // ID3
+      r_hip_pitch: 593,  // ID4
+      r_hip_roll: 500,  // ID5  (estimated neutral)
+      r_elbow: 575,  // ID6
+      r_shoulder_roll: 800,  // ID7
+      r_shoulder_pitch: 724, // ID8
+      l_hip_yaw: 500,  // ID9  (estimated neutral)
+      l_ankle: 612,  // ID10
+      l_knee: 500,  // ID11
+      l_hip_pitch: 406,  // ID12
+      l_hip_roll: 500,  // ID13 (estimated neutral)
+      l_elbow: 425,  // ID14
+      l_shoulder_roll: 200,  // ID15
+      l_shoulder_pitch: 275, // ID16
+    };
+
+    const SERVO_DIRECTION = {
+      r_hip_yaw: +1,   // ID1↑ = 髋外旋 (toe-out)
+      r_ankle: -1,   // ID2↓ = 踝前屈
+      r_knee: -1,   // ID3↑ = 膝后弯
+      r_hip_pitch: +1,   // ID4↑ = 腿前抬
+      r_hip_roll: +1,   // ID5↑ = 髋外展 (leg out)
+      r_elbow: +1,   // ID6↑ = 肘弯
+      r_shoulder_roll: -1,   // ID7↓ = 臂外展
+      r_shoulder_pitch: -1,  // ID8↓ = 臂前抬
+      l_hip_yaw: +1,   // ID9↑ = 髋外旋
+      l_ankle: +1,   // ID10↑ = 踝
+      l_knee: +1,   // ID11↓ = 膝后弯
+      l_hip_pitch: -1,   // ID12↓ = 腿前抬
+      l_hip_roll: +1,   // ID13↑ = 髋外展
+      l_elbow: +1,   // ID14↑ = 肘弯
+      l_shoulder_roll: +1,   // ID15↑ = 臂外展
+      l_shoulder_pitch: +1,  // ID16↑ = 臂前抬
+    };
+
+    // 0-based channel index → joint name
+    const CHANNEL_TO_JOINT = {
+      0: "r_hip_yaw",         // ID1
+      1: "r_ankle",           // ID2
+      2: "r_knee",            // ID3
+      3: "r_hip_pitch",       // ID4
+      4: "r_hip_roll",        // ID5
+      5: "r_elbow",           // ID6
+      6: "r_shoulder_roll",   // ID7
+      7: "r_shoulder_pitch",  // ID8
+      8: "l_hip_yaw",         // ID9
+      9: "l_ankle",           // ID10
+      10: "l_knee",            // ID11
+      11: "l_hip_pitch",       // ID12
+      12: "l_hip_roll",        // ID13
+      13: "l_elbow",           // ID14
+      14: "l_shoulder_roll",   // ID15
+      15: "l_shoulder_pitch",  // ID16
+    };
+
+    const CHANNEL_LABELS = {
+      0: "ID1 r_hip_yaw",
+      1: "ID2 r_ankle",
+      2: "ID3 r_knee",
+      3: "ID4 r_hip_pitch",
+      4: "ID5 r_hip_roll",
+      5: "ID6 r_elbow",
+      6: "ID7 r_shoulder_roll",
+      7: "ID8 r_shoulder_pitch",
+      8: "ID9 l_hip_yaw",
+      9: "ID10 l_ankle",
+      10: "ID11 l_knee",
+      11: "ID12 l_hip_pitch",
+      12: "ID13 l_hip_roll",
+      13: "ID14 l_elbow",
+      14: "ID15 l_shoulder_roll",
+      15: "ID16 l_shoulder_pitch",
+    };
+
+    // Group assignment for UI
+    function getChannelGroup(ch) {
+      if (ch >= 5 && ch <= 7) return 'r';   // right arm
+      if (ch >= 13 && ch <= 15) return 'l';  // left arm
+      if (ch >= 0 && ch <= 4) return 'r';    // right leg (yaw/ankle/knee/pitch/roll)
+      if (ch >= 8 && ch <= 12) return 'l';   // left leg
+      return 'u';
+    }
+
+
+    function formatServoAngle(ch, value) {
+      const jointName = CHANNEL_TO_JOINT[ch];
+      if (!jointName) return '';
+      const neutral = SERVO_NEUTRAL[jointName] ?? 500;
+      const direction = SERVO_DIRECTION[jointName] ?? 1;
+      const deg = (value - neutral) * direction / 1000 * 180;
+      const sign = deg > 0 ? '+' : '';
+      return `${sign}${deg.toFixed(0)}°`;
+    }
+
+    // ============================================================
+    // 2. FK MATH
+    //    Internal coords follow the Tonybot note: +X=forward, +Y=left, +Z=up.
+    //    Three.js render coords: +X=right, +Y=up, +Z=forward.
+    //
+    //    Important visual correction:
+    //    The uploaded direction table says hip_pitch / shoulder_pitch positive means
+    //    "leg/arm forward". A direct Python rotate_y translation makes a downward
+    //    limb move backward for positive angles, so the visual skeleton looked wrong
+    //    on backward-walk frames. We keep the same neutral/direction mapping, but use
+    //    explicit visual pitch helpers so the 3D action matches the servo note.
+    // ============================================================
+
+    function vec3(x, y, z) { return [x, y, z]; }
+
+    function rotatePitchForward(v, angle) {
+      // Positive pitch sends a hanging limb [0,0,-1] toward +X (forward).
+      const c = Math.cos(angle), s = Math.sin(angle);
+      return [c * v[0] - s * v[2], v[1], s * v[0] + c * v[2]];
+    }
+
+    function rotatePitchToeDown(v, angle) {
+      // Positive ankle angle makes a forward foot [1,0,0] rotate toward -Z (toe down).
+      const c = Math.cos(angle), s = Math.sin(angle);
+      return [c * v[0] + s * v[2], v[1], -s * v[0] + c * v[2]];
+    }
+
+    function rotateX(v, angle) {
+      // Roll around forward axis. Positive on a hanging limb moves toward +Y.
+      const c = Math.cos(angle), s = Math.sin(angle);
+      return [v[0], c * v[1] - s * v[2], s * v[1] + c * v[2]];
+    }
+
+    function rotateZ(v, angle) {
+      // Yaw around vertical axis. Positive rotates +X toward +Y.
+      const c = Math.cos(angle), s = Math.sin(angle);
+      return [c * v[0] - s * v[1], s * v[0] + c * v[1], v[2]];
+    }
+
+    function vadd(a, b) { return [a[0] + b[0], a[1] + b[1], a[2] + b[2]]; }
+    function vscale(v, s) { return [v[0] * s, v[1] * s, v[2] * s]; }
+    function vmid(a, b) { return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2, (a[2] + b[2]) / 2]; }
+
+    let renderFloorOffset = 0;
+
+    // Foot plates are metal soles: they must stay parallel to the ground.
+    // The ankle servo may change the leg posture, but the rendered sole itself is a flat horizontal plate.
+    const FOOT_PLATE = { halfLength: 1.75, halfWidth: 0.78, thickness: 0.32 };
+    const FOOT_CENTER_FORWARD = SEGMENTS.foot.length * 0.5;
+
+    function footForwardVector(yaw = 0, side = 'r') {
+      // Internal coords: +X=forward, +Y=left.
+      // Positive hip_yaw means toe-out, so right and left feet mirror each other.
+      const sideSign = side === 'r' ? -1 : 1;
+      const a = yaw * sideSign;
+      return [Math.cos(a), Math.sin(a), 0];
+    }
+
+    function horizontalFootCenter(ankle, yaw = 0, side = 'r') {
+      const f = footForwardVector(yaw, side);
+      return [
+        ankle[0] + f[0] * FOOT_CENTER_FORWARD,
+        ankle[1] + f[1] * FOOT_CENTER_FORWARD,
+        ankle[2],
+      ];
+    }
+
+    // Convert Python physics coords to Three.js coords.
+    // Python +Y means left, so Three +X(right) = -Python Y.
+    function toThreeVec(p) {
+      return new THREE.Vector3(-p[1], p[2] - renderFloorOffset, p[0]);
+    }
+
+    function toThreeGround(p) {
+      // p = [pythonX, pythonY] on ground plane
+      return new THREE.Vector3(-p[1], 0.02, p[0]);
+    }
+
+    function poseToJointAngles(pose) {
+      // pose: array of 16 servo values [ID1..ID16], 0-based index
+      const angles = {};
+      for (const [chIdx, jointName] of Object.entries(CHANNEL_TO_JOINT)) {
+        const neutral = SERVO_NEUTRAL[jointName];
+        const direction = SERVO_DIRECTION[jointName];
+        const delta = (pose[parseInt(chIdx)] - neutral) * direction;
+        angles[jointName] = delta / 1000.0 * Math.PI;
+      }
+      return angles;
+    }
+
+    function applyLegRotations(baseDir, pitch = 0, knee = 0, roll = 0, yaw = 0, side = 'r') {
+      // ID1/ID5/ID9/ID13 are visual extensions so the 3D skeleton reacts to all 16 channels.
+      // Positive roll/yaw means "outward" from the robot center line:
+      // right side outward = -Y, left side outward = +Y.
+      const sideSign = side === 'r' ? -1 : 1;
+      let dir = rotatePitchForward(baseDir, pitch + knee);
+      dir = rotateX(dir, roll * sideSign);
+      dir = rotateZ(dir, yaw * sideSign);
+      return dir;
+    }
+
+    function footContactBaseZ(ankle, footCenter) {
+      // The sole is a rigid horizontal metal plate, so contact height follows the ankle/plate height,
+      // not a tilted toe point. This prevents an ankle angle from faking ground contact.
+      return Math.min(ankle[2], footCenter[2]) - FOOT_PLATE.thickness * 0.5;
+    }
+
+    function makeFootprint(center, yaw = 0, side = 'r', halfLength = FOOT_PLATE.halfLength, halfWidth = FOOT_PLATE.halfWidth) {
+      // Internal ground coords: X=forward, Y=left. The footprint stays horizontal,
+      // but it can rotate around the vertical axis when hip_yaw turns the toe outward.
+      const f = footForwardVector(yaw, side);
+      const left = [-f[1], f[0]];
+      return [
+        [center[0] - f[0] * halfLength - left[0] * halfWidth, center[1] - f[1] * halfLength - left[1] * halfWidth],
+        [center[0] + f[0] * halfLength - left[0] * halfWidth, center[1] + f[1] * halfLength - left[1] * halfWidth],
+        [center[0] + f[0] * halfLength + left[0] * halfWidth, center[1] + f[1] * halfLength + left[1] * halfWidth],
+        [center[0] - f[0] * halfLength + left[0] * halfWidth, center[1] - f[1] * halfLength + left[1] * halfWidth],
+      ];
+    }
+
+    function cross2(o, a, b) {
+      return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+    }
+
+    function convexHull(points) {
+      const pts = [...points].sort((a, b) => (a[0] - b[0]) || (a[1] - b[1]));
+      if (pts.length <= 1) return pts;
+      const lower = [];
+      for (const p of pts) {
+        while (lower.length >= 2 && cross2(lower[lower.length - 2], lower[lower.length - 1], p) <= 0) lower.pop();
+        lower.push(p);
+      }
+      const upper = [];
+      for (let i = pts.length - 1; i >= 0; i--) {
+        const p = pts[i];
+        while (upper.length >= 2 && cross2(upper[upper.length - 2], upper[upper.length - 1], p) <= 0) upper.pop();
+        upper.push(p);
+      }
+      lower.pop();
+      upper.pop();
+      return lower.concat(upper);
+    }
+
+    function computeContactAwareSupport(rAnkle, rFoot, lAnkle, lFoot, rYaw = 0, lYaw = 0) {
+      // If one foot is visibly higher, it must not enlarge the support polygon.
+      // This fixes poses like “大鹏展翅”, where the right foot is lifted.
+      const threshold = 0.75; // cm; tiny FK noise still counts as contact.
+      const rBaseZ = footContactBaseZ(rAnkle, rFoot);
+      const lBaseZ = footContactBaseZ(lAnkle, lFoot);
+      const lowest = Math.min(rBaseZ, lBaseZ);
+      let rightContact = rBaseZ <= lowest + threshold;
+      let leftContact = lBaseZ <= lowest + threshold;
+
+      if (!rightContact && !leftContact) {
+        if (rBaseZ <= lBaseZ) rightContact = true;
+        else leftContact = true;
+      }
+
+      const rSupport = [rFoot[0], rFoot[1]];
+      const lSupport = [lFoot[0], lFoot[1]];
+      let polygonPoints = [];
+      if (rightContact) polygonPoints.push(...makeFootprint(rSupport, rYaw, 'r'));
+      if (leftContact) polygonPoints.push(...makeFootprint(lSupport, lYaw, 'l'));
+      const supportPolygon = polygonPoints.length > 4 ? convexHull(polygonPoints) : polygonPoints;
+
+      return {
+        supportPolygon,
+        rSupport,
+        lSupport,
+        rightContact,
+        leftContact,
+        rClearance: Math.max(0, rBaseZ - lowest),
+        lClearance: Math.max(0, lBaseZ - lowest),
+        contactCount: (rightContact ? 1 : 0) + (leftContact ? 1 : 0),
+      };
+    }
+
+    function forwardKinematics(pose) {
+      const angles = poseToJointAngles(pose);
+
+      // World coordinates follow tonybot_physics.py: +X forward, +Y left, +Z up.
+      const hipBase = vec3(0, 0, 16.0);
+      const footSpacing = 3.0;
+
+      // --- right leg ---
+      const rHip = vec3(0, -footSpacing / 2, hipBase[2]);
+      const rHipPitch = angles.r_hip_pitch || 0;
+      const rKneeAngle = angles.r_knee || 0;
+      const rAnkleAngle = angles.r_ankle || 0;
+      const rHipRoll = angles.r_hip_roll || 0;
+      const rHipYaw = angles.r_hip_yaw || 0;
+
+      const rUpperLegDir = applyLegRotations(vec3(0, 0, -1), rHipPitch, 0, rHipRoll, rHipYaw, 'r');
+      const rKnee = vadd(rHip, vscale(rUpperLegDir, SEGMENTS.upper_leg.length));
+
+      const rLowerLegDir = applyLegRotations(vec3(0, 0, -1), rHipPitch, rKneeAngle, rHipRoll, rHipYaw, 'r');
+      const rAnkle = vadd(rKnee, vscale(rLowerLegDir, SEGMENTS.lower_leg.length));
+
+      // Foot is a flat metal plate: keep it parallel to the ground.
+      // Use hip_yaw only for horizontal toe-out direction; do not tilt the sole with ankle pitch/roll.
+      const rFoot = horizontalFootCenter(rAnkle, rHipYaw, 'r');
+
+      const rUpperCom = vmid(rHip, rKnee);
+      const rLowerCom = vmid(rKnee, rAnkle);
+      const rFootCom = rFoot;
+      const rSupport = [rAnkle[0], rAnkle[1]];
+
+      // --- left leg ---
+      const lHip = vec3(0, footSpacing / 2, hipBase[2]);
+      const lHipPitch = angles.l_hip_pitch || 0;
+      const lKneeAngle = angles.l_knee || 0;
+      const lAnkleAngle = angles.l_ankle || 0;
+      const lHipRoll = angles.l_hip_roll || 0;
+      const lHipYaw = angles.l_hip_yaw || 0;
+
+      const lUpperLegDir = applyLegRotations(vec3(0, 0, -1), lHipPitch, 0, lHipRoll, lHipYaw, 'l');
+      const lKnee = vadd(lHip, vscale(lUpperLegDir, SEGMENTS.upper_leg.length));
+
+      const lLowerLegDir = applyLegRotations(vec3(0, 0, -1), lHipPitch, lKneeAngle, lHipRoll, lHipYaw, 'l');
+      const lAnkle = vadd(lKnee, vscale(lLowerLegDir, SEGMENTS.lower_leg.length));
+
+      // Foot is a flat metal plate: keep it parallel to the ground.
+      // Use hip_yaw only for horizontal toe-out direction; do not tilt the sole with ankle pitch/roll.
+      const lFoot = horizontalFootCenter(lAnkle, lHipYaw, 'l');
+
+      const lUpperCom = vmid(lHip, lKnee);
+      const lLowerCom = vmid(lKnee, lAnkle);
+      const lFootCom = lFoot;
+      const lSupport = [lAnkle[0], lAnkle[1]];
+
+      // --- torso ---
+      const torsoBase = vec3(0, 0, hipBase[2]);
+      const torsoTop = vec3(0, 0, hipBase[2] + SEGMENTS.torso.length);
+      const torsoCom = vmid(torsoBase, torsoTop);
+      const shoulderBase = vec3(0, 0, torsoTop[2]);
+
+      // --- right arm ---
+      const rShoulder = vec3(0, -2.5, shoulderBase[2]);
+      let rUpperArmDir = vec3(0, 0, -1);
+      rUpperArmDir = rotatePitchForward(rUpperArmDir, angles.r_shoulder_pitch || 0);
+      rUpperArmDir = rotateX(rUpperArmDir, -(angles.r_shoulder_roll || 0));
+      const rElbow = vadd(rShoulder, vscale(rUpperArmDir, SEGMENTS.upper_arm.length));
+
+      let rForearmDir = vec3(0, 0, -1);
+      rForearmDir = rotatePitchForward(rForearmDir, (angles.r_shoulder_pitch || 0) + (angles.r_elbow || 0));
+      rForearmDir = rotateX(rForearmDir, -(angles.r_shoulder_roll || 0));
+      const rHand = vadd(rElbow, vscale(rForearmDir, SEGMENTS.forearm.length));
+
+      const rUpperArmCom = vmid(rShoulder, rElbow);
+      const rForearmCom = vmid(rElbow, rHand);
+      const rHandCom = rHand;
+
+      // --- left arm ---
+      const lShoulder = vec3(0, 2.5, shoulderBase[2]);
+      let lUpperArmDir = vec3(0, 0, -1);
+      lUpperArmDir = rotatePitchForward(lUpperArmDir, angles.l_shoulder_pitch || 0);
+      lUpperArmDir = rotateX(lUpperArmDir, angles.l_shoulder_roll || 0);
+      const lElbow = vadd(lShoulder, vscale(lUpperArmDir, SEGMENTS.upper_arm.length));
+
+      let lForearmDir = vec3(0, 0, -1);
+      lForearmDir = rotatePitchForward(lForearmDir, (angles.l_shoulder_pitch || 0) + (angles.l_elbow || 0));
+      lForearmDir = rotateX(lForearmDir, angles.l_shoulder_roll || 0);
+      const lHand = vadd(lElbow, vscale(lForearmDir, SEGMENTS.forearm.length));
+
+      const lUpperArmCom = vmid(lShoulder, lElbow);
+      const lForearmCom = vmid(lElbow, lHand);
+      const lHandCom = lHand;
+
+      // --- total COM ---
+      const allSegments = [
+        [torsoCom, SEGMENTS.torso.mass],
+        [rUpperCom, SEGMENTS.upper_leg.mass],
+        [rLowerCom, SEGMENTS.lower_leg.mass],
+        [rFootCom, SEGMENTS.foot.mass],
+        [lUpperCom, SEGMENTS.upper_leg.mass],
+        [lLowerCom, SEGMENTS.lower_leg.mass],
+        [lFootCom, SEGMENTS.foot.mass],
+        [rUpperArmCom, SEGMENTS.upper_arm.mass],
+        [rForearmCom, SEGMENTS.forearm.mass],
+        [rHandCom, SEGMENTS.hand.mass],
+        [lUpperArmCom, SEGMENTS.upper_arm.mass],
+        [lForearmCom, SEGMENTS.forearm.mass],
+        [lHandCom, SEGMENTS.hand.mass],
+      ];
+
+      const totalMass = allSegments.reduce((sum, [, m]) => sum + m, 0);
+      const com = [0, 0, 0];
+      for (const [pos, mass] of allSegments) {
+        for (let i = 0; i < 3; i++) com[i] += pos[i] * mass;
+      }
+      for (let i = 0; i < 3; i++) com[i] /= totalMass;
+
+      // --- contact-aware support polygon ---
+      const contact = computeContactAwareSupport(rAnkle, rFoot, lAnkle, lFoot, rHipYaw, lHipYaw);
+      const supportPolygon = contact.supportPolygon;
+
+      // --- balance metrics ---
+      const comGround = [com[0], com[1]];
+      const polyCenter = [
+        supportPolygon.reduce((s, p) => s + p[0], 0) / supportPolygon.length,
+        supportPolygon.reduce((s, p) => s + p[1], 0) / supportPolygon.length,
+      ];
+      const comOffset = Math.sqrt(
+        (comGround[0] - polyCenter[0]) ** 2 + (comGround[1] - polyCenter[1]) ** 2
+      );
+      const supportWidth = contact.contactCount >= 2
+        ? Math.abs(contact.rSupport[1] - contact.lSupport[1])
+        : 1.5;
+      const stabilityMargin = pointToPolygonDist(comGround, supportPolygon);
+      const comHeight = com[2];
+
+      let score = 100;
+      if (comHeight > 14) score -= (comHeight - 14) * 8;
+      score -= comOffset * 6;
+      if (stabilityMargin > -1.0) score -= (stabilityMargin + 1.0) * 15;
+      if (stabilityMargin > 0) score -= 30;
+      if (supportWidth > 4) score += Math.min(10, (supportWidth - 4) * 3);
+      if (contact.contactCount === 1) score -= 25; // 单脚支撑惩罚，防止抬脚姿态假稳。
+      const balanceScore = Math.max(0, Math.min(100, score));
+
+      return {
+        com, comGround, comHeight, comOffset,
+        supportPolygon, supportWidth,
+        stabilityMargin,
+        footContacts: {
+          right: contact.rightContact,
+          left: contact.leftContact,
+          rightClearance: Math.round(contact.rClearance * 10) / 10,
+          leftClearance: Math.round(contact.lClearance * 10) / 10,
+          count: contact.contactCount,
+        },
+        balanceScore: Math.round(balanceScore * 10) / 10,
+        joints: {
+          rHip, rKnee, rAnkle, rFoot,
+          lHip, lKnee, lAnkle, lFoot,
+          torsoBase, torsoTop, shoulderBase,
+          rShoulder, rElbow, rHand,
+          lShoulder, lElbow, lHand,
+        },
+        segmentComs: {
+          torsoCom,
+          rUpperCom, rLowerCom, rFootCom,
+          lUpperCom, lLowerCom, lFootCom,
+          rUpperArmCom, rForearmCom, rHandCom,
+          lUpperArmCom, lForearmCom, lHandCom,
+        },
+      };
+    }
+
+    function pointToPolygonDist(point, polygon) {
+      let minDist = Infinity;
+      const n = polygon.length;
+      for (let i = 0; i < n; i++) {
+        const a = polygon[i];
+        const b = polygon[(i + 1) % n];
+        const edge = [b[0] - a[0], b[1] - a[1]];
+        const edgeLen = Math.sqrt(edge[0] ** 2 + edge[1] ** 2);
+        if (edgeLen < 0.001) continue;
+        const edgeUnit = [edge[0] / edgeLen, edge[1] / edgeLen];
+        const normal = [edgeUnit[1], -edgeUnit[0]];
+        const vecToPoint = [point[0] - a[0], point[1] - a[1]];
+        const dist = vecToPoint[0] * normal[0] + vecToPoint[1] * normal[1];
+        minDist = Math.min(minDist, dist);
+      }
+      return minDist;
+    }
+
+    // ============================================================
+    // 3. PRESET POSES (from tonybot_physics.py)
+    // ============================================================
+
+    const PRESETS = {
+      "立正": [500, 387, 500, 593, 500, 575, 800, 724, 500, 612, 500, 406, 500, 425, 200, 275],
+      "军礼": [500, 387, 500, 593, 500, 1000, 640, 0, 500, 612, 500, 406, 500, 425, 200, 275],
+      "展臂": [500, 395, 500, 593, 500, 500, 500, 0, 500, 605, 500, 406, 500, 500, 500, 1000],
+      "捶胸": [537, 500, 303, 500, 537, 875, 741, 218, 462, 500, 696, 500, 462, 125, 258, 781],
+      "正步": [500, 340, 500, 720, 500, 575, 650, 380, 500, 480, 680, 340, 500, 425, 310, 600],
+      "伸手": [500, 388, 500, 594, 500, 575, 800, 725, 500, 612, 500, 406, 500, 500, 125, 669],
+      "大鹏展翅": [500, 596, 539, 421, 522, 404, 395, 612, 556, 500, 696, 395, 500, 587, 622, 387],
+    };
+
+
+
+    const BACKWARD_TEST_FRAMES = [
+      [524, 411, 569, 683, 524, 537, 837, 837, 524, 683, 430, 411, 524, 462, 162, 387],
+      [527, 362, 689, 730, 527, 537, 837, 837, 524, 683, 430, 440, 524, 462, 162, 387],
+      [527, 296, 703, 680, 527, 537, 837, 725, 524, 642, 416, 370, 524, 462, 162, 274],
+      [527, 244, 689, 636, 527, 537, 837, 612, 524, 588, 430, 316, 524, 462, 162, 162],
+      [500, 312, 576, 591, 500, 537, 837, 612, 500, 591, 422, 312, 500, 462, 162, 162],
+      [474, 316, 569, 588, 474, 537, 837, 612, 474, 588, 430, 316, 474, 462, 162, 162],
+      [474, 316, 569, 580, 474, 537, 837, 612, 471, 636, 309, 260, 471, 462, 162, 162],
+      [474, 356, 583, 642, 474, 537, 837, 725, 471, 702, 296, 296, 471, 462, 162, 274],
+      [474, 411, 569, 683, 474, 537, 837, 837, 471, 755, 309, 362, 471, 462, 162, 387],
+      [500, 408, 576, 687, 500, 537, 837, 837, 500, 687, 422, 408, 500, 462, 162, 387],
+    ];
+
+    const DEFAULT_POSE = PRESETS["立正"];
+
+    // ============================================================
+    // 4. .ROB PARSER (ACT-40 binary + TEA-32 for EYPT)
+    // ============================================================
+
+    const FRAME_SIZE = 248;
+    const FILE_HEADER_SIZE = 16;
+    const FRAME_HEADER_SIZE = 8;
+    const ACTIVE_CHANNELS = 16;
+    const CHANNEL_COUNT = 40;
+    const WORDS_PER_CHANNEL = 3;
+    const FILLER_TRIPLET = [0x5555, 0, 0];
+
+    // TEA-32 constants
+    const TEA_DELTA = 0x9E3779B9;
+    const TEA_MASK = 0xFFFFFFFF;
+    const TEA_ROUNDS = 32;
+    const TEA_SUM_INIT = (TEA_DELTA * TEA_ROUNDS) >>> 0;
+    const ENCRYPT_ARRAY = [0x00003D09, 0x00000017, 0x00001CCD, 0x3B7B8488];
+
+    function u16le(data, offset) {
+      return data[offset] | (data[offset + 1] << 8);
+    }
+
+    function u32le(data, offset) {
+      return (data[offset] | (data[offset + 1] << 8) | (data[offset + 2] << 16) | (data[offset + 3] << 24)) >>> 0;
+    }
+
+    function u32ToBytes(v) {
+      const b = new Uint8Array(4);
+      b[0] = v & 0xFF;
+      b[1] = (v >>> 8) & 0xFF;
+      b[2] = (v >>> 16) & 0xFF;
+      b[3] = (v >>> 24) & 0xFF;
+      return b;
+    }
+
+    function teaDecryptBlock(v0, v1, key) {
+      let sum = TEA_SUM_INIT;
+      for (let i = 0; i < TEA_ROUNDS; i++) {
+        v1 = (v1 - (((v0 << 4) + key[2]) ^ (v0 + sum) ^ ((v0 >>> 5) + key[3]))) >>> 0;
+        v0 = (v0 - (((v1 << 4) + key[0]) ^ (v1 + sum) ^ ((v1 >>> 5) + key[1]))) >>> 0;
+        sum = (sum - TEA_DELTA) >>> 0;
+      }
+      return [v0, v1];
+    }
+
+    function teaDecryptBody(body, key) {
+      if (body.length % 8 !== 0) throw new Error("TEA body length must be multiple of 8");
+      const output = new Uint8Array(body.length);
+      for (let offset = 0; offset < body.length; offset += 8) {
+        const left = u32le(body, offset);
+        const right = u32le(body, offset + 4);
+        const [dl, dr] = teaDecryptBlock(left, right, key);
+        output.set(u32ToBytes(dl), offset);
+        output.set(u32ToBytes(dr), offset + 4);
+      }
+      return output;
+    }
+
+    function parseRobFile(buffer) {
+      const data = new Uint8Array(buffer);
+      if (data.length < FILE_HEADER_SIZE) throw new Error("文件太小");
+
+      const magic = String.fromCharCode(...data.slice(0, 6));
+      if (magic !== "ACT-40") throw new Error("不支持的文件格式: " + magic);
+
+      const frameCount = u16le(data, 6);
+      const tagBytes = data.slice(8, 12);
+      const tag = String.fromCharCode(...tagBytes).replace(/\0/g, "");
+
+      let rawFrames;
+      if (tag === "EYPT") {
+        // Decrypt EYPT
+        const decrypted = teaDecryptBody(data.slice(FILE_HEADER_SIZE), ENCRYPT_ARRAY);
+        rawFrames = decrypted;
+      } else {
+        rawFrames = data.slice(FILE_HEADER_SIZE);
+      }
+
+      const expectedLen = frameCount * FRAME_SIZE;
+      if (rawFrames.length < expectedLen) throw new Error("帧数据不完整");
+
+      const frames = [];
+      for (let i = 0; i < frameCount; i++) {
+        const start = i * FRAME_SIZE;
+        const frame = rawFrames.slice(start, start + FRAME_SIZE);
+        const duration = u16le(frame, 0);
+
+        // Extract 16 active channel first words as servo values
+        const pose = [];
+        for (let ch = 0; ch < ACTIVE_CHANNELS; ch++) {
+          const chOffset = FRAME_HEADER_SIZE + ch * WORDS_PER_CHANNEL * 2;
+          pose.push(u16le(frame, chOffset));
+        }
+
+        frames.push({ duration, pose, raw: frame });
+      }
+
+      return { magic, tag, frameCount, frames };
+    }
+
+    // ============================================================
+    // 5. THREE.JS SCENE SETUP
+    // ============================================================
+
+    const viewport = document.getElementById('viewport');
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
+    viewport.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x1a1d23);
+    scene.fog = new THREE.Fog(0x1a1d23, 40, 80);
+
+    const camera = new THREE.PerspectiveCamera(48, 2, 0.5, 120);
+    camera.position.set(8, 18, 28);
+    camera.lookAt(0, 12, 0);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.target.set(0, 12, 0);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.minDistance = 5;
+    controls.maxDistance = 60;
+    controls.maxPolarAngle = Math.PI * 0.8;
+    controls.update();
+
+    // Lights
+    const ambientLight = new THREE.AmbientLight(0x8899bb, 1.8);
+    scene.add(ambientLight);
+
+    const keyLight = new THREE.DirectionalLight(0xffeedd, 4.5);
+    keyLight.position.set(12, 22, 15);
+    keyLight.castShadow = true;
+    keyLight.shadow.mapSize.set(2048, 2048);
+    keyLight.shadow.camera.near = 0.5;
+    keyLight.shadow.camera.far = 80;
+    keyLight.shadow.camera.left = -25;
+    keyLight.shadow.camera.right = 25;
+    keyLight.shadow.camera.top = 25;
+    keyLight.shadow.camera.bottom = -5;
+    keyLight.shadow.bias = -0.0002;
+    scene.add(keyLight);
+
+    const fillLight = new THREE.DirectionalLight(0xaaccff, 1.8);
+    fillLight.position.set(-5, 8, -3);
+    scene.add(fillLight);
+
+    const rimLight = new THREE.DirectionalLight(0xffffff, 1.2);
+    rimLight.position.set(0, 6, -8);
+    scene.add(rimLight);
+
+    // Ground
+    const groundGeo = new THREE.PlaneGeometry(60, 60);
+    const groundMat = new THREE.MeshStandardMaterial({
+      color: 0x2a2d35,
+      roughness: 0.85,
+      metalness: 0.05,
+    });
+    const ground = new THREE.Mesh(groundGeo, groundMat);
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = -0.02;
+    ground.receiveShadow = true;
+    scene.add(ground);
+
+    // Grid
+    const gridHelper = new THREE.PolarGridHelper(28, 48, 24, 256, 0x3a3f4b, 0x2a2d35);
+    gridHelper.position.y = 0.01;
+    scene.add(gridHelper);
+
+    // ============================================================
+    // 6. ROBOT 3D MODEL — enhanced skeleton
+    // ============================================================
+
+    const robotGroup = new THREE.Group();
+    scene.add(robotGroup);
+
+    // Materials
+    const matRight = new THREE.MeshStandardMaterial({ color: 0xe06c75, roughness: 0.32, metalness: 0.34 });
+    const matLeft = new THREE.MeshStandardMaterial({ color: 0x61afef, roughness: 0.32, metalness: 0.34 });
+    const matRightDark = new THREE.MeshStandardMaterial({ color: 0x9f4b53, roughness: 0.45, metalness: 0.22 });
+    const matLeftDark = new THREE.MeshStandardMaterial({ color: 0x3e7fb7, roughness: 0.45, metalness: 0.22 });
+    const matTorso = new THREE.MeshStandardMaterial({ color: 0x4a5568, roughness: 0.42, metalness: 0.34 });
+    const matChest = new THREE.MeshStandardMaterial({ color: 0x66758a, roughness: 0.38, metalness: 0.35 });
+    const matPelvis = new THREE.MeshStandardMaterial({ color: 0x3d4758, roughness: 0.46, metalness: 0.28 });
+    const matHead = new THREE.MeshStandardMaterial({ color: 0x9aa6b5, roughness: 0.3, metalness: 0.42 });
+    const matFace = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.55, metalness: 0.12, emissive: 0x0d1b2a, emissiveIntensity: 0.2 });
+    const matJoint = new THREE.MeshStandardMaterial({ color: 0xb8c1ce, roughness: 0.22, metalness: 0.55 });
+    const matJointDark = new THREE.MeshStandardMaterial({ color: 0x6d7888, roughness: 0.35, metalness: 0.38 });
+    const matFoot = new THREE.MeshStandardMaterial({ color: 0x4d5869, roughness: 0.52, metalness: 0.22 });
+    const matGuide = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.22, depthWrite: false });
+    const matServoBody = new THREE.MeshStandardMaterial({ color: 0x20242b, roughness: 0.5, metalness: 0.25 });
+    const matServoFace = new THREE.MeshStandardMaterial({ color: 0xd8dde6, roughness: 0.28, metalness: 0.35 });
+    const matServoAxis = new THREE.MeshStandardMaterial({ color: 0xffb86c, roughness: 0.24, metalness: 0.45 });
+    const matScrew = new THREE.MeshStandardMaterial({ color: 0x0f1116, roughness: 0.55, metalness: 0.25 });
+
+    // Mesh registries
+    const segmentMeshes = [];
+    const jointMeshes = [];
+    const robotParts = {};
+    const jointParts = {};
+    const servoParts = {};
+
+    function registerPart(name, mesh) {
+      robotParts[name] = mesh;
+      robotGroup.add(mesh);
+      return mesh;
+    }
+
+    function registerJoint(name, mesh) {
+      jointParts[name] = mesh;
+      jointMeshes.push(mesh);
+      robotGroup.add(mesh);
+      return mesh;
+    }
+
+    function registerServo(id, group) {
+      servoParts[id] = group;
+      robotGroup.add(group);
+      return group;
+    }
+
+    function createLabelSprite(text, color = '#ffbd75') {
+      const canvas = document.createElement('canvas');
+      canvas.width = 192;
+      canvas.height = 80;
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = '700 34px Segoe UI, Arial, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = 'rgba(0,0,0,0.65)';
+      ctx.strokeText(text, 96, 40);
+      ctx.fillStyle = color;
+      ctx.fillText(text, 96, 40);
+      const texture = new THREE.CanvasTexture(canvas);
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      const material = new THREE.SpriteMaterial({ map: texture, transparent: true, depthTest: false, depthWrite: false });
+      const sprite = new THREE.Sprite(material);
+      sprite.scale.set(2.35, 0.98, 1);
+      sprite.renderOrder = 9;
+      return sprite;
+    }
+
+    function createServoModule(id, side = 'r') {
+      // A small “black motor + silver cover + orange shaft” module, inspired by the reference diagram.
+      const group = new THREE.Group();
+      group.userData.id = id;
+      group.userData.side = side;
+
+      const body = new THREE.Mesh(new THREE.BoxGeometry(1.02, 0.58, 0.34), matServoBody);
+      body.castShadow = true;
+      body.receiveShadow = true;
+      group.add(body);
+
+      const face = new THREE.Mesh(new THREE.BoxGeometry(0.76, 0.42, 0.08), matServoFace);
+      face.position.z = 0.20;
+      face.castShadow = true;
+      group.add(face);
+
+      const axis = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.10, 20), matServoAxis);
+      axis.rotation.x = Math.PI / 2;
+      axis.position.z = 0.29;
+      axis.castShadow = true;
+      group.add(axis);
+
+      for (const sx of [-0.31, 0.31]) {
+        for (const sy of [-0.15, 0.15]) {
+          const screw = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, 0.04, 10), matScrew);
+          screw.rotation.x = Math.PI / 2;
+          screw.position.set(sx, sy, 0.255);
+          group.add(screw);
+        }
+      }
+
+      const label = createLabelSprite('ID' + id, side === 'r' ? '#ff9aa2' : '#8fd0ff');
+      label.position.set(0, 0.88, 0.05);
+      group.add(label);
+      group.userData.label = label;
+
+      return group;
+    }
+
+    function lookServoOutward(group, side = 'r', yawExtra = 0) {
+      // Face the servo cover outward from the body so it reads like the front reference photo.
+      // right side (python -Y) maps to Three +X, left side maps to Three -X.
+      const yaw = side === 'r' ? Math.PI / 2 : -Math.PI / 2;
+      group.rotation.set(0, yaw + yawExtra, 0);
+    }
+
+    function placeServo(id, posPy, side = 'r', offsetPy = [0, 0, 0], scale = 1, yawExtra = 0) {
+      const group = servoParts[id];
+      if (!group) return;
+      const p = [posPy[0] + offsetPy[0], posPy[1] + offsetPy[1], posPy[2] + offsetPy[2]];
+      group.position.copy(toThreeVec(p));
+      group.scale.setScalar(scale);
+      lookServoOutward(group, side, yawExtra);
+      group.visible = showServoLabels;
+      if (group.userData.label) group.userData.label.visible = showServoLabels;
+    }
+
+    function createBoneMesh(material, radialSegments = 20) {
+      const geo = new THREE.CylinderGeometry(1, 1, 1, radialSegments);
+      const mesh = new THREE.Mesh(geo, material);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      return mesh;
+    }
+
+    function createBoxMesh(material) {
+      const geo = new THREE.BoxGeometry(1, 1, 1);
+      const mesh = new THREE.Mesh(geo, material);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      return mesh;
+    }
+
+    function createSphereMesh(material, radius = 1, segments = 20) {
+      const geo = new THREE.SphereGeometry(radius, segments, Math.max(12, Math.floor(segments * 0.75)));
+      const mesh = new THREE.Mesh(geo, material);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
+      return mesh;
+    }
+
+    function createRingMesh(color) {
+      const geo = new THREE.TorusGeometry(1, 0.035, 8, 48);
+      const mat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.45, depthWrite: false });
+      const mesh = new THREE.Mesh(geo, mat);
+      mesh.renderOrder = 2;
+      return mesh;
+    }
+
+    function placeSegment(mesh, startPy, endPy, radius = 0.28) {
+      const start = toThreeVec(startPy);
+      const end = toThreeVec(endPy);
+      const dir = new THREE.Vector3().subVectors(end, start);
+      const len = dir.length();
+
+      if (len < 0.001) {
+        mesh.visible = false;
+        return;
+      }
+
+      mesh.visible = true;
+      mesh.position.copy(start).add(end).multiplyScalar(0.5);
+      mesh.scale.set(radius, len, radius);
+
+      const quat = new THREE.Quaternion().setFromUnitVectors(
+        new THREE.Vector3(0, 1, 0),
+        dir.normalize()
+      );
+      mesh.setRotationFromQuaternion(quat);
+    }
+
+    function placeBoxBetween(mesh, startPy, endPy, width = 0.4, depth = 0.4) {
+      const start = toThreeVec(startPy);
+      const end = toThreeVec(endPy);
+      const dir = new THREE.Vector3().subVectors(end, start);
+      const len = dir.length();
+
+      if (len < 0.001) {
+        mesh.visible = false;
+        return;
+      }
+
+      mesh.visible = true;
+      mesh.position.copy(start).add(end).multiplyScalar(0.5);
+      mesh.scale.set(width, len, depth);
+
+      const quat = new THREE.Quaternion().setFromUnitVectors(
+        new THREE.Vector3(0, 1, 0),
+        dir.normalize()
+      );
+      mesh.setRotationFromQuaternion(quat);
+    }
+
+    function placeFootBox(mesh, anklePy, footPy, side = 'r') {
+      const ankle = toThreeVec(anklePy);
+      const foot = toThreeVec(footPy);
+      const forward = new THREE.Vector3().subVectors(foot, ankle);
+
+      // Metal sole rule: project direction onto ground, then rotate around Y only.
+      // No pitch/roll is allowed on the foot plate; its bottom face must stay parallel to the ground.
+      forward.y = 0;
+      if (forward.length() < 0.001) forward.set(0, 0, 1);
+      forward.normalize();
+
+      const center = foot.clone();
+      center.y = Math.max(center.y, FOOT_PLATE.thickness * 0.5);
+
+      mesh.visible = true;
+      mesh.position.copy(center);
+      mesh.scale.set(FOOT_PLATE.halfWidth * 2.0, FOOT_PLATE.thickness, FOOT_PLATE.halfLength * 2.0);
+
+      const yaw = Math.atan2(forward.x, forward.z);
+      mesh.rotation.set(0, yaw, 0);
+
+      // Slightly separate the soles visually so crossed legs remain readable.
+      mesh.position.x += side === 'r' ? 0.05 : -0.05;
+    }
+
+    function placeJoint(mesh, posPy, radius = 0.45) {
+      const pos = toThreeVec(posPy);
+      mesh.position.copy(pos);
+      mesh.scale.setScalar(radius);
+    }
+
+    function placeSphereAt(mesh, posPy, radius = 0.45) {
+      const pos = toThreeVec(posPy);
+      mesh.position.copy(pos);
+      mesh.scale.setScalar(radius);
+    }
+
+    function placeHeadFace(mesh, headCenterPy) {
+      const center = toThreeVec(headCenterPy);
+      mesh.position.set(center.x, center.y + 0.05, center.z + 0.86);
+      mesh.scale.set(0.78, 0.42, 0.06);
+      mesh.rotation.set(0, 0, 0);
+    }
+
+    function buildRobotModel() {
+      // Clear existing
+      while (robotGroup.children.length > 0) robotGroup.remove(robotGroup.children[0]);
+      segmentMeshes.length = 0;
+      jointMeshes.length = 0;
+      Object.keys(robotParts).forEach(k => delete robotParts[k]);
+      Object.keys(jointParts).forEach(k => delete jointParts[k]);
+      Object.keys(servoParts).forEach(k => delete servoParts[k]);
+
+      // Core body: spine + chest + pelvis
+      registerPart('spine', createBoneMesh(matTorso, 24));
+      registerPart('chest', createBoxMesh(matChest));
+      registerPart('pelvis', createBoxMesh(matPelvis));
+      registerPart('shoulderBar', createBoxMesh(matTorso));
+      registerPart('hipBar', createBoxMesh(matPelvis));
+      registerPart('neck', createBoneMesh(matJointDark, 16));
+
+      // Head with face plate
+      registerPart('head', createSphereMesh(matHead, 1, 28));
+      registerPart('face', createBoxMesh(matFace));
+
+      // Limbs: cylinder bones with different radii
+      const boneDefs = [
+        ['rUpperArm', matRight, 0.30], ['rForearm', matRightDark, 0.25],
+        ['lUpperArm', matLeft, 0.30], ['lForearm', matLeftDark, 0.25],
+        ['rUpperLeg', matRight, 0.36], ['rLowerLeg', matRightDark, 0.31],
+        ['lUpperLeg', matLeft, 0.36], ['lLowerLeg', matLeftDark, 0.31],
+      ];
+
+      for (const [name, mat] of boneDefs) {
+        const mesh = createBoneMesh(mat, 22);
+        registerPart(name, mesh);
+        segmentMeshes.push({ mesh, type: name });
+      }
+
+      // Hands and soles
+      registerPart('rHand', createBoxMesh(matRightDark));
+      registerPart('lHand', createBoxMesh(matLeftDark));
+      registerPart('rFootBox', createBoxMesh(matFoot));
+      registerPart('lFootBox', createBoxMesh(matFoot));
+
+      // Joint spheres
+      const jointDefs = [
+        ['rShoulder', 0.50], ['rElbow', 0.42], ['rWrist', 0.32],
+        ['lShoulder', 0.50], ['lElbow', 0.42], ['lWrist', 0.32],
+        ['rHip', 0.52], ['rKnee', 0.46], ['rAnkle', 0.38],
+        ['lHip', 0.52], ['lKnee', 0.46], ['lAnkle', 0.38],
+      ];
+      for (const [name, radius] of jointDefs) {
+        const mesh = createSphereMesh(matJoint, 1, 20);
+        mesh.userData.radius = radius;
+        registerJoint(name, mesh);
+      }
+
+      // Thin guide rings on shoulders / pelvis, makes the skeleton easier to read.
+      registerPart('shoulderGuide', createRingMesh(0x9aa6b5));
+      registerPart('pelvisGuide', createRingMesh(0x9aa6b5));
+
+      // Physical servo markers, placed according to the Tonybot ID reference diagram.
+      // They are visual anchors only; FK still uses CHANNEL_TO_JOINT + SERVO_NEUTRAL/SERVO_DIRECTION.
+      for (let id = 1; id <= 8; id++) registerServo(id, createServoModule(id, 'r'));
+      for (let id = 9; id <= 16; id++) registerServo(id, createServoModule(id, 'l'));
+    }
+
+
+    buildRobotModel();
+
+    // ============================================================
+    // 7. GRID & DISPLAY TOGGLES (no safety audit layer)
+    // ============================================================
+
+    let showGrid = true;
+    let showServoLabels = true;
+
+    // ============================================================
+    // 8. UPDATE FUNCTIONS
+    // ============================================================
+
+
+    function updateServoModules(j) {
+      // Reference-diagram-inspired physical locations:
+      // right side IDs are 8→1 from shoulder to foot; left side IDs are 16→9.
+      const rSide = -1;
+      const lSide = 1;
+      const sideOffset = 0.52;
+
+      // Right arm: shoulder pitch / shoulder roll / elbow.
+      placeServo(8, j.rShoulder, 'r', [0.10, rSide * sideOffset, 0.38], 0.68, 0.00);
+      placeServo(7, j.rShoulder, 'r', [0.02, rSide * sideOffset, -0.38], 0.64, 0.00);
+      placeServo(6, j.rElbow, 'r', [0.00, rSide * 0.42, 0.00], 0.60, 0.00);
+
+      // Right leg: hip roll / hip pitch / knee / ankle / foot yaw.
+      placeServo(5, j.rHip, 'r', [-0.16, rSide * 0.48, 0.20], 0.64, 0.00);
+      placeServo(4, j.rHip, 'r', [0.08, rSide * 0.45, -0.70], 0.66, 0.00);
+      placeServo(3, j.rKnee, 'r', [0.00, rSide * 0.42, 0.00], 0.66, 0.00);
+      placeServo(2, j.rAnkle, 'r', [0.00, rSide * 0.38, 0.30], 0.60, 0.00);
+      placeServo(1, j.rFoot, 'r', [0.10, rSide * 0.30, 0.18], 0.56, 0.00);
+
+      // Left arm: mirror of right arm.
+      placeServo(16, j.lShoulder, 'l', [0.10, lSide * sideOffset, 0.38], 0.68, 0.00);
+      placeServo(15, j.lShoulder, 'l', [0.02, lSide * sideOffset, -0.38], 0.64, 0.00);
+      placeServo(14, j.lElbow, 'l', [0.00, lSide * 0.42, 0.00], 0.60, 0.00);
+
+      // Left leg: mirror of right leg.
+      placeServo(13, j.lHip, 'l', [-0.16, lSide * 0.48, 0.20], 0.64, 0.00);
+      placeServo(12, j.lHip, 'l', [0.08, lSide * 0.45, -0.70], 0.66, 0.00);
+      placeServo(11, j.lKnee, 'l', [0.00, lSide * 0.42, 0.00], 0.66, 0.00);
+      placeServo(10, j.lAnkle, 'l', [0.00, lSide * 0.38, 0.30], 0.60, 0.00);
+      placeServo(9, j.lFoot, 'l', [0.10, lSide * 0.30, 0.18], 0.56, 0.00);
+    }
+
+    function updateRobotModel(fk) {
+      const j = fk.joints;
+
+      // Body proportions are visual only; FK numbers still come from tonybot_physics.py.
+      const shoulderWidth = Math.abs(j.rShoulder[1] - j.lShoulder[1]);
+      const hipWidth = Math.abs(j.rHip[1] - j.lHip[1]);
+
+      // Torso core
+      placeSegment(robotParts.spine, j.torsoBase, j.torsoTop, 0.32);
+
+      const chestPos = [
+        (j.torsoTop[0] * 0.72 + j.torsoBase[0] * 0.28),
+        0,
+        (j.torsoTop[2] * 0.72 + j.torsoBase[2] * 0.28),
+      ];
+      placeSphereAt(robotParts.chest, chestPos, 1);
+      robotParts.chest.scale.set(shoulderWidth * 0.58, 1.45, 1.00);
+      robotParts.chest.rotation.set(0, 0, 0);
+
+      const pelvisPos = [
+        (j.torsoTop[0] * 0.18 + j.torsoBase[0] * 0.82),
+        0,
+        (j.torsoTop[2] * 0.18 + j.torsoBase[2] * 0.82),
+      ];
+      placeSphereAt(robotParts.pelvis, pelvisPos, 1);
+      robotParts.pelvis.scale.set(hipWidth * 0.62, 0.95, 0.82);
+      robotParts.pelvis.rotation.set(0, 0, 0);
+
+      placeBoxBetween(robotParts.shoulderBar, j.rShoulder, j.lShoulder, 0.34, 0.34);
+      placeBoxBetween(robotParts.hipBar, j.rHip, j.lHip, 0.32, 0.36);
+
+      // Head + neck
+      const neckTop = [j.torsoTop[0], j.torsoTop[1], j.torsoTop[2] + 0.85];
+      placeSegment(robotParts.neck, j.torsoTop, neckTop, 0.24);
+
+      const headCenter = [j.torsoTop[0], j.torsoTop[1], j.torsoTop[2] + 1.85];
+      placeSphereAt(robotParts.head, headCenter, 1.08);
+      placeHeadFace(robotParts.face, headCenter);
+
+      // Arms: shoulder → elbow → wrist/hand
+      placeSegment(robotParts.rUpperArm, j.rShoulder, j.rElbow, 0.30);
+      placeSegment(robotParts.rForearm, j.rElbow, j.rHand, 0.24);
+      placeSegment(robotParts.lUpperArm, j.lShoulder, j.lElbow, 0.30);
+      placeSegment(robotParts.lForearm, j.lElbow, j.lHand, 0.24);
+
+      // Hands are small blocks, slightly bigger than the raw hand point.
+      placeSphereAt(robotParts.rHand, j.rHand, 1);
+      robotParts.rHand.scale.set(0.52, 0.36, 0.44);
+      robotParts.rHand.rotation.set(0, 0, 0);
+      placeSphereAt(robotParts.lHand, j.lHand, 1);
+      robotParts.lHand.scale.set(0.52, 0.36, 0.44);
+      robotParts.lHand.rotation.set(0, 0, 0);
+
+      // Legs: hip → knee → ankle → foot
+      placeSegment(robotParts.rUpperLeg, j.rHip, j.rKnee, 0.36);
+      placeSegment(robotParts.rLowerLeg, j.rKnee, j.rAnkle, 0.30);
+      placeSegment(robotParts.lUpperLeg, j.lHip, j.lKnee, 0.36);
+      placeSegment(robotParts.lLowerLeg, j.lKnee, j.lAnkle, 0.30);
+
+      placeFootBox(robotParts.rFootBox, j.rAnkle, j.rFoot, 'r');
+      placeFootBox(robotParts.lFootBox, j.lAnkle, j.lFoot, 'l');
+
+      // Joints
+      const jointPositions = {
+        rShoulder: j.rShoulder, rElbow: j.rElbow, rWrist: j.rHand,
+        lShoulder: j.lShoulder, lElbow: j.lElbow, lWrist: j.lHand,
+        rHip: j.rHip, rKnee: j.rKnee, rAnkle: j.rAnkle,
+        lHip: j.lHip, lKnee: j.lKnee, lAnkle: j.lAnkle,
+      };
+      for (const [name, pos] of Object.entries(jointPositions)) {
+        const mesh = jointParts[name];
+        if (!mesh) continue;
+        placeJoint(mesh, pos, mesh.userData.radius || 0.42);
+      }
+
+      // Guide rings: horizontal-ish rings at shoulder and pelvis height.
+      const shoulderCenter = vmid(j.rShoulder, j.lShoulder);
+      const pelvisCenter = vmid(j.rHip, j.lHip);
+      placeSphereAt(robotParts.shoulderGuide, shoulderCenter, 1);
+      robotParts.shoulderGuide.scale.set(shoulderWidth * 0.52, shoulderWidth * 0.52, 1);
+      robotParts.shoulderGuide.rotation.set(Math.PI / 2, 0, 0);
+
+      placeSphereAt(robotParts.pelvisGuide, pelvisCenter, 1);
+      robotParts.pelvisGuide.scale.set(hipWidth * 0.55, hipWidth * 0.55, 1);
+      robotParts.pelvisGuide.rotation.set(Math.PI / 2, 0, 0);
+
+      updateServoModules(j);
+    }
+
+    // updatePhysicsLayer / updateBalanceUI removed — no safety audit
+
+    function updateAll(pose) {
+      const fk = forwardKinematics(pose);
+
+      // 无安全审计版：只用 FK 结果驱动骨骼姿态。
+      // 这里保留最低脚贴地的渲染偏移，但不再绘制 COM / 支撑多边形 / 平衡分数。
+      const j = fk.joints;
+      renderFloorOffset = Math.min(
+        footContactBaseZ(j.rAnkle, j.rFoot),
+        footContactBaseZ(j.lAnkle, j.lFoot)
+      ) - 0.18;
+
+      updateRobotModel(fk);
+      return fk;
+    }
+
+    // ============================================================
+    // 9. SLIDER PANEL
+    // ============================================================
+
+    let currentPose = [...DEFAULT_POSE];
+    const sliderInputs = [];
+
+    function buildSliderPanel() {
+      const container = document.getElementById('sliders-scroll');
+      container.innerHTML = '';
+
+      const groups = [
+        { title: '🟥 右臂', cls: 'group-r', channels: [7, 6, 5] },   // pitch, roll, elbow
+        { title: '🟦 左臂', cls: 'group-l', channels: [15, 14, 13] },
+        { title: '🟥 右腿', cls: 'group-r', channels: [3, 2, 1] },   // hip, knee, ankle
+        { title: '🟦 左腿', cls: 'group-l', channels: [11, 10, 9] },
+        { title: '⬜ 未使用', cls: 'group-u', channels: [0, 4, 8, 12] },
+      ];
+
+      for (const group of groups) {
+        const div = document.createElement('div');
+        div.className = 'slider-group';
+
+        const title = document.createElement('div');
+        title.className = 'slider-group-title ' + group.cls;
+        title.textContent = group.title;
+        div.appendChild(title);
+
+        for (const ch of group.channels) {
+          const row = document.createElement('div');
+          row.className = 'slider-row';
+
+          const label = document.createElement('label');
+          label.textContent = CHANNEL_LABELS[ch];
+          label.title = CHANNEL_LABELS[ch];
+          row.appendChild(label);
+
+          const input = document.createElement('input');
+          input.type = 'range';
+          input.min = 0;
+          input.max = 1000;
+          input.value = currentPose[ch];
+          input.step = 1;
+          row.appendChild(input);
+
+          const valSpan = document.createElement('span');
+          valSpan.className = 'val';
+          valSpan.textContent = currentPose[ch];
+          row.appendChild(valSpan);
+
+          const degSpan = document.createElement('span');
+          degSpan.className = 'deg';
+          degSpan.textContent = formatServoAngle(ch, currentPose[ch]);
+          row.appendChild(degSpan);
+
+          input.addEventListener('input', () => {
+            const v = parseInt(input.value);
+            currentPose[ch] = v;
+            valSpan.textContent = v;
+            degSpan.textContent = formatServoAngle(ch, v);
+            updateAll(currentPose);
+          });
+
+          sliderInputs.push({ ch, input, valSpan, degSpan });
+          div.appendChild(row);
+        }
+
+        container.appendChild(div);
+      }
+    }
+
+    function setAllSliders(pose) {
+      currentPose = [...pose];
+      for (const s of sliderInputs) {
+        s.input.value = pose[s.ch];
+        s.valSpan.textContent = pose[s.ch];
+        s.degSpan.textContent = formatServoAngle(s.ch, pose[s.ch]);
+      }
+      updateAll(currentPose);
+    }
+
+    // ============================================================
+    // 10. PRESET BUTTONS
+    // ============================================================
+
+    function buildPresetButtons() {
+      const container = document.getElementById('panel-presets');
+      for (const [name, pose] of Object.entries(PRESETS)) {
+        const btn = document.createElement('button');
+        btn.textContent = name;
+        btn.addEventListener('click', () => setAllSliders(pose));
+        container.appendChild(btn);
+      }
+
+      const backBtn = document.createElement('button');
+      backBtn.textContent = '后退10帧';
+      backBtn.title = '加载你提供的后退动作帧，用时间轴检查动作对应';
+      backBtn.addEventListener('click', () => {
+        const frames = BACKWARD_TEST_FRAMES.map((pose, index) => ({
+          duration: 180,
+          pose: [...pose],
+          raw: null,
+          label: `backward-${index}`
+        }));
+        stopPlayback();
+        loadRobFrames(frames);
+        showOverlay('已加载后退测试帧');
+      });
+      container.appendChild(backBtn);
+    }
+
+    // ============================================================
+    // 11. .ROB LOADING & FRAME NAVIGATION
+    // ============================================================
+
+    let loadedFrames = null;
+    let currentFrameIdx = 0;
+    let playbackTimer = null;
+    let playbackSpeed = 1;
+
+    function showOverlay(msg, duration = 2000) {
+      const el = document.getElementById('overlay-msg');
+      el.textContent = msg;
+      el.classList.add('show');
+      clearTimeout(el._timeout);
+      el._timeout = setTimeout(() => el.classList.remove('show'), duration);
+    }
+
+    function loadRobFrames(frames) {
+      loadedFrames = frames;
+      currentFrameIdx = 0;
+
+      const timeline = document.getElementById('timeline');
+      timeline.classList.add('visible');
+
+      const slider = document.getElementById('frame-slider');
+      slider.max = frames.length - 1;
+      slider.value = 0;
+
+      updateFrameDisplay();
+      showOverlay(`已加载 ${frames.length} 帧`, 2500);
+    }
+
+    function updateFrameDisplay() {
+      if (!loadedFrames) return;
+
+      const frame = loadedFrames[currentFrameIdx];
+      setAllSliders(frame.pose);
+
+      const info = document.getElementById('frame-info');
+      info.textContent = `帧 ${currentFrameIdx + 1}/${loadedFrames.length} · ${frame.duration}ms`;
+
+      document.getElementById('frame-slider').value = currentFrameIdx;
+    }
+
+    function stopPlayback() {
+      if (playbackTimer) {
+        clearInterval(playbackTimer);
+        playbackTimer = null;
+      }
+      document.getElementById('btn-play').textContent = '▶';
+    }
+
+    function togglePlayback() {
+      if (!loadedFrames) return;
+
+      if (playbackTimer) {
+        stopPlayback();
+        return;
+      }
+
+      document.getElementById('btn-play').textContent = '⏸';
+      function step() {
+        if (!playbackTimer) return;
+        const frame = loadedFrames[currentFrameIdx];
+        const delay = Math.max(16, frame.duration / playbackSpeed);
+        currentFrameIdx = (currentFrameIdx + 1) % loadedFrames.length;
+        updateFrameDisplay();
+        playbackTimer = setTimeout(step, delay);
+      }
+      playbackTimer = setTimeout(step, 16);
+    }
+
+    // ============================================================
+    // 12. EVENT HANDLERS
+    // ============================================================
+
+    document.getElementById('btn-load-rob').addEventListener('click', () => {
+      document.getElementById('file-input').click();
+    });
+
+    document.getElementById('file-input').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      stopPlayback();
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const parsed = parseRobFile(reader.result);
+          loadRobFrames(parsed.frames);
+          document.getElementById('topbar').querySelector('h1').textContent =
+            `🤖 Tonybot 3D FK 预览 · ${file.name} (${parsed.frames.length}帧${parsed.tag === 'EYPT' ? ' EYPT' : ''})`;
+        } catch (err) {
+          showOverlay('❌ 加载失败: ' + err.message, 4000);
+          console.error(err);
+        }
+      };
+      reader.readAsArrayBuffer(file);
+      e.target.value = '';
+    });
+
+    document.getElementById('btn-prev').addEventListener('click', () => {
+      if (!loadedFrames) return;
+      stopPlayback();
+      currentFrameIdx = Math.max(0, currentFrameIdx - 1);
+      updateFrameDisplay();
+    });
+
+    document.getElementById('btn-next').addEventListener('click', () => {
+      if (!loadedFrames) return;
+      stopPlayback();
+      currentFrameIdx = Math.min(loadedFrames.length - 1, currentFrameIdx + 1);
+      updateFrameDisplay();
+    });
+
+    document.getElementById('btn-play').addEventListener('click', togglePlayback);
+
+    document.getElementById('frame-slider').addEventListener('input', (e) => {
+      if (!loadedFrames) return;
+      stopPlayback();
+      currentFrameIdx = parseInt(e.target.value);
+      updateFrameDisplay();
+    });
+
+    document.getElementById('speed-select').addEventListener('change', (e) => {
+      playbackSpeed = parseFloat(e.target.value);
+    });
+
+    document.getElementById('btn-reset-view').addEventListener('click', () => {
+      camera.position.set(8, 18, 28);
+      controls.target.set(0, 12, 0);
+      controls.update();
+    });
+
+    document.getElementById('btn-toggle-grid').addEventListener('click', function () {
+      showGrid = !showGrid;
+      gridHelper.visible = showGrid;
+      this.classList.toggle('active', showGrid);
+    });
+
+    document.getElementById('btn-toggle-servo-labels').addEventListener('click', function () {
+      showServoLabels = !showServoLabels;
+      Object.values(servoParts).forEach(group => {
+        group.visible = showServoLabels;
+        if (group.userData.label) group.userData.label.visible = showServoLabels;
+      });
+      this.classList.toggle('active', showServoLabels);
+    });
+
+    // Keyboard shortcuts
+    window.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT') return;
+      switch (e.key.toLowerCase()) {
+        case 'arrowleft':
+          if (loadedFrames) { stopPlayback(); currentFrameIdx = Math.max(0, currentFrameIdx - 1); updateFrameDisplay(); }
+          break;
+        case 'arrowright':
+          if (loadedFrames) { stopPlayback(); currentFrameIdx = Math.min(loadedFrames.length - 1, currentFrameIdx + 1); updateFrameDisplay(); }
+          break;
+        case ' ':
+          e.preventDefault();
+          togglePlayback();
+          break;
+        case 'r':
+          setAllSliders(DEFAULT_POSE);
+          showOverlay('重置为立正姿态');
+          break;
+      }
+    });
+
+    // Drag & drop .rob file
+    viewport.addEventListener('dragover', (e) => { e.preventDefault(); });
+    viewport.addEventListener('drop', (e) => {
+      e.preventDefault();
+      const file = e.dataTransfer.files[0];
+      if (!file || !file.name.endsWith('.rob')) return;
+      stopPlayback();
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const parsed = parseRobFile(reader.result);
+          loadRobFrames(parsed.frames);
+        } catch (err) {
+          showOverlay('❌ 加载失败: ' + err.message, 4000);
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    });
+
+    // ============================================================
+    // 13. RESIZE & RENDER LOOP
+    // ============================================================
+
+    function resize() {
+      const rect = viewport.getBoundingClientRect();
+      renderer.setSize(rect.width, rect.height);
+      camera.aspect = rect.width / Math.max(rect.height, 1);
+      camera.updateProjectionMatrix();
+    }
+
+    window.addEventListener('resize', resize);
+
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+
+    // ============================================================
+    // 14. INIT
+    // ============================================================
+
+    resize();
+    buildSliderPanel();
+    buildPresetButtons();
+    updateAll(currentPose);
+    animate();
+
+    console.log('🤖 Tonybot 3D FK 动作模拟器 · 平行脚底铁片修正版 已就绪');
+    console.log('  拖拽 .rob 文件到视口即可加载');
+    console.log('  空格键 播放/暂停 | ← → 逐帧 | R 重置姿态');
+    console.log('  鼠标拖动旋转 | 滚轮缩放 | 右键平移');
+  </script>
+
+</body>
+
+</html>
