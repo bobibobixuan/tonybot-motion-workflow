@@ -1,16 +1,19 @@
 # AGENTS.md — 项目规则
 
-本文件是 Tonybot Motion Workflow 仓库的长期协作规则。Codex、Copilot 和其他 AI 协作者进入本仓库后，应先读取本文件，再读取 README 和相关专题文档。
+本文件是 Tonybot Motion Studio 仓库的长期协作规则。Codex、Copilot 和其他 AI 协作者进入本仓库后，应先读取本文件，再读取 README 和相关专题文档。
 
 ## 1. 项目定位
 
-本仓库围绕 Tonybot `.rob` 动作文件工作，核心目标是：
+本仓库是 **Tonybot Motion Studio** — AI 辅助的 Tonybot 动作创作、3D 预览、关键帧编辑、安全审计和 .rob 导出工作流平台。
 
-1. 解析 `.rob` / `ACT-40` 动作容器。
-2. 独立复现 `EYPT` 保护层的 `TEA-32` 加解密。
-3. 基于官方动作库做安全动作拼接和编舞。
-4. 把编舞 JSON 编译成 `.rob`、审计报告和时间线 HTML。
-5. 用 3D FK 模拟器可视化预览舵机姿态、质心、支撑面和平衡得分。
+四层架构：
+
+1. **motion-core（核心层）**：解析 `.rob` / `ACT-40` 动作容器，独立复现 `EYPT`/`TEA-32` 加解密，FK 正向运动学。
+2. **motion-viewer（预览层）**：Tonybot 3D 动作预览器（`动作模拟器.html`），纯 FK 骨骼姿态预览，不输出安全结论。
+3. **motion-editor（编辑层，规划中）**：motion.json 关键帧编辑、标注、插值生成。
+4. **motion-workflow（工作流层）**：编舞 JSON 编译成 `.rob`、安全审计（`rob_safety.py`）、动作段拼接。
+
+核心闭环：需求 → AI/motion.json → 3D 预览 → 关键帧微调 → 安全审计 → 导出 .rob
 
 项目有两层知识来源：
 - **官方 SDK 层**：Hiwonder Python SDK（`Hiwonder.Tonybot`、`Hiwonder.Buzzer`、`Hiwonder_IIC` 等）已从官方示例和 `main.py` 设备端源码中提取完整 API 参考，见记忆 `[[tonybot-python-api]]`。
@@ -126,3 +129,11 @@ cd python-toolkit && uv run python rob_safety.py "动作\159号自制舞蹈.rob"
 3. 二进制解析保持小端规则明确，不要引入隐式平台端序。
 4. 新增错误信息要直接指出文件、帧、槽位或字段。
 5. 文档用中文说明工程结论，用命令块给出可复现步骤。
+
+## 10. 预览器与安全审计分离原则
+
+1. `python-toolkit/可视化模拟器/动作模拟器.html` 是纯 FK 骨骼姿态预览器，定位为「Tonybot 3D 动作预览器」。
+2. 预览器**不得**输出安全审计、平衡结论、COM 结论、支撑面结论。
+3. 预览器中的「帧跳变提示」仅列出舵机值突变（ID + 变化量），不得附带安全判断语句。
+4. 真正的安全审计始终由 `rob_safety.py` 和 `dance_workflow.py build` 流程负责。
+5. 规范文档见 `python-toolkit/文档/13-3D动作预览器规范.md`。

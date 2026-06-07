@@ -1,5 +1,43 @@
 # Changelog
 
+## 0.6.0 - 2026-06-05
+
+### Changed
+
+- **项目定位升级**：从「Tonybot Motion Workflow 自动编舞工具链」升级为「Tonybot Motion Studio：AI 辅助动作创作工作台」。
+  - 核心闭环：需求 → AI/motion.json → 3D 预览 → 关键帧微调 → 安全审计 → 导出 .rob。
+  - 标题、简介、适用场景、GitHub 描述全面更新。
+- **四层架构定义**：motion-core（核心层）→ motion-viewer（预览层）→ motion-editor（编辑层，规划中）→ motion-workflow（工作流层）。
+- **motion.json 格式规范**：新增可编辑动作工程格式，含完整 schema、pose 映射、约束规则和示例（`12-motion-json格式规范.md`）。
+- **架构规划文档**：新增 `11-Motion-Studio架构规划.md`，含项目新定位、目标用户、四层架构、三阶段路线图（格式标准化 → 编辑层 → AI 集成）。
+- **文档体系重构**：
+  - 预览器规范从 `11-3D动作预览器规范` 重编号为 `13-3D动作预览器规范`（参照 Motion Studio 新编号体系）。
+  - `文档/README.md` 阅读顺序扩展为 1–13，新增 Motion Studio 架构规划、motion.json 格式规范和预览器规范。
+  - `可视化模拟器/README.md` 补充 Motion Studio 预览层定位和架构文档引用。
+- **现有脚本行为不变**：`rob_reverse.py`、`rob_crypto.py`、`rob_safety.py`、`dance_workflow.py` 保持原有行为。
+- **预览器无审计功能回归**：未重新加入 COM、支撑面、平衡分等安全审计模块。
+- **AGENTS.md** 更新架构定位和文档引用。
+
+## 0.5.2 - 2026-06-05
+
+### Changed
+
+- **3D 动作预览器规范化**：将 `动作模拟器.html` 正式定位为「Tonybot 3D 动作预览器 / Motion Viewer」。
+  - 标题统一为「Tonybot 3D 动作预览器」，保留「无安全审计版」提示。
+  - 新增 📋 复制 Pose 按钮：一键复制当前 16 舵机值到剪贴板（JSON 数组格式）。
+  - 新增帧信息条：顶部显示总帧数、当前已播时长、总时长。
+  - 新增帧跳变提示区：相邻帧舵机值变化超过阈值时列出 ID 列表，仅展示突变不输出安全结论。
+  - 更新启动控制台日志。
+- **文档体系更新**：
+  - 新增 `python-toolkit/文档/11-3D动作预览器规范.md`：模块定位、输入格式、舵机映射、UI 功能清单、禁止事项、验证流程、与 rob_safety.py 关系。
+  - 新增 `python-toolkit/可视化模拟器/README.md`：打开方式、CDN 依赖、操作说明、定位声明。
+  - 更新 `python-toolkit/文档/README.md`：阅读顺序追加第 11 项。
+  - 更新根目录 `README.md`：修正预览器描述，删除 COM/支撑面/平衡仪表表述。
+
+### Verified
+
+- `python-toolkit/可视化模拟器/动作模拟器.html` 结构检查通过，JS 语法完整。
+
 ## 0.5.1 - 2026-06-05
 
 ### Changed

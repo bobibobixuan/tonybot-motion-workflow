@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tonybot 3D FK 动作模拟器 - 动作对应修正版</title>
+  <title>Tonybot 3D 动作预览器</title>
   <style>
     :root {
       --bg: #1a1d23;
@@ -340,9 +340,11 @@
 <body>
 
   <div id="topbar">
-    <h1>🤖 Tonybot 3D FK 动作预览器 · 无安全审计版</h1>
+    <h1>🤖 Tonybot 3D 动作预览器</h1>
     <span style="font-size:11px;color:var(--warn);">仅做骨骼姿态预览，不输出平衡/安全结论</span>
     <span class="spacer"></span>
+    <span id="frame-summary" style="font-size:11px;color:var(--text-muted);display:none;"></span>
+    <button id="btn-copy-pose" title="复制当前 16 舵机值到剪贴板">📋 复制 Pose</button>
     <button id="btn-load-rob">📂 加载 .rob</button>
     <button id="btn-reset-view" title="重置视角">🔄</button>
     <button id="btn-toggle-grid" class="active" title="切换网格">📐</button>
@@ -374,6 +376,8 @@
       <option value="4">4x</option>
     </select>
   </div>
+
+  <div id="jump-warning" style="display:none;background:var(--panel-bg);border-top:1px solid var(--panel-border);padding:6px 12px;font-size:11px;color:var(--warn);flex-shrink:0;max-height:60px;overflow-y:auto;"></div>
 
   <div id="overlay-msg"></div>
 
@@ -1533,6 +1537,9 @@
       slider.value = 0;
 
       updateFrameDisplay();
+      updateFrameSummary();
+      const jumpWarnings = analyzeFrameJumps(frames);
+      updateJumpWarning(jumpWarnings);
       showOverlay(`已加载 ${frames.length} 帧`, 2500);
     }
 
@@ -1546,6 +1553,7 @@
       info.textContent = `帧 ${currentFrameIdx + 1}/${loadedFrames.length} · ${frame.duration}ms`;
 
       document.getElementById('frame-slider').value = currentFrameIdx;
+      updateFrameSummary();
     }
 
     function stopPlayback() {
@@ -1577,8 +1585,89 @@
     }
 
     // ============================================================
+    // 11b. COPY POSE / JUMP WARNING / FRAME SUMMARY
+    // ============================================================
+
+    function copyPoseToClipboard() {
+      const text = JSON.stringify(currentPose);
+      navigator.clipboard.writeText(text).then(() => {
+        showOverlay('📋 Pose 已复制: ' + text, 2000);
+      }).catch(() => {
+        // Fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        showOverlay('📋 Pose 已复制: ' + text, 2000);
+      });
+    }
+
+    function analyzeFrameJumps(frames) {
+      const warnings = [];
+      const JUMP_THRESHOLD = 200;
+      for (let i = 0; i < frames.length - 1; i++) {
+        const p0 = frames[i].pose;
+        const p1 = frames[i + 1].pose;
+        const jumps = [];
+        for (let ch = 0; ch < 16; ch++) {
+          const delta = Math.abs(p1[ch] - p0[ch]);
+          if (delta > JUMP_THRESHOLD) {
+            jumps.push({ ch, delta, from: p0[ch], to: p1[ch] });
+          }
+        }
+        if (jumps.length > 0) {
+          warnings.push({ fromIdx: i, toIdx: i + 1, jumps });
+        }
+      }
+      return warnings;
+    }
+
+    function updateJumpWarning(warnings) {
+      const el = document.getElementById('jump-warning');
+      if (!warnings || warnings.length === 0) {
+        el.style.display = 'none';
+        return;
+      }
+      const lines = [];
+      for (const w of warnings.slice(0, 6)) {
+        const ids = w.jumps.map(j => `ID${j.ch + 1}(Δ${j.delta})`).join(', ');
+        lines.push(`帧${w.fromIdx + 1}→${w.toIdx + 1}: ${ids}`);
+      }
+      if (warnings.length > 6) lines.push(`…共 ${warnings.length} 处跳变`);
+      el.textContent = '⚠ 帧跳变提示（仅展示舵机值突变，非安全结论）: ' + lines.join('; ');
+      el.style.display = 'block';
+    }
+
+    function formatTime(ms) {
+      const s = Math.floor(ms / 1000);
+      const m = Math.floor(s / 60);
+      return `${m}:${String(s % 60).padStart(2, '0')}`;
+    }
+
+    function updateFrameSummary() {
+      const el = document.getElementById('frame-summary');
+      if (!loadedFrames || loadedFrames.length === 0) {
+        el.style.display = 'none';
+        return;
+      }
+      const totalDuration = loadedFrames.reduce((sum, f) => sum + f.duration, 0);
+      let elapsed = 0;
+      for (let i = 0; i < currentFrameIdx; i++) {
+        elapsed += loadedFrames[i].duration;
+      }
+      el.textContent = `共 ${loadedFrames.length} 帧 · ${formatTime(elapsed)} / ${formatTime(totalDuration)}`;
+      el.style.display = 'inline';
+    }
+
+    // ============================================================
     // 12. EVENT HANDLERS
     // ============================================================
+
+    document.getElementById('btn-copy-pose').addEventListener('click', copyPoseToClipboard);
 
     document.getElementById('btn-load-rob').addEventListener('click', () => {
       document.getElementById('file-input').click();
@@ -1594,7 +1683,7 @@
           const parsed = parseRobFile(reader.result);
           loadRobFrames(parsed.frames);
           document.getElementById('topbar').querySelector('h1').textContent =
-            `🤖 Tonybot 3D FK 预览 · ${file.name} (${parsed.frames.length}帧${parsed.tag === 'EYPT' ? ' EYPT' : ''})`;
+            `🤖 Tonybot 3D 动作预览器 · ${file.name} (${parsed.frames.length}帧${parsed.tag === 'EYPT' ? ' EYPT' : ''})`;
         } catch (err) {
           showOverlay('❌ 加载失败: ' + err.message, 4000);
           console.error(err);
@@ -1721,9 +1810,10 @@
     updateAll(currentPose);
     animate();
 
-    console.log('🤖 Tonybot 3D FK 动作模拟器 · 平行脚底铁片修正版 已就绪');
+    console.log('🤖 Tonybot 3D 动作预览器 已就绪');
     console.log('  拖拽 .rob 文件到视口即可加载');
     console.log('  空格键 播放/暂停 | ← → 逐帧 | R 重置姿态');
+    console.log('  📋 复制 Pose 按钮可复制当前 16 舵机值');
     console.log('  鼠标拖动旋转 | 滚轮缩放 | 右键平移');
   </script>
 

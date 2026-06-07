@@ -1,19 +1,25 @@
-# Tonybot Motion Workflow
+# Tonybot Motion Studio
 
-Tonybot Motion Workflow 是一个围绕 Tonybot 机器人动作文件构建的工具仓库，重点解决四类问题：
+> **AI 辅助动作创作工作台** — 从需求到 .rob 的完整动作创作闭环。
 
-1. 设备端主控逻辑梳理。
-2. `.rob` / `ACT-40` 动作文件逆向与 `EYPT` 解密。
-3. 基于官方动作库的安全编舞与自动审计。
-4. 从舞蹈需求到 JSON、再到 `.rob` 的可复用工作流。
+Tonybot Motion Studio 围绕 Tonybot 机器人动作文件构建，从单纯的逆向工程和自动化脚本，
+升级为涵盖 **AI 辅助创作、3D 预览、关键帧编辑、安全审计和 .rob 导出** 的完整工作流平台。
+
+核心能力：
+
+1. `.rob` / `ACT-40` 动作文件逆向与 `EYPT`/`TEA-32` 独立加解密。
+2. **Tonybot 3D 动作预览器** — FK 骨骼姿态预览，拖拽 .rob 即可播放，减少线下反复掰机器人调动作。
+3. **motion.json** — 可编辑动作工程格式，AI/人类友好，版本控制友好。
+4. 基于官方动作库的安全编舞拼接与自动审计。
+5. 从舞蹈需求 → AI motion.json → 3D 预览 → 关键帧微调 → 安全审计 → 导出 .rob 的完整闭环。
 
 一句话简介：
 
-> Reverse engineer Tonybot `.rob` actions, rebuild `EYPT/TEA-32`, and generate safe choreography from JSON into `.rob`.
+> AI-assisted Tonybot motion creation, 3D preview, keyframe editing, safety audit, and .rob export.
 
 ## 项目信息
 
-- 当前版本：`0.5.0`
+- 当前版本：`0.6.0`
 - 仓库状态：`Public / Active`
 - 默认分支：`main`
 - 平台环境：`Windows + Python 3.13`
@@ -65,7 +71,7 @@ Tonybot Motion Workflow 是一个围绕 Tonybot 机器人动作文件构建的�
 - `rob_compose.py`：把动作段拼接成新的 `.rob` 文件。
 - `dance_workflow.py`：把舞蹈需求 JSON 编译成 `.rob`、报告 JSON 和时间线 HTML。
 - `tonybot_physics.py`：正向运动学（FK）模型，计算 16 舵机姿态的质心、支撑多边形和平衡得分。
-- `可视化模拟器/动作模拟器.html`：**3D FK 动作模拟器**，Three.js 渲染机器人骨骼，16 舵机滑块实时驱动，支持 `.rob` 加载与帧播放，物理层可视化 COM/支撑面/平衡仪表。
+- `可视化模拟器/动作模拟器.html`：**Tonybot 3D 动作预览器（Motion Viewer）**，Three.js 渲染机器人骨骼，16 舵机滑块实时驱动，支持 `.rob` 拖拽加载与帧播放。**仅做 3D FK 姿态预览，不输出安全结论**。目标是减少线下反复掰机器人调动作的试错成本。
 
 ## 当前结论
 
@@ -93,10 +99,12 @@ Tonybot Motion Workflow 是一个围绕 Tonybot 机器人动作文件构建的�
 
 这个仓库目前最适合下面几类工作：
 
-1. 研究 Tonybot `.rob` 动作文件格式。
-2. 把官方 `EYPT` 动作还原成明文 `ACT-40`。
-3. 在不直接手写底层舵机轨迹的前提下，安全地拼接和生成新舞蹈。
-4. 把“舞蹈需求 -> 研究摘要 -> 编舞 JSON -> `.rob` 文件 -> 安全审计”固化成流程。
+1. **动作创作**：从 AI 提示或手动设计出发，生成 motion.json，预览、微调、审计后导出 .rob。
+2. **离线预览**：拖拽 .rob 到 3D 预览器，直接在浏览器里播放骨骼动画，无需连接真机。
+3. **安全审计**：对任意 .rob 文件运行 `rob_safety.py`，检查舵机值和跳变是否在官方包络内。
+4. **逆向研究**：解析 ACT-40 容器、EYPT 加密层，独立复现 TEA-32 加解密。
+5. **批量分析**：用 `rob_library.py` 解析整个动作库，导出逐动作 JSON 统计数据。
+6. **编舞闭环**：从舞蹈需求 → AI/motion.json → 3D 预览 → 关键帧微调 → 安全审计 → 导出 .rob。
 
 ## 快速开始
 
@@ -170,9 +178,7 @@ python rob_library.py decrypt-eypt
 
 ## GitHub 仓库描述建议
 
-如果要在 GitHub 仓库描述栏里保持简洁，推荐使用这句：
-
-`Tonybot .rob reverse engineering, EYPT/TEA-32 decryption, safe choreography auditing, and JSON-to-.rob workflow.`
+`Tonybot Motion Studio — AI-assisted motion creation, 3D preview, keyframe editing, safety audit, and .rob export.`
 
 ## 仓库约定
 
@@ -185,5 +191,9 @@ python rob_library.py decrypt-eypt
 
 如果继续扩展这个仓库，最自然的方向有两个：
 
-1. 给官方动作库补标签和动作词典，降低编舞选段的人工成本。
-2. 继续推明文三字段的物理语义，让工作流从“安全拼接”逐步升级到“受控生成”。
+1. 给官方动作库补标签和动作词典，降低编舞选段的人工成本。（见阶段 2 路线图）
+2. 继续推明文三字段的物理语义，逐步从安全拼接升级到受控生成。（见阶段 2/3 路线图）
+3. 实现 motion.json ↔ .rob 双向转换原型。（见阶段 2 路线图）
+4. 实现 AI 辅助 motion.json 生成和动作库智能匹配。（见阶段 3 路线图）
+
+完整路线图见 [11-Motion-Studio架构规划.md](python-toolkit/文档/11-Motion-Studio架构规划.md)。
