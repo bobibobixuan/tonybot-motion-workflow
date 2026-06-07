@@ -1,0 +1,42 @@
+{
+  "id": 28,
+  "name": "28号双手向前支撑",
+  "slug": "action-28-28",
+  "labels": {
+    "zh-CN": "28号双手向前支撑",
+    "en-US": "Two-Hand Forward Support"
+  },
+  "source_file": "28号双手向前支撑.rob",
+  "category": "other",
+  "tags": [
+    "other"
+  ],
+  "frame_count": 1,
+  "total_duration": 50,
+  "source_tag": "plain",
+  "source_sha256": "65d5262c31c4ef8c5faa2d7fc4bb531cb69387c5e7382f7c3051851fe9818ade",
+  "frames": [
+    {
+      "index": 0,
+      "duration": 50,
+      "pose": [
+        500,
+        388,
+        500,
+        594,
+        500,
+        575,
+        800,
+        416,
+        500,
+        612,
+        500,
+        406,
+        500,
+        425,
+        200,
+        584
+      ]
+    }
+  ]
+}

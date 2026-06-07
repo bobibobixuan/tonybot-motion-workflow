@@ -344,6 +344,7 @@
     <span style="font-size:11px;color:var(--warn);" data-i18n="subtitle"></span>
     <span class="spacer"></span>
     <span id="frame-summary" style="font-size:11px;color:var(--text-muted);display:none;"></span>
+    <select id="action-select" style="background:var(--slider-track);color:var(--text);border:1px solid var(--panel-border);border-radius:3px;font-size:11px;padding:2px 4px;max-width:160px;display:none;"><option value="" data-i18n="action_library">📋 动作库...</option></select>
     <button id="btn-copy-pose" data-i18n-title="btn_copy_pose" data-i18n="btn_copy_pose"></button>
     <button id="btn-load-rob" data-i18n="btn_load_rob"></button>
     <button id="btn-reset-view" data-i18n-title="btn_reset_view">🔄</button>
@@ -1842,7 +1843,69 @@
     });
 
     // ============================================================
-    // 13. RESIZE & RENDER LOOP
+    // 13. ACTION LIBRARY LOADER
+    // ============================================================
+
+    let actionIndex = null;
+
+    async function initActionLibrary() {
+      try {
+        const resp = await fetch('../data/official-actions/index.json');
+        if (!resp.ok) return;
+        actionIndex = await resp.json();
+        const sel = document.getElementById('action-select');
+        sel.style.display = 'inline-block';
+        // Group by category
+        const byCategory = {};
+        for (const a of actionIndex.actions) {
+          const cat = a.category || 'other';
+          if (!byCategory[cat]) byCategory[cat] = [];
+          byCategory[cat].push(a);
+        }
+        for (const [cat, actions] of Object.entries(byCategory)) {
+          const optgroup = document.createElement('optgroup');
+          optgroup.label = cat;
+          for (const a of actions) {
+            const opt = document.createElement('option');
+            opt.value = a.slug;
+            opt.textContent = (a.labels && a.labels['zh-CN']) || a.name;
+            optgroup.appendChild(opt);
+          }
+          sel.appendChild(optgroup);
+        }
+        sel.addEventListener('change', async () => {
+          const slug = sel.value;
+          if (!slug) return;
+          try {
+            const resp = await fetch('../data/official-actions/actions/' + slug + '.json');
+            if (!resp.ok) { showOverlay('❌ 加载失败', 3000); return; }
+            const action = await resp.json();
+            if (!action.frames || action.frames.length === 0) {
+              showOverlay('⚠ 无帧数据', 3000);
+              return;
+            }
+            stopPlayback();
+            const frames = action.frames.map(f => ({
+              duration: f.duration,
+              pose: f.pose ? [...f.pose] : [],
+              raw: null
+            }));
+            loadRobFrames(frames);
+            document.getElementById('topbar').querySelector('h1').textContent =
+              '🤖 ' + (t ? t('title') : 'Tonybot 动作模拟器') + ' · ' + (action.labels && action.labels['zh-CN'] || action.name) +
+              ' (' + frames.length + (t ? t('overlay_frames') : 'frames') + ')';
+          } catch (e) {
+            showOverlay('❌ 加载失败: ' + e.message, 3000);
+          }
+        });
+        console.log('📋 动作库已加载: ' + actionIndex.total + ' 个动作');
+      } catch (e) {
+        // Silently ignore — action library is optional
+      }
+    }
+
+    // ============================================================
+    // 14. RESIZE & RENDER LOOP
     // ============================================================
 
     function resize() {
@@ -1861,13 +1924,14 @@
     }
 
     // ============================================================
-    // 14. INIT
+    // 15. INIT
     // ============================================================
 
     resize();
     buildSliderPanel();
     buildPresetButtons();
     i18nApplyToDOM();
+    initActionLibrary();
     updateAll(currentPose);
     animate();
 

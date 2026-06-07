@@ -1,0 +1,42 @@
+{
+  "id": 18,
+  "name": "18号循环前进第一步",
+  "slug": "action-18-18",
+  "labels": {
+    "zh-CN": "18号循环前进第一步",
+    "en-US": "Forward"
+  },
+  "source_file": "18号循环前进第一步.rob",
+  "category": "locomotion",
+  "tags": [
+    "locomotion"
+  ],
+  "frame_count": 1,
+  "total_duration": 300,
+  "source_tag": "plain",
+  "source_sha256": "65969b78cb927237f664b61864c2221d7e2dd9af7dfc5f38ea3f2e7f364346fd",
+  "frames": [
+    {
+      "index": 0,
+      "duration": 300,
+      "pose": [
+        552,
+        455,
+        444,
+        624,
+        538,
+        575,
+        800,
+        725,
+        538,
+        545,
+        556,
+        376,
+        519,
+        425,
+        200,
+        275
+      ]
+    }
+  ]
+}

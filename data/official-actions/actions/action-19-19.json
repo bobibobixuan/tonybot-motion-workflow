@@ -1,0 +1,42 @@
+{
+  "id": 19,
+  "name": "19号快速立正",
+  "slug": "action-19-19",
+  "labels": {
+    "zh-CN": "19号快速立正",
+    "en-US": "Stand at Attention"
+  },
+  "source_file": "19号快速立正.rob",
+  "category": "posture",
+  "tags": [
+    "posture"
+  ],
+  "frame_count": 1,
+  "total_duration": 500,
+  "source_tag": "plain",
+  "source_sha256": "5fba9df127b6f467f2d944eff65c960b27391c3683c15b7eba0e82738f94aee4",
+  "frames": [
+    {
+      "index": 0,
+      "duration": 500,
+      "pose": [
+        500,
+        387,
+        500,
+        593,
+        500,
+        575,
+        800,
+        724,
+        500,
+        612,
+        500,
+        406,
+        500,
+        425,
+        200,
+        275
+      ]
+    }
+  ]
+}

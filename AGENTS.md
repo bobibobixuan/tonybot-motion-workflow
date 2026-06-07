@@ -14,8 +14,8 @@
 - **旧目录保留**：`python-toolkit/` 和 `wondercode-toolkit/` 保留不动
 
 项目有两层知识来源：
-- **官方 SDK 层**：Hiwonder Python SDK（`Hiwonder.Tonybot`、`Hiwonder.Buzzer`、`Hiwonder_IIC` 等）已从官方示例和 `main.py` 设备端源码中提取完整 API 参考，见记忆 `[[tonybot-python-api]]`。
 - **逆向工程层**：`.rob`/`ACT-40` 容器格式和 `EYPT`/`TEA-32` 加密层通过逆向分析确认，结论已固化到工具链。
+- **官方 SDK 层**：Hiwonder Python SDK（`Hiwonder.Tonybot`、`Hiwonder.Buzzer`、`Hiwonder_IIC` 等）已从官方示例和 `main.py` 设备端源码中提取完整 API 参考。
 
 不要把本项目误判为普通 Web、Java、Gradle 或 Minecraft 模组项目。
 
@@ -24,66 +24,54 @@
 进入项目后按下面顺序建立上下文：
 
 1. `README.md`：项目范围、目录结构和常用命令。
-2. `python-toolkit/文档/07-动作库目录.md`：**官方动作库完整索引**，按功能分类，编舞选段第一参考。
-3. `python-toolkit/动作文件逆向说明.md`：`.rob` / `EYPT` 逆向结论和验收标准。
-4. `python-toolkit/动作安全规范.md`：动作安全边界和审计口径。
-5. `python-toolkit/编舞工作流说明.md`：从需求到 `.rob` 的工作流。
-6. `python-toolkit/算法指南.md`：设备端控制逻辑（含官方 SDK API 调用方式）。
-7. `python-toolkit/文档/09-Python开发指南.md`：**Python API 参考**，三种方式用代码生成 .rob 文件。
-8. `python-toolkit/可视化模拟器/动作模拟器.html`：**3D FK 模拟器**，双击即开，实时预览姿态和平衡。
+2. `knowledge/docs/07-动作库目录.md`：**官方动作库完整索引**，按功能分类，编舞选段第一参考。
+3. `knowledge/docs/02-动作文件与逆向.md`：`.rob` / `EYPT` 逆向结论和验收标准。
+4. `knowledge/docs/03-安全模型与约束.md`：动作安全边界和审计口径。
+5. `knowledge/docs/04-编舞规范与工作流.md`：从需求到 `.rob` 的工作流。
+6. `knowledge/docs/05-设备控制算法.md`：设备端控制逻辑。
+7. `knowledge/docs/09-Python开发指南.md`：**Python API 参考**，三种方式用代码生成 .rob 文件。
+8. `simulator/README.md`：**3D 动作模拟器**，打开方式、功能和定位说明。
+9. `data/official-actions/schema.md`：动作数据库 schema。
 
 ## 3. 逆向工程规则
 
-当前可作为已完成结论使用的部分：
+与 v0.6 前一致，核心结论不变：
 
 1. `.rob` 外层容器是 `ACT-40`。
 2. 文件结构是 `16 字节文件头 + frame_count * 248 字节帧区`。
 3. 明文帧前 16 个槽位是有效动作槽位，后 24 个槽位是 filler。
-4. `EYPT` 使用标准 `TEA-32`，密钥见 `python-toolkit/rob_crypto.py` 的 `ENCRYPT_ARRAY`。
+4. `EYPT` 使用标准 `TEA-32`，密钥见 `tools/python/rob_crypto.py` 的 `ENCRYPT_ARRAY`。
 5. 加密范围是完整文件头之后的 `data[16:]`，文件头本身不参与 TEA。
 6. 4 个官方 `EYPT` 样本必须能解密成明文并重加密回原始密文，且逐字节一致。
 
-当前不能作为已完成结论使用的部分：
-
-1. 有效槽位第 2、第 3 个 16 位字段的精确物理语义。
-2. 帧头保留字段在设备端是否有隐藏运行时用途。
-3. 任意手写舵机轨迹的绝对硬件安全性。
-
 ## 4. 动作生成规则
 
-默认采用“复用官方动作帧”的保守策略：
+默认采用"复用官方动作帧"的保守策略：
 
-1. 优先从 `python-toolkit/动作/` 目录选取官方或已审计动作段。
+1. 优先从 `data/official-actions/` 检索和复用官方动作段。
 2. 可以裁剪、重复、拼接动作帧。
 3. 不要默认手写全新舵机轨迹。
 4. 如确需自定义帧，必须让所有字段落在官方样本包络内。
 5. 输出 `.rob` 前必须运行安全审计。
 
-生成新舞蹈时，标准产物应包括：
-
-1. `python-toolkit/编舞/<名称>.json`
-2. `python-toolkit/动作/<名称>.rob`
-3. `python-toolkit/编舞/<名称>.report.json`
-4. `python-toolkit/编舞/<名称>.timeline.html`
-
 ## 5. 验证规则
 
-改动 Python 脚本后至少执行：
+改动 `tools/python/` 下的 Python 脚本后至少执行：
 
 ```powershell
-cd python-toolkit && uv run python -m py_compile rob_reverse.py rob_crypto.py rob_compose.py rob_safety.py dance_workflow.py main.py
+cd tools/python && uv run python -m py_compile rob_reverse.py rob_crypto.py rob_compose.py rob_safety.py dance_workflow.py main.py
 ```
 
-改动 `rob_crypto.py`、`rob_reverse.py` 或逆向结论后，必须验证 4 个 `EYPT` 样本：
+改动 `rob_crypto.py`、`rob_reverse.py` 或逆向结论后，必须验证 `python-toolkit/动作/` 下 4 个 `EYPT` 样本：
 
 ```powershell
-cd python-toolkit && uv run python -c "import pathlib, rob_crypto; files=[p for p in pathlib.Path('动作').glob('*.rob') if p.read_bytes()[8:12]==b'EYPT']; failed=[p.name for p in files if rob_crypto.encrypt_action_bytes(rob_crypto.decrypt_action_bytes(p.read_bytes())) != p.read_bytes()]; print('eypt_files=', len(files)); print('failed=', failed); raise SystemExit(0 if len(files)==4 and not failed else 1)"
+cd tools/python && uv run python -c "import pathlib, rob_crypto; root=pathlib.Path('../../python-toolkit/动作'); files=[p for p in root.glob('*.rob') if p.read_bytes()[8:12]==b'EYPT']; failed=[p.name for p in files if rob_crypto.encrypt_action_bytes(rob_crypto.decrypt_action_bytes(p.read_bytes())) != p.read_bytes()]; print('eypt_files=', len(files)); print('failed=', failed); raise SystemExit(0 if len(files)==4 and not failed else 1)"
 ```
 
 改动动作、编舞或安全规则后至少执行：
 
 ```powershell
-cd python-toolkit && uv run python rob_safety.py "动作\159号自制舞蹈.rob"
+cd tools/python && uv run python rob_safety.py "../../python-toolkit/动作/159号自制舞蹈.rob"
 ```
 
 合格标准：
@@ -98,7 +86,7 @@ cd python-toolkit && uv run python rob_safety.py "动作\159号自制舞蹈.rob"
 
 1. 更新 `VERSION`。
 2. 更新 `CHANGELOG.md`。
-3. 在 `更新日志/` 下新增对应版本条目。
+3. 在 `changelog/` 下新增对应版本条目。
 
 版本默认按 patch 递增；较大功能更新升 minor；major 只在用户明确要求时提升。
 
@@ -118,7 +106,7 @@ cd python-toolkit && uv run python rob_safety.py "动作\159号自制舞蹈.rob"
 1. 仓库可能存在用户已有未提交改动，不要回滚无关文件。
 2. 不要使用 `git reset --hard`、`git checkout --` 等破坏性命令，除非用户明确要求。
 3. 修改前后用 `git status --short` 识别自己负责的文件范围。
-4. 不要把临时验证产物留在 `python-toolkit/动作/` 或 `python-toolkit/编舞/` 目录。
+4. 不要把临时验证产物留在 `data/official-actions/actions/` 目录。
 
 ## 9. 代码风格规则
 
@@ -130,8 +118,8 @@ cd python-toolkit && uv run python rob_safety.py "动作\159号自制舞蹈.rob"
 
 ## 10. 预览器与安全审计分离原则
 
-1. `python-toolkit/可视化模拟器/动作模拟器.html` 是纯 FK 骨骼姿态预览器，定位为「Tonybot 3D 动作预览器」。
+1. `simulator/index.html` 是纯 FK 骨骼姿态预览器，定位为「Tonybot 动作模拟器」。
 2. 预览器**不得**输出安全审计、平衡结论、COM 结论、支撑面结论。
 3. 预览器中的「帧跳变提示」仅列出舵机值突变（ID + 变化量），不得附带安全判断语句。
-4. 真正的安全审计始终由 `rob_safety.py` 和 `dance_workflow.py build` 流程负责。
-5. 规范文档见 `python-toolkit/文档/13-3D动作预览器规范.md`。
+4. 真正的安全审计始终由 `tools/python/rob_safety.py` 负责。
+5. 规范文档见 `knowledge/docs/13-3D动作预览器规范.md`。

@@ -1,0 +1,42 @@
+{
+  "id": 32,
+  "name": "32号循迹前进第一步",
+  "slug": "action-32-32",
+  "labels": {
+    "zh-CN": "32号循迹前进第一步",
+    "en-US": "Forward"
+  },
+  "source_file": "32号循迹前进第一步.rob",
+  "category": "locomotion",
+  "tags": [
+    "locomotion"
+  ],
+  "frame_count": 1,
+  "total_duration": 300,
+  "source_tag": "plain",
+  "source_sha256": "446837c1ecf693d1b1aa863f82f5bc1bb2b27f866e46ffcf5aeeee4d99eca9b3",
+  "frames": [
+    {
+      "index": 0,
+      "duration": 300,
+      "pose": [
+        530,
+        442,
+        516,
+        649,
+        530,
+        575,
+        800,
+        781,
+        530,
+        582,
+        562,
+        444,
+        519,
+        425,
+        200,
+        416
+      ]
+    }
+  ]
+}

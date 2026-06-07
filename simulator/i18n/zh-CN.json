@@ -3,6 +3,7 @@
   "subtitle": "仅做骨骼姿态预览，不输出平衡/安全结论",
   "btn_copy_pose": "📋 复制 Pose",
   "btn_load_rob": "📂 加载 .rob",
+  "action_library": "📋 动作库...",
   "btn_reset_view": "🔄 重置视角",
   "btn_toggle_grid": "📐 切换网格",
   "btn_toggle_labels": "🏷️ 切换标签",

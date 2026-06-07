@@ -302,13 +302,14 @@ def export_json(actions_dir, output_dir):
     print("exported={}".format(count))
 
 
-def slugify(name):
+def make_slug(action_id, stem):
     import re
-    slug = name.strip().lower()
-    slug = re.sub(r'[\\/:*?"<>|()（）\s]+', '-', slug)
-    slug = re.sub(r'-+', '-', slug)
-    slug = slug.strip('-')
-    return slug or 'action'
+    # ASCII-only slug from action ID, safe for filesystems and URLs
+    safe = re.sub(r'[^a-zA-Z0-9]+', '-', stem)
+    safe = safe.strip('-').lower()
+    if safe:
+        return "action-{}-{}".format(action_id, safe[:40])
+    return "action-{}".format(action_id)
 
 
 def guess_category(name):
@@ -340,6 +341,114 @@ def guess_category(name):
     return 'other'
 
 
+# English labels for common Chinese action names
+_ZH_TO_EN_LABEL = {
+    '立正': 'Stand at Attention',
+    '前进': 'Forward',
+    '后退': 'Backward',
+    '单脚左转': 'Single-Foot Left Turn',
+    '单脚右转': 'Single-Foot Right Turn',
+    '俯卧撑': 'Push-up',
+    '仰卧起坐': 'Sit-up',
+    '挥手': 'Wave',
+    '鞠躬': 'Bow',
+    '左侧滑': 'Left Slide',
+    '右侧滑': 'Right Slide',
+    '开怀大笑': 'Big Laugh',
+    '下蹲': 'Squat',
+    '大鹏展翅': 'Spread Wings',
+    '循环前进第一步': 'Loop Forward Step 1',
+    '快速立正': 'Quick Stand',
+    '循环前进': 'Loop Forward',
+    '循环后退': 'Loop Backward',
+    '左转(原地)': 'Left Turn (In Place)',
+    '右转(原地)': 'Right Turn (In Place)',
+    '抱娃娃': 'Hold Baby',
+    '伸右手': 'Reach Right Hand',
+    '双手向前支撑': 'Two-Hand Forward Support',
+    '双手向后支撑': 'Two-Hand Backward Support',
+    '下蹲立正': 'Squat to Stand',
+    '下蹲前进': 'Squat Forward',
+    '循迹前进第一步': 'Track Forward Step 1',
+    '循迹前进第二步': 'Track Forward Step 2',
+    '左转(前进)': 'Left Turn (Forward)',
+    '右转(前进)': 'Right Turn (Forward)',
+    '左转过渡': 'Left Turn Transition',
+    '右转过渡': 'Right Turn Transition',
+    '循迹左转过渡': 'Track Left Turn Transition',
+    '循迹右转过渡': 'Track Right Turn Transition',
+    '介绍动作': 'Intro Action',
+    '原地踏步': 'March in Place',
+    '扭腰': 'Waist Twist',
+    '左侧踢': 'Left Kick',
+    '右侧踢': 'Right Kick',
+    '左弯勾拳2': 'Left Hook 2',
+    '右弯勾拳2': 'Right Hook 2',
+    '左脚射门': 'Left Foot Shoot',
+    '右脚射门': 'Right Foot Shoot',
+    '左勾拳2': 'Left Hook 2',
+    '右勾拳2': 'Right Hook 2',
+    '前进拳击': 'Forward Punch',
+    '下蹲拳': 'Squat Punch',
+    '咏春拳': 'Wing Chun',
+    '捶胸': 'Chest Pound',
+    '后倒站立': 'Back Fall Stand',
+    '前倒站立2': 'Forward Fall Stand 2',
+    '体操': 'Gymnastics',
+    '街舞': 'Street Dance',
+    '科目三': 'Subject Three Dance',
+    '电摇': 'Electric Shake',
+    '霹雳舞': 'Breakdance',
+    '工业校歌': 'Industrial School Song',
+    '队列广播体操': 'Queue Calisthenics',
+    '站姿基座': 'Stance Base',
+    '快速回正': 'Quick Reset',
+    '礼貌鞠躬': 'Polite Bow',
+    '招手问候': 'Wave Greeting',
+    '展示姿态': 'Display Pose',
+    '笑场互动': 'Laugh Interaction',
+    '短拍踏步': 'Short Step March',
+    '标准踏步': 'Standard March',
+    '左侧滑短句': 'Left Slide Phrase',
+    '右侧滑短句': 'Right Slide Phrase',
+    '左右侧滑往返': 'Left-Right Slide Round',
+    '扭腰单拍': 'Waist Twist Single',
+    '扭腰双拍': 'Waist Twist Double',
+    '左右侧踢组合': 'Left-Right Kick Combo',
+    '左勾拳': 'Left Hook',
+    '右勾拳': 'Right Hook',
+    '左右勾拳组合': 'Left-Right Hook Combo',
+    '左弯勾拳': 'Left Curved Hook',
+    '右弯勾拳': 'Right Curved Hook',
+    '捶胸强调': 'Chest Pound Emphasis',
+    '下蹲回正': 'Squat Reset',
+    '下蹲前压': 'Squat Forward Press',
+    '俯卧撑短句': 'Push-up Phrase',
+    '仰卧起坐短句': 'Sit-up Phrase',
+    '街舞片段': 'Street Dance Clip',
+    '前行两步': 'Forward Two Steps',
+    '后退两步': 'Backward Two Steps',
+    '左转七步': 'Left Turn Seven Steps',
+    '右转七步': 'Right Turn Seven Steps',
+    '左转九十': 'Left Turn Ninety',
+    '右转九十': 'Right Turn Ninety',
+    '头顶抓取': 'Overhead Grab',
+    '头顶放下': 'Overhead Drop',
+    '头顶携带前进一步': 'Overhead Carry Forward Step',
+    '手写': 'Custom',
+}
+
+
+def en_label_for(name):
+    if name in _ZH_TO_EN_LABEL:
+        return _ZH_TO_EN_LABEL[name]
+    # Try partial matches
+    for zh, en in _ZH_TO_EN_LABEL.items():
+        if zh in name:
+            return en
+    return name
+
+
 def export_official_actions(actions_dir, output_dir, index_path):
     import re
     actions_dir = workspace_path(actions_dir)
@@ -351,19 +460,34 @@ def export_official_actions(actions_dir, output_dir, index_path):
         print("actions_dir not found: {}".format(actions_dir))
         return
 
+    seen_ids = {}
     actions = []
     categories_set = set()
     count = 0
     for path in sorted(iter_action_files(actions_dir)):
         try:
+            # Skip plaintext duplicates — they have the same frames as the EYPT original
+            if path.stem.endswith('.plain'):
+                continue
+
             parsed = parse_action(path)
             stem = path.stem
             match = re.match(r'^(\d+)', stem)
-            action_id = int(match.group(1)) if match else count
-            slug = slugify(stem)
+            base_id = int(match.group(1)) if match else count
+
+            # Deduplicate: if same numeric ID already seen, append a suffix
+            if base_id in seen_ids:
+                action_id = base_id * 1000 + seen_ids[base_id]
+                seen_ids[base_id] += 1
+            else:
+                action_id = base_id
+                seen_ids[base_id] = 1
+
+            slug = make_slug(base_id, stem)
             category = guess_category(stem)
             tags = [category]
-            category_name = category.replace('-', ' ').title()
+            zh_label = stem
+            en_label = en_label_for(stem)
 
             frames_json = []
             for idx, raw_frame in enumerate(parsed["frames"]):
@@ -380,9 +504,12 @@ def export_official_actions(actions_dir, output_dir, index_path):
                 "id": action_id,
                 "name": stem,
                 "slug": slug,
+                "labels": {
+                    "zh-CN": zh_label,
+                    "en-US": en_label,
+                },
                 "source_file": str(path.name),
                 "category": category,
-                "category_name": category_name,
                 "tags": tags,
                 "frame_count": parsed["frame_count"],
                 "total_duration": total_duration,
@@ -391,9 +518,17 @@ def export_official_actions(actions_dir, output_dir, index_path):
                 "frames": frames_json,
             }
 
-            out_path = output_dir / "{}-{}.json".format(action_id, slug)
+            out_path = output_dir / "{}.json".format(slug)
             out_path.write_text(json.dumps(entry, ensure_ascii=False, indent=2), encoding="utf-8")
-            actions.append({"id": action_id, "name": stem, "slug": slug, "category": category, "frame_count": parsed["frame_count"], "total_duration": total_duration})
+            actions.append({
+                "id": action_id,
+                "name": stem,
+                "slug": slug,
+                "labels": {"zh-CN": zh_label, "en-US": en_label},
+                "category": category,
+                "frame_count": parsed["frame_count"],
+                "total_duration": total_duration,
+            })
             categories_set.add(category)
             count += 1
         except Exception as e:

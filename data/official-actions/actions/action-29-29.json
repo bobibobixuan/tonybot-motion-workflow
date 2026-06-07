@@ -1,0 +1,42 @@
+{
+  "id": 29,
+  "name": "29号双手向后支撑",
+  "slug": "action-29-29",
+  "labels": {
+    "zh-CN": "29号双手向后支撑",
+    "en-US": "Two-Hand Backward Support"
+  },
+  "source_file": "29号双手向后支撑.rob",
+  "category": "other",
+  "tags": [
+    "other"
+  ],
+  "frame_count": 1,
+  "total_duration": 50,
+  "source_tag": "plain",
+  "source_sha256": "71869dad1bfd25e910011037d23c64811c19bf5e56c3b2dfe299b8675455f77d",
+  "frames": [
+    {
+      "index": 0,
+      "duration": 50,
+      "pose": [
+        500,
+        388,
+        500,
+        594,
+        500,
+        575,
+        800,
+        1000,
+        500,
+        612,
+        500,
+        406,
+        500,
+        425,
+        200,
+        0
+      ]
+    }
+  ]
+}
