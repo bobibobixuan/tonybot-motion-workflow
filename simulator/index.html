@@ -385,61 +385,59 @@
   <input type="file" id="file-input" accept=".rob" style="display:none">
 
   <script>
-    // Minimal i18n loader
-    window._i18n = {};
+    // i18n loader — zh-CN embedded as fallback, en-US loaded async if needed
+    window._i18nData = {"title":"Tonybot 动作模拟器","subtitle":"仅做骨骼姿态预览，不输出平衡/安全结论","btn_copy_pose":"📋 复制 Pose","btn_load_rob":"📂 加载 .rob","btn_reset_view":"🔄 重置视角","btn_toggle_grid":"📐 切换网格","btn_toggle_labels":"🏷️ 切换标签","panel_header":"🦾 舵机通道 / 姿态预览 (0–1000)","timeline_no_data":"未加载","timeline_speed":"速度:","overlay_loaded":"已加载","overlay_load_fail":"加载失败","overlay_pose_copied":"Pose 已复制","overlay_frames":"帧","action_library":"📋 动作库...","jump_warning_prefix":"⚠ 帧跳变提示（仅展示舵机值突变，非安全结论）:","jump_warning_more":"共 {count} 处跳变","jump_entry":"帧{from}→{to}: {ids}","frame_summary":"共 {total} 帧 · {elapsed} / {totalTime}","frame_info":"帧 {current}/{total} · {duration}ms","group_r_arm":"🟥 右臂","group_l_arm":"🟦 左臂","group_r_leg":"🟥 右腿","group_l_leg":"🟦 左腿","group_unused":"⬜ 未使用","preset_lizheng":"立正","preset_junli":"军礼","preset_zhanbi":"展臂","preset_chuixiong":"捶胸","preset_zhengbu":"正步","preset_shenshou":"伸手","preset_dapeng":"大鹏展翅","preset_back10":"后退10帧","console_ready":"🤖 Tonybot 动作模拟器 已就绪","console_drop_hint":"拖拽 .rob 文件到视口即可加载","console_keyboard":"空格键 播放/暂停 | ← → 逐帧 | R 重置姿态","console_copy_hint":"📋 复制 Pose 按钮可复制当前 16 舵机值","console_mouse":"鼠标拖动旋转 | 滚轮缩放 | 右键平移","channel_labels":{"0":"ID1 r_hip_yaw","1":"ID2 r_ankle","2":"ID3 r_knee","3":"ID4 r_hip_pitch","4":"ID5 r_hip_roll","5":"ID6 r_elbow","6":"ID7 r_shoulder_roll","7":"ID8 r_shoulder_pitch","8":"ID9 l_hip_yaw","9":"ID10 l_ankle","10":"ID11 l_knee","11":"ID12 l_hip_pitch","12":"ID13 l_hip_roll","13":"ID14 l_elbow","14":"ID15 l_shoulder_roll","15":"ID16 l_shoulder_pitch"}};
     window._i18nLang = 'zh-CN';
-    window._i18nData = {};
 
-    function i18nLoad(lang) {
-      const xhr = new XMLHttpRequest();
-      xhr.open('GET', 'i18n/' + lang + '.json', false); // sync for simplicity
-      try { xhr.send(); } catch (e) { return false; }
-      if (xhr.status === 200) {
-        window._i18nData = JSON.parse(xhr.responseText);
-        window._i18nLang = lang;
-        return true;
-      }
-      return false;
-    }
-
-    function i18nInit() {
-      const navLang = (navigator.language || 'zh-CN').startsWith('zh') ? 'zh-CN' : 'en-US';
-      if (!i18nLoad(navLang)) i18nLoad('zh-CN');
-    }
+    // Try loading en-US asynchronously to override
+    (function(){
+      var navLang = (navigator.language || '').startsWith('zh') ? 'zh-CN' : 'en-US';
+      if (navLang === 'zh-CN') return;
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', 'i18n/en-US.json', true);
+      xhr.onload = function(){
+        if (xhr.status === 200) {
+          try {
+            window._i18nData = JSON.parse(xhr.responseText);
+            window._i18nLang = 'en-US';
+            i18nApplyToDOM();
+          } catch(e){}
+        }
+      };
+      try { xhr.send(); } catch(e){}
+    })();
 
     window.t = function (key, params) {
-      // Support dot-notation: 'channel_labels.5'
-      let val = window._i18nData;
-      const parts = key.split('.');
-      for (const p of parts) {
+      var val = window._i18nData;
+      var parts = key.split('.');
+      for (var i = 0; i < parts.length; i++) {
         if (val == null || typeof val !== 'object') return key;
-        val = val[p];
+        val = val[parts[i]];
       }
       if (val === undefined) return key;
       if (params && typeof val === 'string') {
-        for (const [k, v] of Object.entries(params)) {
-          val = val.replace('{' + k + '}', v);
-        }
+        Object.keys(params).forEach(function(k){
+          val = val.replace('{' + k + '}', params[k]);
+        });
       }
       return val;
     };
 
     function i18nApplyToDOM() {
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const key = el.getAttribute('data-i18n');
+      document.querySelectorAll('[data-i18n]').forEach(function(el){
+        var key = el.getAttribute('data-i18n');
         if (!key) return;
-        const val = window.t(key);
+        var val = window.t(key);
         if (val && val !== key) el.textContent = val;
       });
-      document.querySelectorAll('[data-i18n-title]').forEach(el => {
-        const key = el.getAttribute('data-i18n-title');
+      document.querySelectorAll('[data-i18n-title]').forEach(function(el){
+        var key = el.getAttribute('data-i18n-title');
         if (!key) return;
-        const val = window.t(key);
+        var val = window.t(key);
         if (val && val !== key) el.title = val;
       });
     }
 
-    i18nInit();
     document.addEventListener('DOMContentLoaded', i18nApplyToDOM);
   </script>
 
