@@ -1,0 +1,390 @@
+{
+  "name": "165号工业校歌逐拍精细版",
+  "prompt": "严格按照《工业校歌编舞》逐拍展开机器人展示舞，完整覆盖前奏、第一段主歌、第一段副歌、间奏、第二段主歌、最后副歌、结尾和谢幕。每个 8 拍动作组独立成段，固定记忆动作在“福建工校”“精英殿堂”“桃李芬芳”“播种希望”处重复使用并做方向或幅度变体。",
+  "research": {
+    "query": "工业校歌 机器人展示舞 机械感 队列感 青春感",
+    "summary": [
+      "本版以《工业校歌编舞.md》为唯一编舞蓝本，不再采用概括式结构初稿。",
+      "全舞拆为 beat-01 到 beat-57，加 ending-bow-half，对应原文 57 个 8 拍动作组和最后半个 8 拍谢幕。",
+      "四个固定记忆动作按文档要求稳定复用：福建工校为收胸强调后展臂亮相，精英殿堂为庄重托举，桃李芬芳为胸前收合后花开展开，播种希望为合胸、前推、上升、高举定格。",
+      "动作源优先复用已审计动作模块，必要时用相邻模块组合近似文档里的手势语义，确保可构建和安全审计通过。"
+    ]
+  },
+  "visualization": {
+    "title": "165号工业校歌逐拍精细版时间线",
+    "theme": "sunrise"
+  },
+  "output": {
+    "rob": "动作/165号工业校歌逐拍精细版.rob",
+    "report_json": "编舞/165号工业校歌逐拍精细版.report.json",
+    "visualization_html": "编舞/165号工业校歌逐拍精细版.timeline.html"
+  },
+  "guards": {
+    "pre_segments": [
+      {
+        "label": "pre-quick-recenter",
+        "source": "302号快速回正.rob",
+        "notes": "开场前自动回正，消除上一段动作残余姿态。"
+      },
+      {
+        "label": "pre-stand-settle",
+        "source": "0号立正.rob",
+        "notes": "回到立正站姿，作为逐拍编舞的起点。"
+      }
+    ],
+    "post_segments": [
+      {
+        "label": "post-quick-recenter",
+        "source": "302号快速回正.rob",
+        "notes": "谢幕后自动回正，保证最终停机稳定。"
+      },
+      {
+        "label": "post-stand-settle",
+        "source": "0号立正.rob",
+        "notes": "最终回到标准立正。"
+      }
+    ]
+  },
+  "segments": [
+    {
+      "label": "beat-01-boot-awake",
+      "source": "391号手写开场点头.rob",
+      "repeat": 2,
+      "notes": "0:00-0:26 前奏 8拍1：1-2拍低头立正，3-4拍抬头挺胸，5-6拍左扫描回中，7-8拍右扫描回中。用开场点头重复两次表现开机苏醒。"
+    },
+    {
+      "label": "beat-02-river-ripple",
+      "source": "304号招手问候.rob",
+      "notes": "前奏 8拍2：左臂低位画弧、右臂低位画弧、双臂从下往外展开，最后停在身体两侧，对应江水波纹。"
+    },
+    {
+      "label": "beat-03-sail-ready",
+      "source": "328号伸右手.rob",
+      "repeat": 2,
+      "notes": "前奏 8拍3：右脚小前踏右手斜上指，左脚跟上左手斜下展开，轻微右转后回正，双手收胸，表现启航准备。"
+    },
+    {
+      "label": "beat-04-mech-formation",
+      "source": "370号手写左右交替拳.rob",
+      "repeat": 2,
+      "notes": "前奏 8拍4：左踏右拳、右踏左拳、双拳收胸、双臂下放，开始带出工校队列和机械臂味道。"
+    },
+    {
+      "label": "beat-05-first-pose",
+      "source": "305号展示姿态.rob",
+      "repeat": 2,
+      "notes": "前奏 8拍5：双臂从两侧向上抬，打开成大 V，头向上看，最后落到胸前准备进入主歌。"
+    },
+
+    {
+      "label": "beat-06-riverside-story",
+      "source": "304号招手问候.rob",
+      "notes": "第一段主歌 8拍6：左手由左下向右前划弧，右手反向划弧，胸前交汇后向前打开，像展开画卷。"
+    },
+    {
+      "label": "beat-07-reform-spring",
+      "source": "389号手写低位提振.rob",
+      "repeat": 2,
+      "notes": "8拍7：双手收胸下沉后向上打开，头抬起，右手指右上方，左手跟随，身体回正，对应改革之春。"
+    },
+    {
+      "label": "beat-08-new-voyage",
+      "source": "342号前行两步.rob",
+      "notes": "8拍8：右脚前踏右手斜上指，左脚跟上左手斜上指，双臂成船帆形后收胸定格，对应启新航。"
+    },
+    {
+      "label": "beat-09-firm-steps",
+      "source": "308号标准踏步.rob",
+      "repeat": 2,
+      "notes": "8拍9：左踏、右拳收胸、右踏、左拳收胸，再左右踏步配合双拳前打，要求硬、齐、像军训队列。"
+    },
+    {
+      "label": "beat-10-military-mech-arm",
+      "source": "370号手写左右交替拳.rob",
+      "repeat": 2,
+      "notes": "8拍10：双肘 90 度向前推再拉回，右臂横推、左臂横推，模拟机器臂、流水线和齿轮。"
+    },
+    {
+      "label": "beat-11-grand-chapter",
+      "source": "326号大鹏展翅.rob",
+      "frame_range": [0, 14],
+      "notes": "8拍11：胸口向外打开，右手上划半圆，左手上划半圆，头顶打开形成大气定格，对应奏华章。"
+    },
+    {
+      "label": "beat-12-spring-breeze",
+      "source": "304号招手问候.rob",
+      "notes": "8拍12：双臂从右向左柔和扫过，再从左向右扫回，身体左右轻摆后收胸，动作比军工段更软。"
+    },
+    {
+      "label": "beat-13-teach-skill",
+      "source": "328号伸右手.rob",
+      "repeat": 2,
+      "notes": "8拍13：右手掌心向上推出，左手掌心向上推出，双手同时向前展开，点头收回，像递出知识。"
+    },
+    {
+      "label": "beat-14-raise-talent",
+      "source": "305号展示姿态.rob",
+      "notes": "8拍14：双手从低位托到胸前，再托到头顶，双臂打开，表现托起学生成长。"
+    },
+    {
+      "label": "beat-15-high-spirit",
+      "source": "325号捶胸强调.rob",
+      "notes": "8拍15：右脚侧踏右拳上举，左脚回中左拳上举，双拳收胸，身体挺直头抬起，对应意气风发。"
+    },
+    {
+      "label": "beat-16-chase-wind",
+      "source": "311号左右侧滑往返.rob",
+      "repeat": 2,
+      "notes": "8拍16：身体右转右臂前切，身体左转左臂前切，双臂后摆迎风再向前冲出，对应追风。"
+    },
+    {
+      "label": "beat-17-break-wave",
+      "source": "326号大鹏展翅.rob",
+      "frame_range": [0, 12],
+      "notes": "8拍17：双臂胸前交叉后向两边猛打开，右脚小前踏身体前倾，收回立正，准备进副歌。"
+    },
+
+    {
+      "label": "beat-18-fujian-gongxiao-a",
+      "source": "325号捶胸强调.rob",
+      "notes": "第一段副歌 8拍18“啊 福建工校”：1拍右拳收胸，2拍左拳收胸，3-4拍双臂打开，5-6拍 V 字上举，7-8拍头抬起定格。"
+    },
+    {
+      "label": "beat-19-elite-hall-a",
+      "source": "305号展示姿态.rob",
+      "notes": "8拍19“精英殿堂”：双手从腰侧托到胸前，再托到头顶，身体小幅后仰，双手落胸前庄重定格。"
+    },
+    {
+      "label": "beat-20-fujian-gongxiao-b",
+      "source": "325号捶胸强调.rob",
+      "frame_range": [10, 20],
+      "notes": "8拍20“啊 福建工校”：重复招牌动作但左右顺序反向，最后身体向右 15 度再回正。"
+    },
+    {
+      "label": "beat-21-peach-fragrance-a",
+      "source": "327号抱娃娃.rob",
+      "repeat": 2,
+      "notes": "8拍21“桃李芬芳”：双手交叉胸前，花开式打开，身体左右轻摆，右手向前轻挥像送出花香。"
+    },
+    {
+      "label": "beat-22-school-name-core",
+      "source": "326号大鹏展翅.rob",
+      "frame_range": [0, 14],
+      "notes": "8拍22“福建工校 / 福建工业学校”：双拳收胸、双臂打开、右手指向观众、左手指向观众，最后双臂 V 字。"
+    },
+    {
+      "label": "beat-23-elite-hall-repeat",
+      "source": "305号展示姿态.rob",
+      "notes": "8拍23“精英殿堂 / 精英殿堂”：双手托举到头顶，双臂打开成门框形，再次托举，回正看上方定格。"
+    },
+    {
+      "label": "beat-24-unity-diligence",
+      "source": "308号标准踏步.rob",
+      "repeat": 2,
+      "notes": "8拍24“团结勤奋”：左踏双拳碰胸，右踏双拳碰胸，双臂向前平推后收回立正。"
+    },
+    {
+      "label": "beat-25-self-strength",
+      "source": "325号捶胸强调.rob",
+      "notes": "8拍25“我们自强不息”：右拳上举落胸，左拳上举落胸，双拳一起上举，再收胸定格，整体要硬。"
+    },
+    {
+      "label": "beat-26-truth-innovation",
+      "source": "328号伸右手.rob",
+      "repeat": 2,
+      "notes": "8拍26“求实创新”：右手指向地面表示求实，左手指向上方表示创新，双手从低到高画斜线后合胸。"
+    },
+    {
+      "label": "beat-27-sing-aloud",
+      "source": "304号招手问候.rob",
+      "notes": "8拍27“我们引吭歌唱”：右手从胸口向外展开，左手展开，双臂向上打开，头抬起像正在歌唱。"
+    },
+    {
+      "label": "beat-28-school-name-big",
+      "source": "326号大鹏展翅.rob",
+      "frame_range": [0, 16],
+      "notes": "8拍28“福建工校 / 福建工业学校”：更大招牌动作，双拳收胸、双臂打开、V 字上举，身体左右摆一次回正。"
+    },
+    {
+      "label": "beat-29-peach-repeat",
+      "source": "327号抱娃娃.rob",
+      "repeat": 2,
+      "notes": "8拍29“桃李芬芳 / 桃李芬芳”：双手交叉、花开、向左右送出，回胸前点头。"
+    },
+    {
+      "label": "beat-30-torch-passing",
+      "source": "304号招手问候.rob",
+      "notes": "8拍30“崇德敬贤 / 薪火相传”：右手放胸、左手放胸，双手从左向右递送，右手高举左手托右肘。"
+    },
+    {
+      "label": "beat-31-seeding-hope-a",
+      "source": "328号伸右手.rob",
+      "repeat": 2,
+      "notes": "8拍31“崇真敬业 / 播种希望”：双手合胸，向下向前推出，再从下往上升起，双臂高举 V 字短暂停住。"
+    },
+
+    {
+      "label": "beat-32-interlude-reset",
+      "source": "390号手写低位回正.rob",
+      "repeat": 2,
+      "notes": "2:10-2:16 间奏 8拍32：双臂慢慢落下，头左看、右看，回中立正，机器人重整队列。"
+    },
+    {
+      "label": "beat-32b-second-verse-ready",
+      "source": "356号手写短拍踏点.rob",
+      "notes": "间奏半个 8 拍：右脚小侧踏，身体回中，双手收胸，准备第二段。"
+    },
+
+    {
+      "label": "beat-33-campus-open",
+      "source": "305号展示姿态.rob",
+      "notes": "第二段主歌 8拍33“菁菁校园”：双手从胸前向左右打开，右手前挥，左手前挥，双手回胸点头。"
+    },
+    {
+      "label": "beat-34-flower-book",
+      "source": "327号抱娃娃.rob",
+      "repeat": 2,
+      "notes": "8拍34“缅桂花开醉书香”：双手交叉胸前，向外花开，双手像翻书一样左右打开，头低后抬。"
+    },
+    {
+      "label": "beat-35-book-fragrance-flow",
+      "source": "304号招手问候.rob",
+      "notes": "8拍35“书香流动”：右手平移到左侧，左手平移到右侧，双手胸前画圆后向前推出。"
+    },
+    {
+      "label": "beat-36-youth-forward",
+      "source": "342号前行两步.rob",
+      "notes": "8拍36“青春无悔”：左脚前踏右手上举，右脚前踏左手上举，双臂打开后收回立正。"
+    },
+    {
+      "label": "beat-37-diligent-study",
+      "source": "370号手写左右交替拳.rob",
+      "repeat": 2,
+      "notes": "8拍37“力学笃行”：双拳收腰，双拳向前平推，向下压身体微沉，站直收胸，像扎实训练。"
+    },
+    {
+      "label": "beat-38-cherish-time",
+      "source": "328号伸右手.rob",
+      "repeat": 2,
+      "notes": "8拍38“惜韶光”：右手抬到眼前像看时间，左手抬到眼前，双手前推后收回点头。"
+    },
+    {
+      "label": "beat-39-fight-sky",
+      "source": "326号大鹏展翅.rob",
+      "frame_range": [0, 14],
+      "notes": "8拍39“搏击长空”：右臂右上斜冲，左臂左上斜冲，双臂同时向上冲，最后打开成 V 字。"
+    },
+    {
+      "label": "beat-40-knowledge-lift",
+      "source": "305号展示姿态.rob",
+      "notes": "8拍40“知识托举”：双手低位合拢，托到胸前，托到头顶，向外打开，头看上方。"
+    },
+    {
+      "label": "beat-41-cloud-ambition",
+      "source": "328号伸右手.rob",
+      "repeat": 2,
+      "notes": "8拍41“凌云志”：右转 15 度右手指上方，左转 15 度左手指上方，双手指上方，回正定格。"
+    },
+    {
+      "label": "beat-42-release-dream",
+      "source": "328号伸右手.rob",
+      "repeat": 2,
+      "notes": "8拍42“放飞梦想”：双手合在胸前，向前推出，向上打开，再缓慢落到肩高。"
+    },
+    {
+      "label": "beat-43-strive-strong",
+      "source": "325号捶胸强调.rob",
+      "notes": "8拍43“发奋图强”：左踏右拳上举收拳，右踏左拳上举收拳，双拳上举后收胸。"
+    },
+    {
+      "label": "beat-44-become-pillars",
+      "source": "326号大鹏展翅.rob",
+      "frame_range": [0, 14],
+      "notes": "8拍44“做栋梁”：双脚站稳，双臂垂直向上形成柱子姿态，向两侧展开后回立正，准备最后副歌。"
+    },
+
+    {
+      "label": "beat-45-final-fujian-gongxiao",
+      "source": "325号捶胸强调.rob",
+      "notes": "最后副歌 8拍45“啊 福建工校”：右拳收胸、左拳收胸、双臂打开、V 字上举，保持 V 字头抬起。"
+    },
+    {
+      "label": "beat-46-final-elite-hall",
+      "source": "305号展示姿态.rob",
+      "notes": "8拍46“精英殿堂”：双手托举到头顶，身体后仰一点，回正后双手落胸前。"
+    },
+    {
+      "label": "beat-47-final-fujian-variant",
+      "source": "325号捶胸强调.rob",
+      "frame_range": [10, 20],
+      "notes": "8拍47“啊 福建工校”：双拳收胸、双臂打开、双臂上举，身体向左 15 度回正。"
+    },
+    {
+      "label": "beat-48-final-peach",
+      "source": "327号抱娃娃.rob",
+      "repeat": 2,
+      "notes": "8拍48“桃李芬芳”：双手交叉，花开，双手向前送出，右手挥一下，左手收胸。"
+    },
+    {
+      "label": "beat-49-final-unity",
+      "source": "308号标准踏步.rob",
+      "repeat": 2,
+      "notes": "8拍49“团结勤奋”：左踏拳收胸，右踏拳收胸，左踏双拳前推，右踏双拳收回。"
+    },
+    {
+      "label": "beat-50-final-self-strength",
+      "source": "325号捶胸强调.rob",
+      "notes": "8拍50“自强不息”：右拳上举、左拳上举、双拳上举，双拳落胸，身体定住。"
+    },
+    {
+      "label": "beat-51-final-innovation",
+      "source": "328号伸右手.rob",
+      "repeat": 2,
+      "notes": "8拍51“求实创新”：右手指地，左手指天，双手从低到高画斜线，双手打开形成未来感。"
+    },
+    {
+      "label": "beat-52-final-sing",
+      "source": "304号招手问候.rob",
+      "notes": "8拍52“引吭歌唱”：右手从胸前展开，左手从胸前展开，双手上举，头抬起保持姿态。"
+    },
+    {
+      "label": "beat-53-final-school-name-max",
+      "source": "326号大鹏展翅.rob",
+      "frame_range": [0, 16],
+      "notes": "8拍53“福建工校 / 福建工业学校”：最大校名动作，右拳胸前、左拳胸前、双臂打开、胸口前挺、右手上举、左手上举，双臂 V 字定格。"
+    },
+    {
+      "label": "beat-54-final-peach-repeat",
+      "source": "327号抱娃娃.rob",
+      "repeat": 2,
+      "notes": "8拍54“桃李芬芳 / 桃李芬芳”：双手交叉，花开，双手向左右送出，再向前送出面向观众。"
+    },
+    {
+      "label": "beat-55-final-torch",
+      "source": "304号招手问候.rob",
+      "notes": "8拍55“薪火相传”：双手在左侧合拢，从左递到右，右手高举左手托右肘，最后回胸。"
+    },
+    {
+      "label": "beat-56-final-seeding-hope",
+      "source": "328号伸右手.rob",
+      "repeat": 2,
+      "notes": "8拍56“播种希望”：双手合胸，向下向前推出，从下往上升起，双臂高举 V 字。"
+    },
+    {
+      "label": "beat-57-final-hope-hold",
+      "source": "305号展示姿态.rob",
+      "repeat": 2,
+      "notes": "4:00-4:07 结尾 8拍57“希望 / 希望”：保持高位，慢慢向外展开，落到胸前像把希望收回心口，再向前推出掌心向上。"
+    },
+    {
+      "label": "ending-bow-half",
+      "source": "303号礼貌鞠躬.rob",
+      "notes": "最后半个 8 拍谢幕：轻微鞠躬，回正立正，头抬起，双臂自然下垂，保持稳定收住。"
+    },
+    {
+      "label": "ending-bow-recover",
+      "source": "386号手写礼后回正.rob",
+      "notes": "谢幕后从礼姿恢复到站姿，再进入统一保护段。"
+    }
+  ]
+}

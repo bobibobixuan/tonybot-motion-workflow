@@ -1,0 +1,39 @@
+{
+  "id": 37,
+  "name": "37号右转过渡",
+  "slug": "37号右转过渡",
+  "source_file": "37号右转过渡.rob",
+  "category": "locomotion",
+  "category_name": "Locomotion",
+  "tags": [
+    "locomotion"
+  ],
+  "frame_count": 1,
+  "total_duration": 500,
+  "source_tag": "plain",
+  "source_sha256": "f86255c63e3aab5338a44bfc038354e1170fbef9512f346b98d57909124c6cce",
+  "frames": [
+    {
+      "index": 0,
+      "duration": 500,
+      "pose": [
+        525,
+        357,
+        583,
+        643,
+        525,
+        575,
+        800,
+        725,
+        525,
+        643,
+        416,
+        357,
+        525,
+        425,
+        200,
+        275
+      ]
+    }
+  ]
+}

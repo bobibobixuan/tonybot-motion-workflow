@@ -1,0 +1,207 @@
+{
+  "name": "168号工业校歌队列广播体操版B",
+  "prompt": "工业校歌队列表演安全版 Part B。要求脚不平移、整体像广播体操和学校队列操的融合，适合多台机器人同步完成后半段副歌、结尾和谢幕。",
+  "research": {
+    "query": "工业校歌 多机同步 队列表演 广播体操后半段编舞",
+    "summary": [
+      "本段承接间奏、第二段主歌、最后副歌和谢幕，强调整齐、稳定和多机一致性。",
+      "继续禁用大鹏展翅、侧滑、前行、后退、转向等队形破坏动作。",
+      "结尾增加礼姿回复和统一回正，确保多台机器同时稳稳收住。"
+    ],
+    "references": []
+  },
+  "visualization": {
+    "title": "168号工业校歌队列广播体操版B时间线",
+    "theme": "sunrise"
+  },
+  "output": {
+    "rob": "动作/168号工业校歌队列广播体操版B.rob",
+    "report_json": "编舞/168号工业校歌队列广播体操版B.report.json",
+    "visualization_html": "编舞/168号工业校歌队列广播体操版B.timeline.html"
+  },
+  "guards": {
+    "pre_segments": [
+      {
+        "label": "pre-quick-recenter",
+        "source": "302号快速回正.rob",
+        "notes": "进入 Part B 前先统一回正。"
+      },
+      {
+        "label": "pre-stand-settle",
+        "source": "0号立正.rob",
+        "notes": "统一回到立正站姿。"
+      }
+    ],
+    "post_segments": [
+      {
+        "label": "post-quick-recenter",
+        "source": "302号快速回正.rob",
+        "notes": "Part B 结束自动回正。"
+      },
+      {
+        "label": "post-stand-settle",
+        "source": "0号立正.rob",
+        "notes": "最终保持立正。"
+      }
+    ]
+  },
+  "segments": [
+    {
+      "label": "beat-32-interlude-reset",
+      "source": "390号手写低位回正.rob",
+      "repeat": 2,
+      "notes": "间奏重整队列，原地整理姿态。"
+    },
+    {
+      "label": "beat-32b-second-verse-ready",
+      "source": "391号手写开场点头.rob",
+      "notes": "半拍准备，用轻点头承接第二段主歌。"
+    },
+    {
+      "label": "beat-33-campus-open",
+      "source": "305号展示姿态.rob",
+      "notes": "菁菁校园用广播操式左右打开。"
+    },
+    {
+      "label": "beat-34-flower-book",
+      "source": "327号抱娃娃.rob",
+      "repeat": 2,
+      "notes": "花开与书香用胸前收合展开表现。"
+    },
+    {
+      "label": "beat-35-book-fragrance-flow",
+      "source": "362号手写右扭腰入拍.rob",
+      "notes": "右向扭腰轻摆，表现书香流动。"
+    },
+    {
+      "label": "beat-36-youth-forward",
+      "source": "305号展示姿态.rob",
+      "notes": "青春无悔不用前踏，改成整齐开合上举。"
+    },
+    {
+      "label": "beat-37-diligent-study",
+      "source": "370号手写左右交替拳.rob",
+      "repeat": 2,
+      "notes": "双拳推进与回收，保持认真训练感。"
+    },
+    {
+      "label": "beat-38-cherish-time",
+      "source": "328号伸右手.rob",
+      "repeat": 2,
+      "notes": "抬手示意与前推，表现惜韶光。"
+    },
+    {
+      "label": "beat-39-fight-sky",
+      "source": "365号手写右扭腰双击.rob",
+      "notes": "以高位扭腰双击替代搏击长空的大展开。"
+    },
+    {
+      "label": "beat-40-knowledge-lift",
+      "source": "305号展示姿态.rob",
+      "notes": "知识托举继续用庄重托举开合。"
+    },
+    {
+      "label": "beat-41-cloud-ambition",
+      "source": "328号伸右手.rob",
+      "repeat": 2,
+      "notes": "左右指上方但不转身，适合队列同步。"
+    },
+    {
+      "label": "beat-42-release-dream",
+      "source": "304号招手问候.rob",
+      "notes": "胸前推出后上开，像放飞梦想。"
+    },
+    {
+      "label": "beat-43-strive-strong",
+      "source": "325号捶胸强调.rob",
+      "notes": "发奋图强继续用近身强拍。"
+    },
+    {
+      "label": "beat-44-become-pillars",
+      "source": "305号展示姿态.rob",
+      "notes": "做栋梁用垂直托举和回收，像广播操定格。"
+    },
+    {
+      "label": "beat-45-final-fujian-gongxiao",
+      "source": "325号捶胸强调.rob",
+      "notes": "最后副歌第一轮校名口号。"
+    },
+    {
+      "label": "beat-46-final-elite-hall",
+      "source": "305号展示姿态.rob",
+      "notes": "精英殿堂保持庄重托举。"
+    },
+    {
+      "label": "beat-47-final-fujian-variant",
+      "source": "325号捶胸强调.rob",
+      "frame_range": [10, 20],
+      "notes": "校名变体，但仍原地完成。"
+    },
+    {
+      "label": "beat-48-final-peach",
+      "source": "327号抱娃娃.rob",
+      "repeat": 2,
+      "notes": "桃李芬芳柔和展开，适合多人整齐同步。"
+    },
+    {
+      "label": "beat-49-final-unity",
+      "source": "370号手写左右交替拳.rob",
+      "notes": "团结勤奋用对称拳法替代脚步节奏。"
+    },
+    {
+      "label": "beat-50-final-self-strength",
+      "source": "325号捶胸强调.rob",
+      "notes": "自强不息用重拍捶胸做结实口号。"
+    },
+    {
+      "label": "beat-51-final-innovation",
+      "source": "328号伸右手.rob",
+      "repeat": 2,
+      "notes": "上下指向与前展，保持求实创新的方向感。"
+    },
+    {
+      "label": "beat-52-final-sing",
+      "source": "304号招手问候.rob",
+      "notes": "胸前展开到上举，形成歌唱式打开。"
+    },
+    {
+      "label": "beat-53-final-school-name-max",
+      "source": "325号捶胸强调.rob",
+      "frame_range": [0, 14],
+      "notes": "最大一轮校名动作，仍坚持近身稳定策略。"
+    },
+    {
+      "label": "beat-54-final-peach-repeat",
+      "source": "327号抱娃娃.rob",
+      "repeat": 2,
+      "notes": "再次柔和花开，避免最后副歌过于硬。"
+    },
+    {
+      "label": "beat-55-final-torch",
+      "source": "304号招手问候.rob",
+      "notes": "左右递送感表现薪火相传。"
+    },
+    {
+      "label": "beat-56-final-seeding-hope",
+      "source": "328号伸右手.rob",
+      "repeat": 2,
+      "notes": "播种希望采用前推到高举，作为最终记忆点。"
+    },
+    {
+      "label": "beat-57-final-hope-hold",
+      "source": "305号展示姿态.rob",
+      "repeat": 2,
+      "notes": "高位展开后慢收，像广播体操终止式。"
+    },
+    {
+      "label": "ending-bow-half",
+      "source": "303号礼貌鞠躬.rob",
+      "notes": "统一谢幕鞠躬。"
+    },
+    {
+      "label": "ending-bow-recover",
+      "source": "386号手写礼后回正.rob",
+      "notes": "礼后回正，便于多台机器人一起稳住。"
+    }
+  ]
+}

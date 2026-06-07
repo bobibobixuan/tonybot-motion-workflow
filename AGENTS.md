@@ -1,19 +1,17 @@
 # AGENTS.md — 项目规则
 
-本文件是 Tonybot Motion Studio 仓库的长期协作规则。Codex、Copilot 和其他 AI 协作者进入本仓库后，应先读取本文件，再读取 README 和相关专题文档。
+本文件是 Tonybot Action Simulator 仓库的长期协作规则。
 
 ## 1. 项目定位
 
-本仓库是 **Tonybot Motion Studio** — AI 辅助的 Tonybot 动作创作、3D 预览、关键帧编辑、安全审计和 .rob 导出工作流平台。
+本仓库是 **Tonybot Action Simulator** — 以动作模拟器为核心的 Tonybot 动作解析/预览/检索工具。
 
-四层架构：
-
-1. **motion-core（核心层）**：解析 `.rob` / `ACT-40` 动作容器，独立复现 `EYPT`/`TEA-32` 加解密，FK 正向运动学。
-2. **motion-viewer（预览层）**：Tonybot 3D 动作预览器（`动作模拟器.html`），纯 FK 骨骼姿态预览，不输出安全结论。
-3. **motion-editor（编辑层，规划中）**：motion.json 关键帧编辑、标注、插值生成。
-4. **motion-workflow（工作流层）**：编舞 JSON 编译成 `.rob`、安全审计（`rob_safety.py`）、动作段拼接。
-
-核心闭环：需求 → AI/motion.json → 3D 预览 → 关键帧微调 → 安全审计 → 导出 .rob
+- **主入口**：`simulator/index.html`（3D 动作模拟器）
+- **数据核心**：`data/official-actions/`（官方动作组 JSON 数据库）
+- **工具储备**：`tools/python/`（解析/安全/编译脚本）
+- **知识储备**：`knowledge/`（文档和 WonderCode 知识）
+- **历史归档**：`legacy/`（旧编舞和 Motion Studio 规划）
+- **旧目录保留**：`python-toolkit/` 和 `wondercode-toolkit/` 保留不动
 
 项目有两层知识来源：
 - **官方 SDK 层**：Hiwonder Python SDK（`Hiwonder.Tonybot`、`Hiwonder.Buzzer`、`Hiwonder_IIC` 等）已从官方示例和 `main.py` 设备端源码中提取完整 API 参考，见记忆 `[[tonybot-python-api]]`。

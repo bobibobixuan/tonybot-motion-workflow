@@ -1,0 +1,39 @@
+{
+  "id": 350,
+  "name": "350号头顶携带前进一步",
+  "slug": "350号头顶携带前进一步",
+  "source_file": "350号头顶携带前进一步.rob",
+  "category": "locomotion",
+  "category_name": "Locomotion",
+  "tags": [
+    "locomotion"
+  ],
+  "frame_count": 1,
+  "total_duration": 300,
+  "source_tag": "plain",
+  "source_sha256": "24d0e232740183808f4cb8b1384290abfc0b3020556d1198b45c7a9c38663ff4",
+  "frames": [
+    {
+      "index": 0,
+      "duration": 300,
+      "pose": [
+        552,
+        455,
+        444,
+        624,
+        538,
+        610,
+        860,
+        0,
+        538,
+        545,
+        556,
+        376,
+        519,
+        390,
+        140,
+        1000
+      ]
+    }
+  ]
+}

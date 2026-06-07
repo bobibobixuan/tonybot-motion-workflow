@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>159号自制舞蹈时间线</title>
+  <style>
+    :root {
+      --bg: linear-gradient(135deg, #f3efe6 0%, #f6d8ae 45%, #d9ecff 100%);
+      --panel: rgba(255, 252, 245, 0.88);
+      --ink: #1f2a32;
+      --muted: #58666f;
+      --accent: #c95d38;
+      --accent-2: #2b7a78;
+      --warn: #d98f00;
+      --error: #b53232;
+      --line: rgba(31, 42, 50, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI", "PingFang SC", sans-serif; color: var(--ink); background: var(--bg); }
+    main { max-width: 1180px; margin: 0 auto; padding: 32px 20px 56px; }
+    .hero { background: var(--panel); border: 1px solid var(--line); border-radius: 24px; padding: 28px; backdrop-filter: blur(12px); box-shadow: 0 14px 60px rgba(31, 42, 50, 0.08); }
+    h1, h2 { margin: 0 0 12px; }
+    p, li, td { line-height: 1.6; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-top: 20px; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 20px; padding: 20px; box-shadow: 0 10px 30px rgba(31, 42, 50, 0.06); }
+    .metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+    .metric { padding: 14px; border-radius: 16px; background: rgba(255,255,255,0.65); border: 1px solid var(--line); }
+    .metric strong { display: block; font-size: 24px; margin-bottom: 4px; color: var(--accent); }
+    .timeline { display: flex; gap: 10px; align-items: stretch; overflow-x: auto; padding-bottom: 10px; }
+    .segment { min-width: 180px; padding: 16px; border-radius: 18px; background: linear-gradient(180deg, rgba(201,93,56,0.16), rgba(43,122,120,0.10)); border: 1px solid rgba(31,42,50,0.14); flex: 0 0 auto; }
+    .segment-top { font-weight: 700; font-size: 18px; margin-bottom: 8px; }
+    .segment-meta { color: var(--muted); font-size: 13px; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+    .level-ok td:nth-child(2) { color: var(--accent-2); font-weight: 700; }
+    .level-warn td:nth-child(2) { color: var(--warn); font-weight: 700; }
+    .level-error td:nth-child(2) { color: var(--error); font-weight: 700; }
+    a { color: var(--accent); }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <h1>159号自制舞蹈时间线</h1>
+      <p>一段适合机器人展示的短舞蹈，要求先打招呼，再做中段节奏动作，最后礼貌收尾。</p>
+      <div class="metrics">
+        <div class="metric"><strong>49</strong><span>总帧数</span></div>
+        <div class="metric"><strong>23600</strong><span>总时长 ms</span></div>
+        <div class="metric"><strong>1916</strong><span>最大姿态跳变</span></div>
+        <div class="metric"><strong>0</strong><span>安全违规数</span></div>
+      </div>
+    </section>
+    <section class="grid">
+      <article class="card">
+        <h2>网页总结</h2>
+        <ul><li>展示型短舞通常先用立正或站姿开场，再用挥手建立互动感。</li><li>中段适合使用重复型节奏动作，例如扭腰和踏步，便于和音乐拍点对齐。</li><li>结束段常用鞠躬或回正姿态，既完整也更安全。</li></ul>
+      </article>
+      <article class="card">
+        <h2>参考链接</h2>
+        <ul><li><a href="https://example.com/dance-research-placeholder">示例占位：实际工作流中由网页检索结果填充</a></li></ul>
+      </article>
+      <article class="card">
+        <h2>输出文件</h2>
+        <ul>
+          <li>.rob: 动作\159号自制舞蹈.rob</li>
+          <li>report: 编舞\159号自制舞蹈.report.json</li>
+          <li>html: 编舞\159号自制舞蹈.timeline.html</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h2>安全结论</h2>
+        <ul><li>violations=0</li></ul>
+      </article>
+    </section>
+    <section class="card" style="margin-top: 18px;">
+      <h2>动作时间线</h2>
+      <div class="timeline">
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">intro-stand</div>
+              <div class="segment-meta">0号立正.rob</div>
+              <div class="segment-meta">1200 ms / 1 帧</div>
+              <div class="segment-meta">起始帧 0，结束帧 1200</div>
+              <p>开场立正，给后续动作留出安全缓冲。</p>
+            </article>
+            
+            <article class="segment" style="width: 13.14%">
+              <div class="segment-top">wave</div>
+              <div class="segment-meta">9号挥手.rob</div>
+              <div class="segment-meta">3100 ms / 11 帧</div>
+              <div class="segment-meta">起始帧 1200，结束帧 4300</div>
+              <p>先做打招呼动作，建立互动感。</p>
+            </article>
+            
+            <article class="segment" style="width: 13.56%">
+              <div class="segment-top">twist-1</div>
+              <div class="segment-meta">50号扭腰.rob</div>
+              <div class="segment-meta">3200 ms / 5 帧</div>
+              <div class="segment-meta">起始帧 4300，结束帧 7500</div>
+              <p>重复扭腰两次，制造节奏感。</p>
+            </article>
+            
+            <article class="segment" style="width: 13.56%">
+              <div class="segment-top">twist-2</div>
+              <div class="segment-meta">50号扭腰.rob</div>
+              <div class="segment-meta">3200 ms / 5 帧</div>
+              <div class="segment-meta">起始帧 7500，结束帧 10700</div>
+              <p>重复扭腰两次，制造节奏感。</p>
+            </article>
+            
+            <article class="segment" style="width: 11.44%">
+              <div class="segment-top">march</div>
+              <div class="segment-meta">49号原地踏步.rob</div>
+              <div class="segment-meta">2700 ms / 12 帧</div>
+              <div class="segment-meta">起始帧 10700，结束帧 13400</div>
+              <p>只截取前 12 帧，控制总长度。</p>
+            </article>
+            
+            <article class="segment" style="width: 21.19%">
+              <div class="segment-top">pose</div>
+              <div class="segment-meta">48号介绍动作.rob</div>
+              <div class="segment-meta">5000 ms / 7 帧</div>
+              <div class="segment-meta">起始帧 13400，结束帧 18400</div>
+              <p>用姿态段作为舞蹈中段展示。</p>
+            </article>
+            
+            <article class="segment" style="width: 16.95%">
+              <div class="segment-top">bow</div>
+              <div class="segment-meta">10号鞠躬.rob</div>
+              <div class="segment-meta">4000 ms / 7 帧</div>
+              <div class="segment-meta">起始帧 18400，结束帧 22400</div>
+              <p>礼貌收尾。</p>
+            </article>
+            
+            <article class="segment" style="width: 6.00%">
+              <div class="segment-top">outro-stand</div>
+              <div class="segment-meta">0号立正.rob</div>
+              <div class="segment-meta">1200 ms / 1 帧</div>
+              <div class="segment-meta">起始帧 22400，结束帧 23600</div>
+              <p>回到安全站姿，结束动作。</p>
+            </article>
+            </div>
+    </section>
+    <section class="card" style="margin-top: 18px;">
+      <h2>拼接边界审计</h2>
+      <table>
+        <thead>
+          <tr><th>边界</th><th>级别</th><th>最大关节差</th><th>L1 总差</th></tr>
+        </thead>
+        <tbody>
+            <tr class="level-ok">
+              <td>intro-stand -> wave</td>
+              <td>ok</td>
+              <td>75</td>
+              <td>167</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>wave -> twist-1</td>
+              <td>ok</td>
+              <td>338</td>
+              <td>1703</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>twist-1 -> twist-2</td>
+              <td>ok</td>
+              <td>338</td>
+              <td>1702</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>twist-2 -> march</td>
+              <td>ok</td>
+              <td>68</td>
+              <td>219</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>march -> pose</td>
+              <td>ok</td>
+              <td>0</td>
+              <td>0</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>pose -> bow</td>
+              <td>ok</td>
+              <td>197</td>
+              <td>955</td>
+            </tr>
+            
+            <tr class="level-ok">
+              <td>bow -> outro-stand</td>
+              <td>ok</td>
+              <td>8</td>
+              <td>15</td>
+            </tr>
+            </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

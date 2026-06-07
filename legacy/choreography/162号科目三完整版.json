@@ -1,0 +1,295 @@
+{
+  "name": "162号科目三完整版",
+  "prompt": "生成一段不少于 1 分钟的科目三机器人完整版舞蹈，要求保留科目三的踏点、左右律动、扭腰主句和收束拍结构，同时让节奏分段清晰，适合完整展示。",
+  "research": {
+    "query": "科目三 舞蹈 动作 特点 节奏 教学",
+    "summary": [
+      "科目三的识别点来自连续脚下踏点、左右重心切换、身体摆动和副歌式重复，因此完整版不应只有单个短句，而要有前奏、主段、副歌、桥段和结尾。",
+      "机器人版本沿用当前项目的安全约束：先把动作拆成可审计模块，再用重复、对称和变体去扩展总时长，而不是直接写超大跨度的新舵机轨迹。",
+      "这一版把手写科目三引导句、官方踏步扭腰模块和收束动作拼成完整展示结构，目标是既像科目三，又能稳定过安全审计。"
+    ],
+    "references": [
+      {
+        "title": "极其抽象的文化输出，中国科目三舞统全球 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/672982001"
+      },
+      {
+        "title": "科目三舞蹈教学（逐个动作分析，详细完整） - 哔哩哔哩",
+        "url": "https://www.bilibili.com/list/ml2800546374?oid=538586355&bvid=BV1Wi4y1B7Pn"
+      },
+      {
+        "title": "“科目三”舞蹈的审美解析与文化研究",
+        "url": "https://www.zgwypl.com/content/details16_442666.html"
+      }
+    ]
+  },
+  "visualization": {
+    "title": "162号科目三完整版时间线",
+    "theme": "sunset"
+  },
+  "output": {
+    "rob": "动作/162号科目三完整版.rob",
+    "report_json": "编舞/162号科目三完整版.report.json",
+    "visualization_html": "编舞/162号科目三完整版.timeline.html"
+  },
+  "guards": {
+    "pre_segments": [
+      {
+        "label": "pre-quick-recenter",
+        "source": "302号快速回正.rob",
+        "notes": "正式开场前先自动回正，消除上一段动作或人工摆位带来的偏姿。"
+      },
+      {
+        "label": "pre-stand-settle",
+        "source": "0号立正.rob",
+        "notes": "快速回正后回到标准站姿，作为完整版起拍基座。"
+      }
+    ],
+    "post_segments": [
+      {
+        "label": "post-quick-recenter",
+        "source": "302号快速回正.rob",
+        "notes": "收尾礼姿之后再补一次自动回正，保证落地稳定。"
+      },
+      {
+        "label": "post-stand-settle",
+        "source": "0号立正.rob",
+        "notes": "最终回到标准站姿，方便停机或衔接下一段。"
+      }
+    ]
+  },
+  "segments": [
+    {
+      "label": "intro-nod",
+      "source": "391号手写开场点头.rob",
+      "notes": "先给一个轻提示，让前奏不至于直接撞进主拍。"
+    },
+    {
+      "label": "intro-groove",
+      "source": "201号科目三预备律动.rob",
+      "notes": "压进科目三的预备律动。"
+    },
+    {
+      "label": "intro-step",
+      "source": "307号短拍踏步.rob",
+      "notes": "用短拍踏步把节奏拉起来。"
+    },
+
+    {
+      "label": "verse-a-left-prep",
+      "source": "351号手写左侧预摆.rob",
+      "notes": "主段 A 先往左侧预摆。"
+    },
+    {
+      "label": "verse-a-left-slide",
+      "source": "309号左侧滑短句.rob",
+      "notes": "左侧滑落点。"
+    },
+    {
+      "label": "verse-a-left-guide",
+      "source": "397号手写科目三左引导.rob",
+      "notes": "手写左引导句。"
+    },
+    {
+      "label": "verse-a-left-twist",
+      "source": "361号手写左扭腰入拍.rob",
+      "notes": "接左扭腰入拍。"
+    },
+    {
+      "label": "verse-a-right-prep",
+      "source": "352号手写右侧预摆.rob",
+      "notes": "切向右侧。"
+    },
+    {
+      "label": "verse-a-right-slide",
+      "source": "310号右侧滑短句.rob",
+      "notes": "右侧滑落点。"
+    },
+    {
+      "label": "verse-a-right-guide",
+      "source": "398号手写科目三右引导.rob",
+      "notes": "手写右引导句。"
+    },
+    {
+      "label": "verse-a-right-twist",
+      "source": "362号手写右扭腰入拍.rob",
+      "notes": "接右扭腰入拍。"
+    },
+    {
+      "label": "verse-a-sway",
+      "source": "399号手写科目三连摆.rob",
+      "notes": "左右连摆，形成完整一句。"
+    },
+    {
+      "label": "verse-a-syncopation",
+      "source": "202号科目三切分锁点.rob",
+      "notes": "把主段 A 的结尾做成切分锁点。"
+    },
+    {
+      "label": "verse-a-step-reset",
+      "source": "308号标准踏步.rob",
+      "notes": "回到标准踏步，准备进入副歌。"
+    },
+
+    {
+      "label": "chorus-a-open",
+      "source": "353号手写左右对摆.rob",
+      "notes": "副歌 A 先把左右对摆打开。"
+    },
+    {
+      "label": "chorus-a-slide-lock",
+      "source": "360号手写左右滑步锁点.rob",
+      "notes": "左右滑步锁点。"
+    },
+    {
+      "label": "chorus-a-main-groove",
+      "source": "313号扭腰双拍.rob",
+      "notes": "副歌的主律动，用扭腰双拍拉长节奏。"
+    },
+    {
+      "label": "chorus-a-follow-sway",
+      "source": "399号手写科目三连摆.rob",
+      "notes": "副歌扭腰后做一个连摆呼应。"
+    },
+    {
+      "label": "chorus-a-lock",
+      "source": "202号科目三切分锁点.rob",
+      "notes": "副歌尾部锁点。"
+    },
+    {
+      "label": "chorus-a-step",
+      "source": "308号标准踏步.rob",
+      "notes": "重新踩回完整步点。"
+    },
+
+    {
+      "label": "bridge-open",
+      "source": "392号手写展肩亮相.rob",
+      "notes": "桥段先把姿态打开。"
+    },
+    {
+      "label": "bridge-twist-roundtrip",
+      "source": "363号手写左右扭腰往返.rob",
+      "notes": "桥段左右扭腰往返。"
+    },
+    {
+      "label": "bridge-left-double",
+      "source": "364号手写左扭腰双击.rob",
+      "notes": "桥段左侧双击。"
+    },
+    {
+      "label": "bridge-right-double",
+      "source": "365号手写右扭腰双击.rob",
+      "notes": "桥段右侧双击。"
+    },
+    {
+      "label": "bridge-lock",
+      "source": "202号科目三切分锁点.rob",
+      "notes": "桥段结尾做锁点。"
+    },
+    {
+      "label": "bridge-short-step",
+      "source": "307号短拍踏步.rob",
+      "notes": "回到短拍踏步，准备再次进入主段。"
+    },
+
+    {
+      "label": "verse-b-left-cross",
+      "source": "354号手写左入右收.rob",
+      "notes": "主段 B 用左入右收做变体。"
+    },
+    {
+      "label": "verse-b-left-slide",
+      "source": "309号左侧滑短句.rob",
+      "notes": "再次落到左侧滑。"
+    },
+    {
+      "label": "verse-b-left-guide",
+      "source": "397号手写科目三左引导.rob",
+      "notes": "重复左引导，维持舞种识别度。"
+    },
+    {
+      "label": "verse-b-right-cross",
+      "source": "355号手写右入左收.rob",
+      "notes": "对称切到另一侧。"
+    },
+    {
+      "label": "verse-b-right-slide",
+      "source": "310号右侧滑短句.rob",
+      "notes": "右侧滑回应。"
+    },
+    {
+      "label": "verse-b-right-guide",
+      "source": "398号手写科目三右引导.rob",
+      "notes": "重复右引导。"
+    },
+    {
+      "label": "verse-b-slide-lock",
+      "source": "360号手写左右滑步锁点.rob",
+      "notes": "主段 B 用滑步锁点收束。"
+    },
+    {
+      "label": "verse-b-sway",
+      "source": "399号手写科目三连摆.rob",
+      "notes": "再给一组连摆。"
+    },
+    {
+      "label": "verse-b-step-reset",
+      "source": "308号标准踏步.rob",
+      "notes": "把主段 B 落回完整步点。"
+    },
+
+    {
+      "label": "chorus-b-open",
+      "source": "353号手写左右对摆.rob",
+      "notes": "副歌 B 重开。"
+    },
+    {
+      "label": "chorus-b-slide-lock",
+      "source": "360号手写左右滑步锁点.rob",
+      "notes": "继续用滑步锁点撑住副歌。"
+    },
+    {
+      "label": "chorus-b-main-groove",
+      "source": "313号扭腰双拍.rob",
+      "repeat": 2,
+      "notes": "副歌 B 把主律动扩成双段重复，直接拉长到完整版时长。"
+    },
+    {
+      "label": "chorus-b-left-guide",
+      "source": "397号手写科目三左引导.rob",
+      "notes": "左引导回钩。"
+    },
+    {
+      "label": "chorus-b-right-guide",
+      "source": "398号手写科目三右引导.rob",
+      "notes": "右引导回钩。"
+    },
+    {
+      "label": "chorus-b-sway",
+      "source": "399号手写科目三连摆.rob",
+      "notes": "副歌尾部再做一组连摆。"
+    },
+    {
+      "label": "chorus-b-lock",
+      "source": "202号科目三切分锁点.rob",
+      "notes": "长副歌结束锁点。"
+    },
+
+    {
+      "label": "outro-subject-lock",
+      "source": "400号手写科目三收束拍.rob",
+      "notes": "进入最后的科目三收束拍。"
+    },
+    {
+      "label": "outro-close-lock",
+      "source": "203号科目三收束锁点.rob",
+      "notes": "再补一个更稳的结束锁点。"
+    },
+    {
+      "label": "outro-bow",
+      "source": "10号鞠躬.rob",
+      "notes": "完整致意收尾。"
+    }
+  ]
+}

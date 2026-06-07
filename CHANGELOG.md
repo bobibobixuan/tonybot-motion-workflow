@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.7.0 - 2026-06-06
+
+### Changed
+
+- **主线重构**：项目从「Tonybot Motion Studio / AI 编舞工作台」收敛为「Tonybot Action Simulator / 动作模拟器」。
+- **新主入口**：`simulator/index.html` — 3D 动作模拟器，含 i18n 国际化（zh-CN/en-US）。
+- **新数据结构**：`data/official-actions/` — 204 个官方动作组 JSON 数据库（index.json + categories.json + actions/*.json）。
+- **工具集中化**：`tools/python/` — 复制 rob_*.py 等核心脚本，路径去中文依赖，rob_library.py 新增 export-official-actions 命令。
+- **知识归档**：`knowledge/docs/`（原文档）、`knowledge/wondercode/`（原 WonderCode 工具）。
+- **历史归档**：`legacy/choreography/`（编舞）、`legacy/motion-studio/`（Motion Studio 规划）。
+- **更新日志迁移**：`更新日志/` → `changelog/`。
+- **原目录保留不动**：`python-toolkit/` 和 `wondercode-toolkit/` 保持原样。
+- **README/AGENTS 全面更新**以反映新定位。
+- **未引入**：COM/支撑面/平衡分、React/Vite、AI 编舞。
+
 ## 0.6.0 - 2026-06-05
 
 ### Changed

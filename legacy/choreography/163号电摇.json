@@ -1,0 +1,107 @@
+{
+  "name": "163号电摇",
+  "prompt": "生成一段带有电摇风格的机器人展示舞蹈，突出深蹲弹动、手臂快速晃动、扭腰wave律动和原地踏步节奏，整体要节奏密集、循环感强，并在结尾回到稳定站姿。",
+  "research": {
+    "query": "电摇 舞蹈 动作 特点 节奏 教学",
+    "summary": [
+      "电摇源自网络迷因，核心动作是腿部深蹲+手臂上下快速晃动，呈现鬼畜般的抽搐式高频效果。",
+      "手部精髓：一手直角架于胸前保持稳定，另一手如游龙般上下穿梭晃动，一静一动形成对比。",
+      "胯部随之做wave式扭动，与手部达成丝滑的平衡感，不可只动手不动胯。",
+      "腿部以深蹲为主要驱动力，配合节拍做高频弹动或交替踏步，整体呈现摇来摇去的观感。",
+      "节奏通常配合快节奏电子节拍，4/4拍为主，动作需贴合鼓点重音，踏准节拍是关键。",
+      "项目当前不直接手写底层舵机轨迹，采用官方动作库做风格近似：下蹲拳模拟弹动、扭腰模拟wave、原地踏步建立节奏、捶胸模拟手臂晃动、左右侧滑制造穿梭感。"
+    ],
+    "references": [
+      {
+        "title": "「电摇」是怎么成为小学生最新接头暗号的？ - 虎嗅网",
+        "url": "https://m.huxiu.com/article/722372.html"
+      },
+      {
+        "title": "老师，我被同学「电摇」了…… - 腾讯新闻",
+        "url": "https://news.qq.com/rain/a/20230402A033KR00"
+      },
+      {
+        "title": "电摇舞蹈教学 - 哔哩哔哩",
+        "url": "https://www.bilibili.com/video/BV1VT42127JN/"
+      },
+      {
+        "title": "电摇听了就想去蹦迪 - 喜马拉雅",
+        "url": "https://m.ximalaya.com/ask/t5280593"
+      }
+    ]
+  },
+  "visualization": {
+    "title": "163号电摇时间线",
+    "theme": "electric"
+  },
+  "output": {
+    "rob": "动作/163号电摇.rob",
+    "report_json": "编舞/163号电摇.report.json",
+    "visualization_html": "编舞/163号电摇.timeline.html"
+  },
+  "segments": [
+    {
+      "label": "intro-stand",
+      "source": "0号立正.rob",
+      "notes": "安全起点，回到标准站姿。"
+    },
+    {
+      "label": "march-beat-intro",
+      "source": "49号原地踏步.rob",
+      "frame_range": [0, 12],
+      "notes": "用短踏步建立电摇脚下节奏感，踩准鼓点。"
+    },
+    {
+      "label": "squat-shake-1",
+      "source": "60号下蹲拳.rob",
+      "notes": "下蹲弹动+手臂晃动，模拟电摇核心的深蹲高频弹动感。"
+    },
+    {
+      "label": "waist-wave-1",
+      "source": "50号扭腰.rob",
+      "repeat": 2,
+      "notes": "重复扭腰模拟胯部wave律动，强化摇的循环感。"
+    },
+    {
+      "label": "chest-shake",
+      "source": "62号捶胸.rob",
+      "notes": "快速捶胸模拟手臂上下穿梭晃动的电摇手部动作。"
+    },
+    {
+      "label": "march-beat-mid",
+      "source": "49号原地踏步.rob",
+      "frame_range": [0, 16],
+      "notes": "回到踏步给节奏重新落拍，保持电摇的连续性。"
+    },
+    {
+      "label": "left-slide",
+      "source": "11号左侧滑.rob",
+      "notes": "左侧横移制造穿梭感，对应电摇游龙手的左右摆动。"
+    },
+    {
+      "label": "right-slide",
+      "source": "12号右侧滑.rob",
+      "notes": "右侧横移与左侧对称，形成左右来回的摇动。"
+    },
+    {
+      "label": "waist-wave-2",
+      "source": "50号扭腰.rob",
+      "notes": "再次扭腰wave，强化电摇胯部律动记忆点。"
+    },
+    {
+      "label": "squat-shake-2",
+      "source": "60号下蹲拳.rob",
+      "notes": "回到下蹲弹动做高潮收束，呼应前段形成完整循环。"
+    },
+    {
+      "label": "closing-bow",
+      "source": "10号鞠躬.rob",
+      "notes": "展示结束后礼貌收尾。"
+    },
+    {
+      "label": "outro-stand",
+      "source": "0号立正.rob",
+      "notes": "最终回到稳定站姿，安全结束。"
+    }
+  ]
+}

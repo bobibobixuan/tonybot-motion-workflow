@@ -1,0 +1,14 @@
+{
+  "name": "334号江南节奏",
+  "prompt": "江南节奏片段模块。",
+  "output": {
+    "rob": "动作/334号江南节奏.rob"
+  },
+  "segments": [
+    {
+      "label": "151号江南STYLE舞蹈",
+      "source": "151号江南STYLE舞蹈.rob",
+      "notes": "江南节奏。"
+    }
+  ]
+}

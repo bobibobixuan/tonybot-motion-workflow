@@ -1,0 +1,104 @@
+{
+  "name": "161号科目三加强版",
+  "prompt": "生成一段更接近短视频节奏的科目三机器人舞蹈，要求在原地踏步、左右侧滑和扭腰循环之外，加入更细的卡点过渡、预备拍和收束拍；允许手写新的过渡动作，但必须通过现有安全审计。",
+  "research": {
+    "query": "科目三 舞蹈 动作 特点 节奏 教学",
+    "summary": [
+      "科目三的辨识度不只来自大动作，更来自拍点前后的预备拍、重拍落点和左右律动反复出现的细节。",
+      "为了让机器人版本更像短视频里的节奏句，这一版除了复用原地踏步、侧滑、扭腰这些官方动作段，还手写了多个过渡帧，把左右重心切换和扭腰前后的锁点做得更密。",
+      "手写帧不是随意生成，而是围绕官方安全姿态做插值和小幅重排，再交给同一套安全边界学习器审计。"
+    ],
+    "references": [
+      {
+        "title": "极其抽象的文化输出，中国科目三舞统全球 - 知乎",
+        "url": "https://zhuanlan.zhihu.com/p/672982001"
+      },
+      {
+        "title": "科目三舞蹈教学（逐个动作分析，详细完整） - 哔哩哔哩",
+        "url": "https://www.bilibili.com/list/ml2800546374?oid=538586355&bvid=BV1Wi4y1B7Pn"
+      },
+      {
+        "title": "“科目三”舞蹈的审美解析与文化研究",
+        "url": "https://www.zgwypl.com/content/details16_442666.html"
+      }
+    ]
+  },
+  "visualization": {
+    "title": "161号科目三加强版时间线",
+    "theme": "sunset"
+  },
+  "output": {
+    "rob": "动作/161号科目三加强版.rob",
+    "report_json": "编舞/161号科目三加强版.report.json",
+    "visualization_html": "编舞/161号科目三加强版.timeline.html"
+  },
+  "segments": [
+    {
+      "label": "intro-stand",
+      "source": "0号立正.rob",
+      "notes": "从标准站姿起拍，给后续密集节奏留稳定起点。"
+    },
+    {
+      "label": "count-in-step-a",
+      "source": "49号原地踏步.rob",
+      "frame_range": [0, 12],
+      "notes": "先用短踏步把观众的节奏感拉起来。"
+    },
+    {
+      "label": "manual-groove-primer",
+      "source": "201号科目三预备律动.rob",
+      "notes": "调用动作库模块，先把科目三的预备律动压进去。"
+    },
+    {
+      "label": "left-slide-a",
+      "source": "11号左侧滑.rob",
+      "notes": "第一轮横向位移，保持科目三标志性的左右动势。"
+    },
+    {
+      "label": "right-slide-a",
+      "source": "12号右侧滑.rob",
+      "notes": "马上接对侧，形成完整的左右一拍。"
+    },
+    {
+      "label": "waist-cycle-a",
+      "source": "50号扭腰.rob",
+      "notes": "保留官方扭腰的主节奏，让整体风格更接近短视频里的核心段。"
+    },
+    {
+      "label": "manual-syncopation",
+      "source": "202号科目三切分锁点.rob",
+      "notes": "调用动作库模块，把扭腰前后的切分锁点复用进来。"
+    },
+    {
+      "label": "count-in-step-b",
+      "source": "49号原地踏步.rob",
+      "frame_range": [0, 12],
+      "notes": "回到踏步，重新给后段做节拍铺垫。"
+    },
+    {
+      "label": "left-slide-b",
+      "source": "11号左侧滑.rob",
+      "notes": "第二轮左侧滑，把前段律动做成回环。"
+    },
+    {
+      "label": "right-slide-b",
+      "source": "12号右侧滑.rob",
+      "notes": "与左侧滑呼应，完成第二次横向句。"
+    },
+    {
+      "label": "manual-finish-lock",
+      "source": "203号科目三收束锁点.rob",
+      "notes": "调用动作库模块，在结尾加一个可复用的收束拍。"
+    },
+    {
+      "label": "closing-bow",
+      "source": "10号鞠躬.rob",
+      "notes": "完整表演结束后再礼貌收尾。"
+    },
+    {
+      "label": "outro-stand",
+      "source": "0号立正.rob",
+      "notes": "回到安全站姿，方便上机结束。"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": 38,
+  "name": "38号循迹左转过渡",
+  "slug": "38号循迹左转过渡",
+  "source_file": "38号循迹左转过渡.rob",
+  "category": "locomotion",
+  "category_name": "Locomotion",
+  "tags": [
+    "locomotion"
+  ],
+  "frame_count": 1,
+  "total_duration": 500,
+  "source_tag": "plain",
+  "source_sha256": "e415d6988b3567fc800b9e62d1e2316a4c98094558c6917050d228b2d9ceb9e9",
+  "frames": [
+    {
+      "index": 0,
+      "duration": 500,
+      "pose": [
+        475,
+        357,
+        583,
+        643,
+        475,
+        575,
+        800,
+        725,
+        475,
+        643,
+        416,
+        357,
+        475,
+        425,
+        200,
+        275
+      ]
+    }
+  ]
+}

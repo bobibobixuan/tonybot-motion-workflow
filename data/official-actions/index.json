@@ -1,0 +1,1691 @@
+{
+  "total": 204,
+  "categories": [
+    {
+      "key": "choreography",
+      "name": "Choreography"
+    },
+    {
+      "key": "dance",
+      "name": "Dance"
+    },
+    {
+      "key": "floor",
+      "name": "Floor"
+    },
+    {
+      "key": "greeting",
+      "name": "Greeting"
+    },
+    {
+      "key": "kick",
+      "name": "Kick"
+    },
+    {
+      "key": "locomotion",
+      "name": "Locomotion"
+    },
+    {
+      "key": "manipulation",
+      "name": "Manipulation"
+    },
+    {
+      "key": "other",
+      "name": "Other"
+    },
+    {
+      "key": "posture",
+      "name": "Posture"
+    },
+    {
+      "key": "punch",
+      "name": "Punch"
+    },
+    {
+      "key": "slide",
+      "name": "Slide"
+    },
+    {
+      "key": "squat",
+      "name": "Squat"
+    },
+    {
+      "key": "twist",
+      "name": "Twist"
+    }
+  ],
+  "actions": [
+    {
+      "id": 0,
+      "name": "0号立正",
+      "slug": "0号立正",
+      "category": "posture",
+      "frame_count": 1,
+      "total_duration": 1200
+    },
+    {
+      "id": 1,
+      "name": "1号前进.plain",
+      "slug": "1号前进.plain",
+      "category": "locomotion",
+      "frame_count": 10,
+      "total_duration": 580
+    },
+    {
+      "id": 1,
+      "name": "1号前进",
+      "slug": "1号前进",
+      "category": "locomotion",
+      "frame_count": 10,
+      "total_duration": 580
+    },
+    {
+      "id": 2,
+      "name": "2号后退.plain",
+      "slug": "2号后退.plain",
+      "category": "locomotion",
+      "frame_count": 10,
+      "total_duration": 580
+    },
+    {
+      "id": 2,
+      "name": "2号后退",
+      "slug": "2号后退",
+      "category": "locomotion",
+      "frame_count": 10,
+      "total_duration": 580
+    },
+    {
+      "id": 3,
+      "name": "3号单脚左转.plain",
+      "slug": "3号单脚左转.plain",
+      "category": "locomotion",
+      "frame_count": 6,
+      "total_duration": 380
+    },
+    {
+      "id": 3,
+      "name": "3号单脚左转",
+      "slug": "3号单脚左转",
+      "category": "locomotion",
+      "frame_count": 6,
+      "total_duration": 380
+    },
+    {
+      "id": 4,
+      "name": "4号单脚右转.plain",
+      "slug": "4号单脚右转.plain",
+      "category": "locomotion",
+      "frame_count": 6,
+      "total_duration": 380
+    },
+    {
+      "id": 4,
+      "name": "4号单脚右转",
+      "slug": "4号单脚右转",
+      "category": "locomotion",
+      "frame_count": 6,
+      "total_duration": 380
+    },
+    {
+      "id": 7,
+      "name": "7号俯卧撑",
+      "slug": "7号俯卧撑",
+      "category": "floor",
+      "frame_count": 20,
+      "total_duration": 9200
+    },
+    {
+      "id": 8,
+      "name": "8号仰卧起坐",
+      "slug": "8号仰卧起坐",
+      "category": "floor",
+      "frame_count": 19,
+      "total_duration": 11300
+    },
+    {
+      "id": 9,
+      "name": "9号挥手",
+      "slug": "9号挥手",
+      "category": "greeting",
+      "frame_count": 11,
+      "total_duration": 3100
+    },
+    {
+      "id": 10,
+      "name": "10号鞠躬",
+      "slug": "10号鞠躬",
+      "category": "posture",
+      "frame_count": 7,
+      "total_duration": 4000
+    },
+    {
+      "id": 11,
+      "name": "11号左侧滑",
+      "slug": "11号左侧滑",
+      "category": "slide",
+      "frame_count": 6,
+      "total_duration": 600
+    },
+    {
+      "id": 12,
+      "name": "12号右侧滑",
+      "slug": "12号右侧滑",
+      "category": "slide",
+      "frame_count": 6,
+      "total_duration": 600
+    },
+    {
+      "id": 15,
+      "name": "15号开怀大笑",
+      "slug": "15号开怀大笑",
+      "category": "other",
+      "frame_count": 22,
+      "total_duration": 8400
+    },
+    {
+      "id": 16,
+      "name": "16号下蹲 ",
+      "slug": "16号下蹲",
+      "category": "squat",
+      "frame_count": 1,
+      "total_duration": 1200
+    },
+    {
+      "id": 17,
+      "name": "17号大鹏展翅",
+      "slug": "17号大鹏展翅",
+      "category": "other",
+      "frame_count": 30,
+      "total_duration": 10700
+    },
+    {
+      "id": 18,
+      "name": "18号循环前进第一步",
+      "slug": "18号循环前进第一步",
+      "category": "locomotion",
+      "frame_count": 1,
+      "total_duration": 300
+    },
+    {
+      "id": 19,
+      "name": "19号快速立正",
+      "slug": "19号快速立正",
+      "category": "posture",
+      "frame_count": 1,
+      "total_duration": 500
+    },
+    {
+      "id": 21,
+      "name": "21号循环前进",
+      "slug": "21号循环前进",
+      "category": "locomotion",
+      "frame_count": 4,
+      "total_duration": 1200
+    },
+    {
+      "id": 22,
+      "name": "22号循环后退",
+      "slug": "22号循环后退",
+      "category": "locomotion",
+      "frame_count": 4,
+      "total_duration": 1600
+    },
+    {
+      "id": 23,
+      "name": "23号左转(原地)",
+      "slug": "23号左转-原地",
+      "category": "locomotion",
+      "frame_count": 4,
+      "total_duration": 500
+    },
+    {
+      "id": 24,
+      "name": "24号右转(原地)",
+      "slug": "24号右转-原地",
+      "category": "locomotion",
+      "frame_count": 4,
+      "total_duration": 500
+    },
+    {
+      "id": 25,
+      "name": "25号循环前进_右脚先_",
+      "slug": "25号循环前进_右脚先_",
+      "category": "locomotion",
+      "frame_count": 4,
+      "total_duration": 1200
+    },
+    {
+      "id": 26,
+      "name": "26号抱娃娃",
+      "slug": "26号抱娃娃",
+      "category": "other",
+      "frame_count": 3,
+      "total_duration": 1600
+    },
+    {
+      "id": 27,
+      "name": "27号伸右手",
+      "slug": "27号伸右手",
+      "category": "other",
+      "frame_count": 2,
+      "total_duration": 1100
+    },
+    {
+      "id": 28,
+      "name": "28号双手向前支撑",
+      "slug": "28号双手向前支撑",
+      "category": "other",
+      "frame_count": 1,
+      "total_duration": 50
+    },
+    {
+      "id": 29,
+      "name": "29号双手向后支撑",
+      "slug": "29号双手向后支撑",
+      "category": "other",
+      "frame_count": 1,
+      "total_duration": 50
+    },
+    {
+      "id": 30,
+      "name": "30号下蹲立正",
+      "slug": "30号下蹲立正",
+      "category": "squat",
+      "frame_count": 1,
+      "total_duration": 1200
+    },
+    {
+      "id": 31,
+      "name": "31号下蹲前进",
+      "slug": "31号下蹲前进",
+      "category": "locomotion",
+      "frame_count": 6,
+      "total_duration": 2000
+    },
+    {
+      "id": 32,
+      "name": "32号循迹前进第一步",
+      "slug": "32号循迹前进第一步",
+      "category": "locomotion",
+      "frame_count": 1,
+      "total_duration": 300
+    },
+    {
+      "id": 33,
+      "name": "33号循迹前进第二步",
+      "slug": "33号循迹前进第二步",
+      "category": "locomotion",
+      "frame_count": 3,
+      "total_duration": 900
+    },
+    {
+      "id": 34,
+      "name": "34号左转(前进)",
+      "slug": "34号左转-前进",
+      "category": "locomotion",
+      "frame_count": 7,
+      "total_duration": 1050
+    },
+    {
+      "id": 35,
+      "name": "35号右转(前进)",
+      "slug": "35号右转-前进",
+      "category": "locomotion",
+      "frame_count": 6,
+      "total_duration": 900
+    },
+    {
+      "id": 36,
+      "name": "36号左转过渡",
+      "slug": "36号左转过渡",
+      "category": "locomotion",
+      "frame_count": 1,
+      "total_duration": 500
+    },
+    {
+      "id": 37,
+      "name": "37号右转过渡",
+      "slug": "37号右转过渡",
+      "category": "locomotion",
+      "frame_count": 1,
+      "total_duration": 500
+    },
+    {
+      "id": 38,
+      "name": "38号循迹左转过渡",
+      "slug": "38号循迹左转过渡",
+      "category": "locomotion",
+      "frame_count": 1,
+      "total_duration": 500
+    },
+    {
+      "id": 39,
+      "name": "39号循迹右转过渡",
+      "slug": "39号循迹右转过渡",
+      "category": "locomotion",
+      "frame_count": 1,
+      "total_duration": 500
+    },
+    {
+      "id": 48,
+      "name": "48号介绍动作",
+      "slug": "48号介绍动作",
+      "category": "other",
+      "frame_count": 7,
+      "total_duration": 5000
+    },
+    {
+      "id": 49,
+      "name": "49号原地踏步",
+      "slug": "49号原地踏步",
+      "category": "other",
+      "frame_count": 16,
+      "total_duration": 3500
+    },
+    {
+      "id": 50,
+      "name": "50号扭腰",
+      "slug": "50号扭腰",
+      "category": "twist",
+      "frame_count": 5,
+      "total_duration": 3200
+    },
+    {
+      "id": 51,
+      "name": "51号左侧踢",
+      "slug": "51号左侧踢",
+      "category": "kick",
+      "frame_count": 5,
+      "total_duration": 900
+    },
+    {
+      "id": 52,
+      "name": "52号右侧踢",
+      "slug": "52号右侧踢",
+      "category": "kick",
+      "frame_count": 5,
+      "total_duration": 900
+    },
+    {
+      "id": 53,
+      "name": "53号左弯勾拳2",
+      "slug": "53号左弯勾拳2",
+      "category": "punch",
+      "frame_count": 4,
+      "total_duration": 1600
+    },
+    {
+      "id": 54,
+      "name": "54号右弯勾拳2",
+      "slug": "54号右弯勾拳2",
+      "category": "punch",
+      "frame_count": 4,
+      "total_duration": 1600
+    },
+    {
+      "id": 55,
+      "name": "55号左脚射门",
+      "slug": "55号左脚射门",
+      "category": "kick",
+      "frame_count": 7,
+      "total_duration": 2450
+    },
+    {
+      "id": 56,
+      "name": "56号右脚射门",
+      "slug": "56号右脚射门",
+      "category": "kick",
+      "frame_count": 7,
+      "total_duration": 2450
+    },
+    {
+      "id": 57,
+      "name": "57号左勾拳2",
+      "slug": "57号左勾拳2",
+      "category": "punch",
+      "frame_count": 5,
+      "total_duration": 1100
+    },
+    {
+      "id": 58,
+      "name": "58号右勾拳2",
+      "slug": "58号右勾拳2",
+      "category": "punch",
+      "frame_count": 5,
+      "total_duration": 1100
+    },
+    {
+      "id": 59,
+      "name": "59号前进拳击",
+      "slug": "59号前进拳击",
+      "category": "locomotion",
+      "frame_count": 6,
+      "total_duration": 1500
+    },
+    {
+      "id": 60,
+      "name": "60号下蹲拳",
+      "slug": "60号下蹲拳",
+      "category": "punch",
+      "frame_count": 4,
+      "total_duration": 2750
+    },
+    {
+      "id": 61,
+      "name": "61号咏春拳",
+      "slug": "61号咏春拳",
+      "category": "punch",
+      "frame_count": 10,
+      "total_duration": 2600
+    },
+    {
+      "id": 62,
+      "name": "62号捶胸",
+      "slug": "62号捶胸",
+      "category": "other",
+      "frame_count": 20,
+      "total_duration": 6900
+    },
+    {
+      "id": 63,
+      "name": "63号go_forward",
+      "slug": "63号go_forward",
+      "category": "locomotion",
+      "frame_count": 10,
+      "total_duration": 900
+    },
+    {
+      "id": 64,
+      "name": "64号go_forward_end",
+      "slug": "64号go_forward_end",
+      "category": "locomotion",
+      "frame_count": 3,
+      "total_duration": 800
+    },
+    {
+      "id": 65,
+      "name": "65号turn_left_small_step",
+      "slug": "65号turn_left_small_step",
+      "category": "locomotion",
+      "frame_count": 6,
+      "total_duration": 1200
+    },
+    {
+      "id": 66,
+      "name": "66号turn_right_small_step",
+      "slug": "66号turn_right_small_step",
+      "category": "locomotion",
+      "frame_count": 6,
+      "total_duration": 1200
+    },
+    {
+      "id": 67,
+      "name": "67号go_forward_first",
+      "slug": "67号go_forward_first",
+      "category": "locomotion",
+      "frame_count": 10,
+      "total_duration": 2750
+    },
+    {
+      "id": 68,
+      "name": "68号下蹲抓方块",
+      "slug": "68号下蹲抓方块",
+      "category": "squat",
+      "frame_count": 6,
+      "total_duration": 5500
+    },
+    {
+      "id": 69,
+      "name": "69号抓取右转一小步",
+      "slug": "69号抓取右转一小步",
+      "category": "locomotion",
+      "frame_count": 6,
+      "total_duration": 1450
+    },
+    {
+      "id": 70,
+      "name": "70号夹着放下",
+      "slug": "70号夹着放下",
+      "category": "manipulation",
+      "frame_count": 5,
+      "total_duration": 3600
+    },
+    {
+      "id": 71,
+      "name": "71号向前走俩步",
+      "slug": "71号向前走俩步",
+      "category": "other",
+      "frame_count": 15,
+      "total_duration": 4700
+    },
+    {
+      "id": 72,
+      "name": "72号后退俩步",
+      "slug": "72号后退俩步",
+      "category": "locomotion",
+      "frame_count": 15,
+      "total_duration": 5900
+    },
+    {
+      "id": 73,
+      "name": "73号向左转7步",
+      "slug": "73号向左转7步",
+      "category": "locomotion",
+      "frame_count": 56,
+      "total_duration": 8400
+    },
+    {
+      "id": 74,
+      "name": "74号右转7步",
+      "slug": "74号右转7步",
+      "category": "locomotion",
+      "frame_count": 42,
+      "total_duration": 6300
+    },
+    {
+      "id": 75,
+      "name": "75号原地左转90°",
+      "slug": "75号原地左转90°",
+      "category": "locomotion",
+      "frame_count": 24,
+      "total_duration": 3000
+    },
+    {
+      "id": 76,
+      "name": "76号原地右转",
+      "slug": "76号原地右转",
+      "category": "locomotion",
+      "frame_count": 24,
+      "total_duration": 3000
+    },
+    {
+      "id": 77,
+      "name": "77号下蹲前进6步",
+      "slug": "77号下蹲前进6步",
+      "category": "locomotion",
+      "frame_count": 38,
+      "total_duration": 11400
+    },
+    {
+      "id": 78,
+      "name": "78号抓取（头顶）",
+      "slug": "78号抓取-头顶",
+      "category": "manipulation",
+      "frame_count": 7,
+      "total_duration": 7300
+    },
+    {
+      "id": 79,
+      "name": "79号放下（头顶）",
+      "slug": "79号放下-头顶",
+      "category": "manipulation",
+      "frame_count": 7,
+      "total_duration": 5900
+    },
+    {
+      "id": 80,
+      "name": "80号抓着前进第一步（头顶）",
+      "slug": "80号抓着前进第一步-头顶",
+      "category": "locomotion",
+      "frame_count": 1,
+      "total_duration": 300
+    },
+    {
+      "id": 81,
+      "name": "81号抓着走（头顶）1",
+      "slug": "81号抓着走-头顶-1",
+      "category": "manipulation",
+      "frame_count": 4,
+      "total_duration": 1200
+    },
+    {
+      "id": 96,
+      "name": "96号back_fast",
+      "slug": "96号back_fast",
+      "category": "locomotion",
+      "frame_count": 4,
+      "total_duration": 1000
+    },
+    {
+      "id": 101,
+      "name": "101号后倒站立",
+      "slug": "101号后倒站立",
+      "category": "other",
+      "frame_count": 7,
+      "total_duration": 4600
+    },
+    {
+      "id": 102,
+      "name": "102号前倒站立2",
+      "slug": "102号前倒站立2",
+      "category": "other",
+      "frame_count": 9,
+      "total_duration": 5400
+    },
+    {
+      "id": 103,
+      "name": "103号体操",
+      "slug": "103号体操",
+      "category": "choreography",
+      "frame_count": 12,
+      "total_duration": 6900
+    },
+    {
+      "id": 104,
+      "name": "104号（校准）",
+      "slug": "104号-校准",
+      "category": "other",
+      "frame_count": 1,
+      "total_duration": 1000
+    },
+    {
+      "id": 150,
+      "name": "150号街舞",
+      "slug": "150号街舞",
+      "category": "dance",
+      "frame_count": 136,
+      "total_duration": 50400
+    },
+    {
+      "id": 151,
+      "name": "151号江南STYLE舞蹈",
+      "slug": "151号江南style舞蹈",
+      "category": "dance",
+      "frame_count": 227,
+      "total_duration": 67140
+    },
+    {
+      "id": 152,
+      "name": "152号小苹果舞蹈",
+      "slug": "152号小苹果舞蹈",
+      "category": "dance",
+      "frame_count": 182,
+      "total_duration": 81100
+    },
+    {
+      "id": 153,
+      "name": "153号La Song舞蹈",
+      "slug": "153号la-song舞蹈",
+      "category": "dance",
+      "frame_count": 138,
+      "total_duration": 55500
+    },
+    {
+      "id": 154,
+      "name": "154号倍儿爽舞蹈",
+      "slug": "154号倍儿爽舞蹈",
+      "category": "dance",
+      "frame_count": 206,
+      "total_duration": 63190
+    },
+    {
+      "id": 155,
+      "name": "155号fantastic baby舞蹈",
+      "slug": "155号fantastic-baby舞蹈",
+      "category": "dance",
+      "frame_count": 178,
+      "total_duration": 64800
+    },
+    {
+      "id": 156,
+      "name": "156号超级冠军舞蹈",
+      "slug": "156号超级冠军舞蹈",
+      "category": "dance",
+      "frame_count": 193,
+      "total_duration": 83250
+    },
+    {
+      "id": 157,
+      "name": "157号青春修炼手册舞蹈",
+      "slug": "157号青春修炼手册舞蹈",
+      "category": "dance",
+      "frame_count": 166,
+      "total_duration": 82030
+    },
+    {
+      "id": 158,
+      "name": "158号爱出发舞蹈",
+      "slug": "158号爱出发舞蹈",
+      "category": "dance",
+      "frame_count": 237,
+      "total_duration": 82800
+    },
+    {
+      "id": 159,
+      "name": "159号自制舞蹈",
+      "slug": "159号自制舞蹈",
+      "category": "dance",
+      "frame_count": 49,
+      "total_duration": 23600
+    },
+    {
+      "id": 160,
+      "name": "160号科目三舞蹈",
+      "slug": "160号科目三舞蹈",
+      "category": "dance",
+      "frame_count": 78,
+      "total_duration": 26400
+    },
+    {
+      "id": 161,
+      "name": "161号科目三加强版",
+      "slug": "161号科目三加强版",
+      "category": "dance",
+      "frame_count": 80,
+      "total_duration": 20000
+    },
+    {
+      "id": 162,
+      "name": "162号科目三完整版",
+      "slug": "162号科目三完整版",
+      "category": "dance",
+      "frame_count": 312,
+      "total_duration": 64040
+    },
+    {
+      "id": 163,
+      "name": "163号电摇",
+      "slug": "163号电摇",
+      "category": "other",
+      "frame_count": 92,
+      "total_duration": 35800
+    },
+    {
+      "id": 164,
+      "name": "164号工业校歌初稿",
+      "slug": "164号工业校歌初稿",
+      "category": "choreography",
+      "frame_count": 694,
+      "total_duration": 250650
+    },
+    {
+      "id": 165,
+      "name": "165号工业校歌逐拍精细版",
+      "slug": "165号工业校歌逐拍精细版",
+      "category": "choreography",
+      "frame_count": 667,
+      "total_duration": 247320
+    },
+    {
+      "id": 166,
+      "name": "166号工业校歌PartA",
+      "slug": "166号工业校歌parta",
+      "category": "choreography",
+      "frame_count": 360,
+      "total_duration": 126360
+    },
+    {
+      "id": 166,
+      "name": "166号工业校歌PartB",
+      "slug": "166号工业校歌partb",
+      "category": "choreography",
+      "frame_count": 292,
+      "total_duration": 114960
+    },
+    {
+      "id": 167,
+      "name": "167号工业校歌队列广播体操版A",
+      "slug": "167号工业校歌队列广播体操版a",
+      "category": "choreography",
+      "frame_count": 301,
+      "total_duration": 114150
+    },
+    {
+      "id": 168,
+      "name": "168号工业校歌队列广播体操版B",
+      "slug": "168号工业校歌队列广播体操版b",
+      "category": "choreography",
+      "frame_count": 257,
+      "total_duration": 104820
+    },
+    {
+      "id": 169,
+      "name": "169号工业校歌队列广播体操合并版",
+      "slug": "169号工业校歌队列广播体操合并版",
+      "category": "choreography",
+      "frame_count": 193,
+      "total_duration": 76000
+    },
+    {
+      "id": 170,
+      "name": "170号霹雳舞炫技版",
+      "slug": "170号霹雳舞炫技版",
+      "category": "dance",
+      "frame_count": 184,
+      "total_duration": 66830
+    },
+    {
+      "id": 201,
+      "name": "201号科目三预备律动",
+      "slug": "201号科目三预备律动",
+      "category": "dance",
+      "frame_count": 7,
+      "total_duration": 960
+    },
+    {
+      "id": 202,
+      "name": "202号科目三切分锁点",
+      "slug": "202号科目三切分锁点",
+      "category": "dance",
+      "frame_count": 6,
+      "total_duration": 820
+    },
+    {
+      "id": 203,
+      "name": "203号科目三收束锁点",
+      "slug": "203号科目三收束锁点",
+      "category": "dance",
+      "frame_count": 5,
+      "total_duration": 820
+    },
+    {
+      "id": 203,
+      "name": "军礼_原创",
+      "slug": "军礼_原创",
+      "category": "other",
+      "frame_count": 5,
+      "total_duration": 880
+    },
+    {
+      "id": 301,
+      "name": "301号站姿基座",
+      "slug": "301号站姿基座",
+      "category": "posture",
+      "frame_count": 1,
+      "total_duration": 1200
+    },
+    {
+      "id": 302,
+      "name": "302号快速回正",
+      "slug": "302号快速回正",
+      "category": "posture",
+      "frame_count": 1,
+      "total_duration": 500
+    },
+    {
+      "id": 303,
+      "name": "303号礼貌鞠躬",
+      "slug": "303号礼貌鞠躬",
+      "category": "posture",
+      "frame_count": 7,
+      "total_duration": 4000
+    },
+    {
+      "id": 304,
+      "name": "304号招手问候",
+      "slug": "304号招手问候",
+      "category": "greeting",
+      "frame_count": 11,
+      "total_duration": 3100
+    },
+    {
+      "id": 305,
+      "name": "305号展示姿态",
+      "slug": "305号展示姿态",
+      "category": "other",
+      "frame_count": 7,
+      "total_duration": 5000
+    },
+    {
+      "id": 306,
+      "name": "306号笑场互动",
+      "slug": "306号笑场互动",
+      "category": "other",
+      "frame_count": 22,
+      "total_duration": 8400
+    },
+    {
+      "id": 307,
+      "name": "307号短拍踏步",
+      "slug": "307号短拍踏步",
+      "category": "other",
+      "frame_count": 8,
+      "total_duration": 1900
+    },
+    {
+      "id": 308,
+      "name": "308号标准踏步",
+      "slug": "308号标准踏步",
+      "category": "other",
+      "frame_count": 12,
+      "total_duration": 2700
+    },
+    {
+      "id": 309,
+      "name": "309号左侧滑短句",
+      "slug": "309号左侧滑短句",
+      "category": "slide",
+      "frame_count": 6,
+      "total_duration": 600
+    },
+    {
+      "id": 310,
+      "name": "310号右侧滑短句",
+      "slug": "310号右侧滑短句",
+      "category": "slide",
+      "frame_count": 6,
+      "total_duration": 600
+    },
+    {
+      "id": 311,
+      "name": "311号左右侧滑往返",
+      "slug": "311号左右侧滑往返",
+      "category": "slide",
+      "frame_count": 6,
+      "total_duration": 600
+    },
+    {
+      "id": 312,
+      "name": "312号扭腰单拍",
+      "slug": "312号扭腰单拍",
+      "category": "twist",
+      "frame_count": 5,
+      "total_duration": 3200
+    },
+    {
+      "id": 313,
+      "name": "313号扭腰双拍",
+      "slug": "313号扭腰双拍",
+      "category": "twist",
+      "frame_count": 10,
+      "total_duration": 6400
+    },
+    {
+      "id": 314,
+      "name": "314号左侧踢",
+      "slug": "314号左侧踢",
+      "category": "kick",
+      "frame_count": 5,
+      "total_duration": 900
+    },
+    {
+      "id": 315,
+      "name": "315号右侧踢",
+      "slug": "315号右侧踢",
+      "category": "kick",
+      "frame_count": 5,
+      "total_duration": 900
+    },
+    {
+      "id": 316,
+      "name": "316号左右侧踢组合",
+      "slug": "316号左右侧踢组合",
+      "category": "kick",
+      "frame_count": 5,
+      "total_duration": 900
+    },
+    {
+      "id": 317,
+      "name": "317号左勾拳",
+      "slug": "317号左勾拳",
+      "category": "punch",
+      "frame_count": 5,
+      "total_duration": 1100
+    },
+    {
+      "id": 318,
+      "name": "318号右勾拳",
+      "slug": "318号右勾拳",
+      "category": "punch",
+      "frame_count": 5,
+      "total_duration": 1100
+    },
+    {
+      "id": 319,
+      "name": "319号左右勾拳组合",
+      "slug": "319号左右勾拳组合",
+      "category": "punch",
+      "frame_count": 5,
+      "total_duration": 1100
+    },
+    {
+      "id": 320,
+      "name": "320号左弯勾拳",
+      "slug": "320号左弯勾拳",
+      "category": "punch",
+      "frame_count": 4,
+      "total_duration": 1600
+    },
+    {
+      "id": 321,
+      "name": "321号右弯勾拳",
+      "slug": "321号右弯勾拳",
+      "category": "punch",
+      "frame_count": 4,
+      "total_duration": 1600
+    },
+    {
+      "id": 322,
+      "name": "322号前进拳击",
+      "slug": "322号前进拳击",
+      "category": "locomotion",
+      "frame_count": 6,
+      "total_duration": 1500
+    },
+    {
+      "id": 323,
+      "name": "323号下蹲拳",
+      "slug": "323号下蹲拳",
+      "category": "punch",
+      "frame_count": 4,
+      "total_duration": 2750
+    },
+    {
+      "id": 324,
+      "name": "324号咏春拳",
+      "slug": "324号咏春拳",
+      "category": "punch",
+      "frame_count": 10,
+      "total_duration": 2600
+    },
+    {
+      "id": 325,
+      "name": "325号捶胸强调",
+      "slug": "325号捶胸强调",
+      "category": "other",
+      "frame_count": 20,
+      "total_duration": 6900
+    },
+    {
+      "id": 326,
+      "name": "326号大鹏展翅",
+      "slug": "326号大鹏展翅",
+      "category": "other",
+      "frame_count": 30,
+      "total_duration": 10700
+    },
+    {
+      "id": 327,
+      "name": "327号抱娃娃",
+      "slug": "327号抱娃娃",
+      "category": "other",
+      "frame_count": 3,
+      "total_duration": 1600
+    },
+    {
+      "id": 328,
+      "name": "328号伸右手",
+      "slug": "328号伸右手",
+      "category": "other",
+      "frame_count": 2,
+      "total_duration": 1100
+    },
+    {
+      "id": 329,
+      "name": "329号下蹲回正",
+      "slug": "329号下蹲回正",
+      "category": "squat",
+      "frame_count": 1,
+      "total_duration": 1200
+    },
+    {
+      "id": 330,
+      "name": "330号下蹲前压",
+      "slug": "330号下蹲前压",
+      "category": "squat",
+      "frame_count": 6,
+      "total_duration": 2000
+    },
+    {
+      "id": 331,
+      "name": "331号俯卧撑短句",
+      "slug": "331号俯卧撑短句",
+      "category": "floor",
+      "frame_count": 20,
+      "total_duration": 9200
+    },
+    {
+      "id": 332,
+      "name": "332号仰卧起坐短句",
+      "slug": "332号仰卧起坐短句",
+      "category": "floor",
+      "frame_count": 19,
+      "total_duration": 11300
+    },
+    {
+      "id": 333,
+      "name": "333号街舞片段",
+      "slug": "333号街舞片段",
+      "category": "dance",
+      "frame_count": 136,
+      "total_duration": 50400
+    },
+    {
+      "id": 334,
+      "name": "334号江南节奏",
+      "slug": "334号江南节奏",
+      "category": "dance",
+      "frame_count": 227,
+      "total_duration": 67140
+    },
+    {
+      "id": 335,
+      "name": "335号小苹果节奏",
+      "slug": "335号小苹果节奏",
+      "category": "dance",
+      "frame_count": 182,
+      "total_duration": 81100
+    },
+    {
+      "id": 336,
+      "name": "336号LaSong节奏",
+      "slug": "336号lasong节奏",
+      "category": "other",
+      "frame_count": 138,
+      "total_duration": 55500
+    },
+    {
+      "id": 337,
+      "name": "337号倍儿爽节奏",
+      "slug": "337号倍儿爽节奏",
+      "category": "dance",
+      "frame_count": 206,
+      "total_duration": 63190
+    },
+    {
+      "id": 338,
+      "name": "338号Fantastic节奏",
+      "slug": "338号fantastic节奏",
+      "category": "dance",
+      "frame_count": 178,
+      "total_duration": 64800
+    },
+    {
+      "id": 339,
+      "name": "339号超级冠军节奏",
+      "slug": "339号超级冠军节奏",
+      "category": "dance",
+      "frame_count": 193,
+      "total_duration": 83250
+    },
+    {
+      "id": 340,
+      "name": "340号青春修炼手册节奏",
+      "slug": "340号青春修炼手册节奏",
+      "category": "dance",
+      "frame_count": 166,
+      "total_duration": 82030
+    },
+    {
+      "id": 341,
+      "name": "341号爱出发节奏",
+      "slug": "341号爱出发节奏",
+      "category": "dance",
+      "frame_count": 237,
+      "total_duration": 82800
+    },
+    {
+      "id": 342,
+      "name": "342号前行两步",
+      "slug": "342号前行两步",
+      "category": "other",
+      "frame_count": 15,
+      "total_duration": 4700
+    },
+    {
+      "id": 343,
+      "name": "343号后退两步",
+      "slug": "343号后退两步",
+      "category": "locomotion",
+      "frame_count": 15,
+      "total_duration": 5900
+    },
+    {
+      "id": 344,
+      "name": "344号左转七步",
+      "slug": "344号左转七步",
+      "category": "locomotion",
+      "frame_count": 56,
+      "total_duration": 8400
+    },
+    {
+      "id": 345,
+      "name": "345号右转七步",
+      "slug": "345号右转七步",
+      "category": "locomotion",
+      "frame_count": 42,
+      "total_duration": 6300
+    },
+    {
+      "id": 346,
+      "name": "346号左转九十",
+      "slug": "346号左转九十",
+      "category": "locomotion",
+      "frame_count": 24,
+      "total_duration": 3000
+    },
+    {
+      "id": 347,
+      "name": "347号右转九十",
+      "slug": "347号右转九十",
+      "category": "locomotion",
+      "frame_count": 24,
+      "total_duration": 3000
+    },
+    {
+      "id": 348,
+      "name": "348号头顶抓取",
+      "slug": "348号头顶抓取",
+      "category": "manipulation",
+      "frame_count": 7,
+      "total_duration": 7300
+    },
+    {
+      "id": 349,
+      "name": "349号头顶放下",
+      "slug": "349号头顶放下",
+      "category": "manipulation",
+      "frame_count": 7,
+      "total_duration": 5900
+    },
+    {
+      "id": 350,
+      "name": "350号头顶携带前进一步",
+      "slug": "350号头顶携带前进一步",
+      "category": "locomotion",
+      "frame_count": 1,
+      "total_duration": 300
+    },
+    {
+      "id": 351,
+      "name": "351号手写左侧预摆",
+      "slug": "351号手写左侧预摆",
+      "category": "other",
+      "frame_count": 4,
+      "total_duration": 560
+    },
+    {
+      "id": 352,
+      "name": "352号手写右侧预摆",
+      "slug": "352号手写右侧预摆",
+      "category": "other",
+      "frame_count": 4,
+      "total_duration": 560
+    },
+    {
+      "id": 353,
+      "name": "353号手写左右对摆",
+      "slug": "353号手写左右对摆",
+      "category": "other",
+      "frame_count": 5,
+      "total_duration": 610
+    },
+    {
+      "id": 354,
+      "name": "354号手写左入右收",
+      "slug": "354号手写左入右收",
+      "category": "other",
+      "frame_count": 5,
+      "total_duration": 600
+    },
+    {
+      "id": 355,
+      "name": "355号手写右入左收",
+      "slug": "355号手写右入左收",
+      "category": "other",
+      "frame_count": 5,
+      "total_duration": 600
+    },
+    {
+      "id": 356,
+      "name": "356号手写短拍踏点",
+      "slug": "356号手写短拍踏点",
+      "category": "other",
+      "frame_count": 5,
+      "total_duration": 580
+    },
+    {
+      "id": 357,
+      "name": "357号手写双拍踏点",
+      "slug": "357号手写双拍踏点",
+      "category": "other",
+      "frame_count": 7,
+      "total_duration": 750
+    },
+    {
+      "id": 358,
+      "name": "358号手写左滑锁拍",
+      "slug": "358号手写左滑锁拍",
+      "category": "other",
+      "frame_count": 5,
+      "total_duration": 600
+    },
+    {
+      "id": 359,
+      "name": "359号手写右滑锁拍",
+      "slug": "359号手写右滑锁拍",
+      "category": "other",
+      "frame_count": 5,
+      "total_duration": 600
+    },
+    {
+      "id": 360,
+      "name": "360号手写左右滑步锁点",
+      "slug": "360号手写左右滑步锁点",
+      "category": "other",
+      "frame_count": 7,
+      "total_duration": 760
+    },
+    {
+      "id": 361,
+      "name": "361号手写左扭腰入拍",
+      "slug": "361号手写左扭腰入拍",
+      "category": "twist",
+      "frame_count": 5,
+      "total_duration": 620
+    },
+    {
+      "id": 362,
+      "name": "362号手写右扭腰入拍",
+      "slug": "362号手写右扭腰入拍",
+      "category": "twist",
+      "frame_count": 5,
+      "total_duration": 620
+    },
+    {
+      "id": 363,
+      "name": "363号手写左右扭腰往返",
+      "slug": "363号手写左右扭腰往返",
+      "category": "twist",
+      "frame_count": 7,
+      "total_duration": 770
+    },
+    {
+      "id": 364,
+      "name": "364号手写左扭腰双击",
+      "slug": "364号手写左扭腰双击",
+      "category": "twist",
+      "frame_count": 6,
+      "total_duration": 680
+    },
+    {
+      "id": 365,
+      "name": "365号手写右扭腰双击",
+      "slug": "365号手写右扭腰双击",
+      "category": "twist",
+      "frame_count": 6,
+      "total_duration": 680
+    },
+    {
+      "id": 366,
+      "name": "366号手写左拳预压",
+      "slug": "366号手写左拳预压",
+      "category": "punch",
+      "frame_count": 5,
+      "total_duration": 560
+    },
+    {
+      "id": 367,
+      "name": "367号手写右拳预压",
+      "slug": "367号手写右拳预压",
+      "category": "punch",
+      "frame_count": 5,
+      "total_duration": 560
+    },
+    {
+      "id": 368,
+      "name": "368号手写左拳双击",
+      "slug": "368号手写左拳双击",
+      "category": "punch",
+      "frame_count": 7,
+      "total_duration": 720
+    },
+    {
+      "id": 369,
+      "name": "369号手写右拳双击",
+      "slug": "369号手写右拳双击",
+      "category": "punch",
+      "frame_count": 7,
+      "total_duration": 720
+    },
+    {
+      "id": 370,
+      "name": "370号手写左右交替拳",
+      "slug": "370号手写左右交替拳",
+      "category": "punch",
+      "frame_count": 7,
+      "total_duration": 700
+    },
+    {
+      "id": 371,
+      "name": "371号手写左勾拳锁点",
+      "slug": "371号手写左勾拳锁点",
+      "category": "punch",
+      "frame_count": 5,
+      "total_duration": 590
+    },
+    {
+      "id": 372,
+      "name": "372号手写右勾拳锁点",
+      "slug": "372号手写右勾拳锁点",
+      "category": "punch",
+      "frame_count": 5,
+      "total_duration": 590
+    },
+    {
+      "id": 373,
+      "name": "373号手写左右勾拳往返",
+      "slug": "373号手写左右勾拳往返",
+      "category": "punch",
+      "frame_count": 7,
+      "total_duration": 770
+    },
+    {
+      "id": 374,
+      "name": "374号手写左拳回拉",
+      "slug": "374号手写左拳回拉",
+      "category": "punch",
+      "frame_count": 6,
+      "total_duration": 650
+    },
+    {
+      "id": 375,
+      "name": "375号手写右拳回拉",
+      "slug": "375号手写右拳回拉",
+      "category": "punch",
+      "frame_count": 6,
+      "total_duration": 650
+    },
+    {
+      "id": 376,
+      "name": "376号手写左踢预备",
+      "slug": "376号手写左踢预备",
+      "category": "kick",
+      "frame_count": 5,
+      "total_duration": 620
+    },
+    {
+      "id": 377,
+      "name": "377号手写右踢预备",
+      "slug": "377号手写右踢预备",
+      "category": "kick",
+      "frame_count": 5,
+      "total_duration": 620
+    },
+    {
+      "id": 378,
+      "name": "378号手写左踢停顿",
+      "slug": "378号手写左踢停顿",
+      "category": "kick",
+      "frame_count": 5,
+      "total_duration": 680
+    },
+    {
+      "id": 379,
+      "name": "379号手写右踢停顿",
+      "slug": "379号手写右踢停顿",
+      "category": "kick",
+      "frame_count": 5,
+      "total_duration": 680
+    },
+    {
+      "id": 380,
+      "name": "380号手写左右点踢",
+      "slug": "380号手写左右点踢",
+      "category": "kick",
+      "frame_count": 7,
+      "total_duration": 770
+    },
+    {
+      "id": 381,
+      "name": "381号手写下蹲预备",
+      "slug": "381号手写下蹲预备",
+      "category": "squat",
+      "frame_count": 5,
+      "total_duration": 740
+    },
+    {
+      "id": 382,
+      "name": "382号手写下蹲回弹",
+      "slug": "382号手写下蹲回弹",
+      "category": "squat",
+      "frame_count": 6,
+      "total_duration": 800
+    },
+    {
+      "id": 383,
+      "name": "383号手写下蹲停拍",
+      "slug": "383号手写下蹲停拍",
+      "category": "squat",
+      "frame_count": 5,
+      "total_duration": 800
+    },
+    {
+      "id": 384,
+      "name": "384号手写浅礼起身",
+      "slug": "384号手写浅礼起身",
+      "category": "other",
+      "frame_count": 5,
+      "total_duration": 740
+    },
+    {
+      "id": 385,
+      "name": "385号手写深礼收束",
+      "slug": "385号手写深礼收束",
+      "category": "other",
+      "frame_count": 7,
+      "total_duration": 1060
+    },
+    {
+      "id": 386,
+      "name": "386号手写礼后回正",
+      "slug": "386号手写礼后回正",
+      "category": "posture",
+      "frame_count": 3,
+      "total_duration": 480
+    },
+    {
+      "id": 387,
+      "name": "387号手写左低位摇摆",
+      "slug": "387号手写左低位摇摆",
+      "category": "other",
+      "frame_count": 5,
+      "total_duration": 700
+    },
+    {
+      "id": 388,
+      "name": "388号手写右低位摇摆",
+      "slug": "388号手写右低位摇摆",
+      "category": "other",
+      "frame_count": 5,
+      "total_duration": 700
+    },
+    {
+      "id": 389,
+      "name": "389号手写低位提振",
+      "slug": "389号手写低位提振",
+      "category": "other",
+      "frame_count": 6,
+      "total_duration": 840
+    },
+    {
+      "id": 390,
+      "name": "390号手写低位回正",
+      "slug": "390号手写低位回正",
+      "category": "posture",
+      "frame_count": 3,
+      "total_duration": 500
+    },
+    {
+      "id": 391,
+      "name": "391号手写开场点头",
+      "slug": "391号手写开场点头",
+      "category": "other",
+      "frame_count": 5,
+      "total_duration": 640
+    },
+    {
+      "id": 392,
+      "name": "392号手写展肩亮相",
+      "slug": "392号手写展肩亮相",
+      "category": "other",
+      "frame_count": 5,
+      "total_duration": 620
+    },
+    {
+      "id": 393,
+      "name": "393号手写左引导入拳",
+      "slug": "393号手写左引导入拳",
+      "category": "punch",
+      "frame_count": 5,
+      "total_duration": 620
+    },
+    {
+      "id": 394,
+      "name": "394号手写右引导入拳",
+      "slug": "394号手写右引导入拳",
+      "category": "punch",
+      "frame_count": 5,
+      "total_duration": 620
+    },
+    {
+      "id": 395,
+      "name": "395号手写左引导入踢",
+      "slug": "395号手写左引导入踢",
+      "category": "kick",
+      "frame_count": 5,
+      "total_duration": 620
+    },
+    {
+      "id": 396,
+      "name": "396号手写右引导入踢",
+      "slug": "396号手写右引导入踢",
+      "category": "kick",
+      "frame_count": 5,
+      "total_duration": 620
+    },
+    {
+      "id": 397,
+      "name": "397号手写科目三左引导",
+      "slug": "397号手写科目三左引导",
+      "category": "dance",
+      "frame_count": 6,
+      "total_duration": 660
+    },
+    {
+      "id": 398,
+      "name": "398号手写科目三右引导",
+      "slug": "398号手写科目三右引导",
+      "category": "dance",
+      "frame_count": 6,
+      "total_duration": 660
+    },
+    {
+      "id": 399,
+      "name": "399号手写科目三连摆",
+      "slug": "399号手写科目三连摆",
+      "category": "dance",
+      "frame_count": 7,
+      "total_duration": 730
+    },
+    {
+      "id": 400,
+      "name": "400号手写科目三收束拍",
+      "slug": "400号手写科目三收束拍",
+      "category": "dance",
+      "frame_count": 7,
+      "total_duration": 750
+    }
+  ]
+}

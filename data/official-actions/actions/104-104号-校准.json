@@ -1,0 +1,39 @@
+{
+  "id": 104,
+  "name": "104号（校准）",
+  "slug": "104号-校准",
+  "source_file": "104号（校准）.rob",
+  "category": "other",
+  "category_name": "Other",
+  "tags": [
+    "other"
+  ],
+  "frame_count": 1,
+  "total_duration": 1000,
+  "source_tag": "plain",
+  "source_sha256": "24f60478aa29ed1711ffc96e26704c253954151432e1b5d5deb41e2469cd8e24",
+  "frames": [
+    {
+      "index": 0,
+      "duration": 1000,
+      "pose": [
+        500,
+        500,
+        303,
+        500,
+        500,
+        500,
+        500,
+        725,
+        500,
+        500,
+        697,
+        500,
+        500,
+        500,
+        500,
+        275
+      ]
+    }
+  ]
+}

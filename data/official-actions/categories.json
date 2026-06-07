@@ -1,0 +1,71 @@
+{
+  "categories": [
+    {
+      "key": "choreography",
+      "name": "Choreography"
+    },
+    {
+      "key": "dance",
+      "name": "Dance"
+    },
+    {
+      "key": "floor",
+      "name": "Floor"
+    },
+    {
+      "key": "greeting",
+      "name": "Greeting"
+    },
+    {
+      "key": "kick",
+      "name": "Kick"
+    },
+    {
+      "key": "locomotion",
+      "name": "Locomotion"
+    },
+    {
+      "key": "manipulation",
+      "name": "Manipulation"
+    },
+    {
+      "key": "other",
+      "name": "Other"
+    },
+    {
+      "key": "posture",
+      "name": "Posture"
+    },
+    {
+      "key": "punch",
+      "name": "Punch"
+    },
+    {
+      "key": "slide",
+      "name": "Slide"
+    },
+    {
+      "key": "squat",
+      "name": "Squat"
+    },
+    {
+      "key": "twist",
+      "name": "Twist"
+    }
+  ],
+  "counts": {
+    "choreography": 8,
+    "dance": 29,
+    "floor": 4,
+    "greeting": 2,
+    "kick": 14,
+    "locomotion": 45,
+    "manipulation": 6,
+    "other": 42,
+    "posture": 8,
+    "punch": 25,
+    "slide": 5,
+    "squat": 8,
+    "twist": 8
+  }
+}

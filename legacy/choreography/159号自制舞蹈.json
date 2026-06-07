@@ -1,0 +1,69 @@
+{
+  "name": "159号自制舞蹈",
+  "prompt": "一段适合机器人展示的短舞蹈，要求先打招呼，再做中段节奏动作，最后礼貌收尾。",
+  "research": {
+    "query": "机器人展示舞 挥手 扭腰 踏步 鞠躬",
+    "summary": [
+      "展示型短舞通常先用立正或站姿开场，再用挥手建立互动感。",
+      "中段适合使用重复型节奏动作，例如扭腰和踏步，便于和音乐拍点对齐。",
+      "结束段常用鞠躬或回正姿态，既完整也更安全。"
+    ],
+    "references": [
+      {
+        "title": "示例占位：实际工作流中由网页检索结果填充",
+        "url": "https://example.com/dance-research-placeholder"
+      }
+    ]
+  },
+  "visualization": {
+    "title": "159号自制舞蹈时间线",
+    "theme": "sunset"
+  },
+  "output": {
+    "rob": "动作/159号自制舞蹈.rob",
+    "report_json": "编舞/159号自制舞蹈.report.json",
+    "visualization_html": "编舞/159号自制舞蹈.timeline.html"
+  },
+  "segments": [
+    {
+      "label": "intro-stand",
+      "source": "0号立正.rob",
+      "notes": "开场立正，给后续动作留出安全缓冲。"
+    },
+    {
+      "label": "wave",
+      "source": "9号挥手.rob",
+      "notes": "先做打招呼动作，建立互动感。"
+    },
+    {
+      "label": "twist",
+      "source": "50号扭腰.rob",
+      "repeat": 2,
+      "notes": "重复扭腰两次，制造节奏感。"
+    },
+    {
+      "label": "march",
+      "source": "49号原地踏步.rob",
+      "frame_range": [
+        0,
+        12
+      ],
+      "notes": "只截取前 12 帧，控制总长度。"
+    },
+    {
+      "label": "pose",
+      "source": "48号介绍动作.rob",
+      "notes": "用姿态段作为舞蹈中段展示。"
+    },
+    {
+      "label": "bow",
+      "source": "10号鞠躬.rob",
+      "notes": "礼貌收尾。"
+    },
+    {
+      "label": "outro-stand",
+      "source": "0号立正.rob",
+      "notes": "回到安全站姿，结束动作。"
+    }
+  ]
+}

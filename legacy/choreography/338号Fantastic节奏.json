@@ -1,0 +1,14 @@
+{
+  "name": "338号Fantastic节奏",
+  "prompt": "Fantastic Baby 片段模块。",
+  "output": {
+    "rob": "动作/338号Fantastic节奏.rob"
+  },
+  "segments": [
+    {
+      "label": "155号fantastic baby舞蹈",
+      "source": "155号fantastic baby舞蹈.rob",
+      "notes": "Fantastic Baby 片段。"
+    }
+  ]
+}
