@@ -1,0 +1,6 @@
+[   33076ms] [LOG] 🤖 Tonybot 动作模拟器 已就绪 @ http://127.0.0.1:8123/simulator/js/main.js:20
+[   33076ms] [LOG]   拖拽 .rob 文件到视口即可加载 @ http://127.0.0.1:8123/simulator/js/main.js:21
+[   33076ms] [LOG]   空格键 播放/暂停 | ← → 逐帧 | R 重置姿态 @ http://127.0.0.1:8123/simulator/js/main.js:22
+[   33076ms] [LOG]   📋 复制 Pose 按钮可复制当前 16 舵机值 @ http://127.0.0.1:8123/simulator/js/main.js:23
+[   33076ms] [LOG]   鼠标拖动旋转 | 滚轮缩放 | 右键平移 @ http://127.0.0.1:8123/simulator/js/main.js:24
+[   33108ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://127.0.0.1:8123/favicon.ico:0

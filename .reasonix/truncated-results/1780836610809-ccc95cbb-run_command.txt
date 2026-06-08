@@ -1,0 +1,230 @@
+$ git add AGENTS.md tools/python/rob_library.py data/official-actions/ simulator/index.html simulator/i18n/zh-CN.json && git status --short
+[exit 0]
+warning: in the working copy of 'data/official-actions/categories.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/index.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-0-0.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-1-1.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-10-10.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-101-101.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-102-102-2.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-103-103.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-104-104.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-11-11.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-12-12.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-15-15.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-150-150.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-151-151-style.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-152-152.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-153-153-la-song.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-154-154.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-155-155-fantastic-baby.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-156-156.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-157-157.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-158-158.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-159-159.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-16-16.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-160-160.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-161-161.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-162-162.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-163-163.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-164-164.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-165-165.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-166-166-parta.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-166-166-partb.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-167-167-a.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-168-168-b.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-169-169.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-17-17.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-170-170.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-18-18.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-19-19.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-199.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-2-2.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-201-201.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-202-202.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-203-203.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-21-21.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-22-22.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-23-23.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-24-24.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-25-25.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-26-26.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-27-27.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-28-28.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-29-29.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-3-3.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-30-30.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-301-301.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-302-302.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-303-303.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-304-304.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-305-305.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-306-306.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-307-307.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-308-308.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-309-309.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-31-31.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-310-310.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-311-311.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-312-312.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-313-313.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-314-314.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-315-315.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-316-316.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-317-317.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-318-318.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-319-319.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-32-32.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-320-320.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-321-321.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-322-322.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-323-323.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-324-324.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-325-325.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-326-326.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-327-327.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-328-328.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-329-329.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-33-33.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-330-330.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-331-331.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-332-332.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-333-333.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-334-334.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-335-335.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-336-336-lasong.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-337-337.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-338-338-fantastic.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-339-339.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-34-34.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-340-340.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-341-341.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-342-342.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-343-343.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-344-344.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-345-345.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-346-346.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-347-347.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-348-348.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-349-349.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-35-35.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-350-350.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-351-351.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-352-352.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-353-353.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-354-354.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-355-355.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-356-356.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-357-357.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-358-358.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-359-359.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-36-36.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-360-360.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-361-361.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-362-362.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-363-363.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-364-364.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-365-365.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-366-366.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-367-367.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-368-368.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-369-369.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-37-37.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-370-370.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-371-371.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-372-372.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-373-373.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-374-374.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-375-375.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-376-376.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-377-377.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-378-378.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-379-379.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-38-38.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-380-380.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-381-381.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-382-382.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-383-383.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-384-384.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-385-385.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-386-386.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-387-387.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-388-388.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-389-389.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-39-39.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-390-390.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-391-391.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-392-392.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-393-393.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-394-394.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-395-395.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-396-396.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-397-397.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-398-398.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-399-399.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-4-4.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-400-400.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-48-48.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-49-49.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-50-50.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-51-51.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-52-52.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-53-53-2.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-54-54-2.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-55-55.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-56-56.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-57-57-2.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-58-58-2.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-59-59.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-60-60.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-61-61.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-62-62.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-63-63-go-forward.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-64-64-go-forward-end.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-65-65-turn-left-small-step.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-66-66-turn-right-small-step.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-67-67-go-forward-first.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-68-68.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-69-69.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-7-7.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-70-70.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-71-71.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-72-72.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-73-73-7.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-74-74-7.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-75-75-90.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-76-76.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-77-77-6.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-78-78.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-79-79.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-8-8.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-80-80.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-81-81-1.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-9-9.json', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'data/official-actions/actions/action-96-96-back-fast.json', CRLF will be replaced by LF the next time Git touches it
+M  AGENTS.md
+D  "data/official-actions/actions/1-1\345\217\267\345\211\215\350\277\233.plain.json"
+D  "data/official-actions/actions/2-2\345\217\267\345\220\216\351\200\200.plain.json"
+D  "data/official-actions/actions/3-3\345\217\267\345\215\225\350\204\232\345\267\246\350\275\254.plain.json"
+D  "data/official-actions/actions/4-4\345\217\267\345\215\225\350\204\232\345\217\263\350\275\254.plain.json"
+R  "data/official-actions/actions/0-0\345\217\267\347\253\213\346\255\243.json" -> data/official-actions/actions/action-0-0.json
+R  "data/official-actions/actions/1-1\345\217\267\345\211\215\350\277\233.json" -> data/official-actions/actions/action-1-1.json
+R  "data/official-actions/actions/10-10\345\217\267\351\236\240\350\272\254.json" -> data/official-actions/actions/action-10-10.json
+R  "data/official-actions/actions/101-101\345\217\267\345\220\216\345\200\222\347\253\231\347\253\213.json" -> data/official-actions/actions/action-101-101.json
+R  "data/official-actions/actions/102-102\345\217\267\345\211\215\345\200\222\347\253\231\347\253\2132.json" -> data/official-actions/actions/action-102-102-2.json
+R  "data/official-actions/actions/103-103\345\217\267\344\275\223\346\223\215.json" -> data/official-actions/actions/action-103-103.json
+R  "data/official-actions/actions/104-104\345\217\267-\346\240\241\345\207\206.json" -> data/official-actions/actions/action-104-104.json
+R  "data/official-actions/actions/11-11\345\217\267\345\267\246\344\276\247\346\273\221.json" -> data/official-actions/actions/action-11-11.json
+R  "data/official-actions/actions/12-12\345\217\267\345\217\263\344\276\247\346\273\221.json" -> data/official-actions/actions/action-12-12.json
+R  "data/official-actions/actions/15-15\345\217\267\345\274\200\346\200\200\345\244\247\347\254\221.json" -> data/official-actions/actions/action-15-15.json
+R  "data/official-actions/actions/150-150\345\217\267\350\241\227\350\210\236.json" -> data/official-actions/actions/action-150-150.json
+R  "data/official-actions/actions/151-151\345\217\267\346\261\237\345\215\227style\350\210\236\350\271\210.json" -> data/official-actions/actions/action-151-151-style.json
+R  "data/official-actions/actions/152-152\345\217\267\345\260\217\350\213\271\346\236\234\350\210\236\350\271\210.json" -> data/official-actions/actions/action-152-152.json
+R  "data/official-actions/actions/153-153\345\217\267la-song\350\210\236\350\271\210.json" -> data/official-actions/actions/action-153-153-la-song.json
+R  "data/official-actions/actions/154-154\345\217\267\345\200\215\345\204\277\347\210\275\350\210\236\350\271\210.json" -> data/official-actions/actions/action-154-154.json
+R  "data/official-actions/actions/155-155\345\217\267fantastic-baby\350\210\236\350\271\210.json" -> data/official-actions/actions/action-155-155-fantastic-baby.json
+R  "data/official-actions/actions/156-156\345\217\267\350\266\205\347\272\247\345\206\240\345\206\233\350\210\236\350\271\210.json" -> data/official-actions/actions/action-156-156.json
+R  "data/official-actions/actions/157-157\345\217\267\351\235\222\346\230\245\344\277\256\347\202\274\346\211\213\345\206\214\350\210\236\350\271\210.json" -> data/official-actions/actions/action-157-157.json
+R  "data/official-actions/actions/158-158\345\217\267\347\210\261\345\207\272\345\217\221\350\210\236\350\271\210.js
+
+[… truncated 32403 chars …]

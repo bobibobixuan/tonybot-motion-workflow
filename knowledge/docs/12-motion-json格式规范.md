@@ -74,26 +74,26 @@
 
 ## pose 映射关系
 
-`pose[0]` 到 `pose[15]` 严格对应 Tonybot 舵机 ID1 到 ID16：
+`pose[0]` 到 `pose[15]` 严格对应 Tonybot 舵机 `ID1` 到 `ID16`，**顺序不能改变**。权威映射见 `data/servo-map.json` 和 `knowledge/docs/14-servo-layout.md`。
 
-| pose 索引 | 舵机 ID | 关节名称 | 中位值 |
-|-----------|---------|----------|--------|
-| pose[0] | ID1 | r_hip_yaw（右髋外旋） | 500 |
-| pose[1] | ID2 | r_ankle（右踝） | 387 |
-| pose[2] | ID3 | r_knee（右膝） | 500 |
-| pose[3] | ID4 | r_hip_pitch（右腿前抬） | 593 |
-| pose[4] | ID5 | r_hip_roll（右髋外展） | 500 |
-| pose[5] | ID6 | r_elbow（右肘） | 575 |
-| pose[6] | ID7 | r_shoulder_roll（右臂外展） | 800 |
-| pose[7] | ID8 | r_shoulder_pitch（右臂前抬） | 724 |
-| pose[8] | ID9 | l_hip_yaw（左髋外旋） | 500 |
-| pose[9] | ID10 | l_ankle（左踝） | 612 |
-| pose[10] | ID11 | l_knee（左膝） | 500 |
-| pose[11] | ID12 | l_hip_pitch（左腿前抬） | 406 |
-| pose[12] | ID13 | l_hip_roll（左髋外展） | 500 |
-| pose[13] | ID14 | l_elbow（左肘） | 425 |
-| pose[14] | ID15 | l_shoulder_roll（左臂外展） | 200 |
-| pose[15] | ID16 | l_shoulder_pitch（左臂前抬） | 275 |
+| pose 索引 | 舵机 ID | joint | axis_type | 中位值 |
+|-----------|---------|-------|-----------|--------|
+| pose[0] | ID1 | `r_hip_yaw` | `yaw_vertical` | 500 |
+| pose[1] | ID2 | `r_ankle_axis` | `unknown_pitch_or_roll` | 387 |
+| pose[2] | ID3 | `r_knee` | `pitch_lateral` | 500 |
+| pose[3] | ID4 | `r_hip_pitch` | `pitch_lateral` | 593 |
+| pose[4] | ID5 | `r_hip_roll` | `roll_longitudinal` | 500 |
+| pose[5] | ID6 | `r_elbow` | `pitch_lateral` | 575 |
+| pose[6] | ID7 | `r_shoulder_axis_2` | `unknown_yaw_or_roll` | 800 |
+| pose[7] | ID8 | `r_shoulder_pitch` | `pitch_lateral` | 724 |
+| pose[8] | ID9 | `l_hip_yaw` | `yaw_vertical` | 500 |
+| pose[9] | ID10 | `l_ankle_axis` | `unknown_pitch_or_roll` | 612 |
+| pose[10] | ID11 | `l_knee` | `pitch_lateral` | 500 |
+| pose[11] | ID12 | `l_hip_pitch` | `pitch_lateral` | 406 |
+| pose[12] | ID13 | `l_hip_roll` | `roll_longitudinal` | 500 |
+| pose[13] | ID14 | `l_elbow` | `pitch_lateral` | 425 |
+| pose[14] | ID15 | `l_shoulder_axis_2` | `unknown_yaw_or_roll` | 200 |
+| pose[15] | ID16 | `l_shoulder_pitch` | `pitch_lateral` | 275 |
 
 ## 约束规则
 

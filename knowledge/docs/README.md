@@ -17,6 +17,7 @@
 11. [11-Motion-Studio架构规划.md](11-Motion-Studio架构规划.md) — **Tonybot Motion Studio 架构规划**：项目新定位、四层架构、motion.json、三阶段路线图
 12. [12-motion-json格式规范.md](12-motion-json格式规范.md) — **motion.json 格式规范**：可编辑动作工程格式 schema、pose 映射、约束规则、示例
 13. [13-3D动作预览器规范.md](13-3D动作预览器规范.md) — **Tonybot 3D 动作预览器规范**：模块定位、输入格式、舵机映射、UI 功能清单、禁止事项、验证流程
+14. [14-servo-layout.md](14-servo-layout.md) — **舵机布局与轴向建模**：区分 yaw/pitch/roll 与待实测轴，明确 `pose[0]..pose[15]` 固定顺序
 
 说明：
 

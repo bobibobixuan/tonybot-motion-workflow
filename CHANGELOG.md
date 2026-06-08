@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.7.2 - 2026-06-08
+
+### Changed
+
+- **FK 骨架改为分层单轴关节**：`simulator/index.html` 从“按端点摆段”的万向近似改为 `THREE.Group` 分层 pivot 骨架。
+- **腿部层级明确化**：右腿采用 `ID1 -> ID5 -> ID4 -> ID3 -> ID2`，左腿采用 `ID9 -> ID13 -> ID12 -> ID11 -> ID10` 的层级结构；膝盖严格单轴 hinge，踝部继续保留为待实测单轴。
+- **手臂层级明确化**：右臂采用 `ID8 -> ID7 -> ID6`，左臂采用 `ID16 -> ID15 -> ID14` 的层级结构；肘部严格单轴 hinge，肩第二轴继续保留为待实测单轴。
+- **视觉更新逻辑重构**：`updateRobotModel` 现在只改各 pivot 的 `rotation`，不再直接给肢体 mesh 叠多轴旋转。
+- **舵机模块挂载修正**：各 `ID` 模块随对应 pivot 层级一起运动，`ID1/ID9` 不再错误挂在脚部语义位置。
+- **地面对齐保留**：通过脚底 mesh 的世界包围盒最低点做视觉落地对齐，但未引入 COM、支撑面、平衡分或安全结论。
+
+### Verified
+
+- `pwsh -NoLogo -Command "$node='C:\\Users\\21996\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\node\\bin\\node.exe'; $html = Get-Content -Raw -Encoding UTF8 simulator/index.html; $match = [regex]::Match($html, '<script type=\"module\">(?<code>[\\s\\S]*?)</script>\\s*</body>'); $tmp = Join-Path $env:TEMP 'tonybot-simulator-module-check.mjs'; [System.IO.File]::WriteAllText($tmp, $match.Groups['code'].Value, [System.Text.UTF8Encoding]::new($false)); & $node --check $tmp"`
+
+## 0.7.1 - 2026-06-08
+
+### Changed
+
+- **舵机映射建模细化**：新增 `data/servo-map.json`，为 16 个舵机补齐 `id/channel/joint/label_zh/label_en/axis_type/motion_zh/confidence/needs_calibration`。
+- **轴向语义明确化**：引入 `yaw_vertical`、`pitch_lateral`、`roll_longitudinal`、`unknown_yaw_or_roll`、`unknown_pitch_or_roll` 五类轴向枚举，避免把所有关节简单写成 pitch/roll。
+- **保留待确认轴**：`ID1/ID9` 继续记为 `r_hip_yaw` / `l_hip_yaw`；`ID2/ID10` 记为 `r_ankle_axis` / `l_ankle_axis`；`ID7/ID15` 记为 `r_shoulder_axis_2` / `l_shoulder_axis_2`，不武断写死最终轴向。
+- **文档同步**：新增 `knowledge/docs/14-servo-layout.md`，并更新 `knowledge/docs/12-motion-json格式规范.md`、`knowledge/docs/13-3D动作预览器规范.md`、`knowledge/docs/README.md`。
+- **模拟器标签同步**：更新 `simulator/index.html` 与 `simulator/i18n/zh-CN.json`、`simulator/i18n/en-US.json` 中的通道标签和内部 joint 命名；肩部第二轴在当前 FK 中仍仅作临时预览近似。
+
+### Verified
+
+- `pwsh -NoLogo -Command "Get-Content -Raw -Encoding UTF8 data/servo-map.json | ConvertFrom-Json | Out-Null; Get-Content -Raw -Encoding UTF8 simulator/i18n/zh-CN.json | ConvertFrom-Json | Out-Null; Get-Content -Raw -Encoding UTF8 simulator/i18n/en-US.json | ConvertFrom-Json | Out-Null"`
+
 ## 0.7.0 - 2026-06-06
 
 ### Changed

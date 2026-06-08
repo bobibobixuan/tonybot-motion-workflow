@@ -1,0 +1,183 @@
+{
+  "version": "0.7.1",
+  "pose_order_locked": true,
+  "pose_order_note": "servos 数组顺序和 channel=0..15 固定对应 pose[0]..pose[15]，不得改动。",
+  "servos": [
+    {
+      "id": 1,
+      "channel": 0,
+      "joint": "r_hip_yaw",
+      "label_zh": "右髋水平旋转轴",
+      "label_en": "right hip yaw",
+      "axis_type": "yaw_vertical",
+      "motion_zh": "右髋绕垂直轴做水平旋转，用于转向和开胯。",
+      "confidence": "medium",
+      "needs_calibration": true
+    },
+    {
+      "id": 2,
+      "channel": 1,
+      "joint": "r_ankle_axis",
+      "label_zh": "右踝轴",
+      "label_en": "right ankle axis",
+      "axis_type": "unknown_pitch_or_roll",
+      "motion_zh": "右踝单轴，当前只确认位于踝部，未实测前不写死为 pitch 或 roll。",
+      "confidence": "low",
+      "needs_calibration": true
+    },
+    {
+      "id": 3,
+      "channel": 2,
+      "joint": "r_knee",
+      "label_zh": "右膝屈伸轴",
+      "label_en": "right knee pitch",
+      "axis_type": "pitch_lateral",
+      "motion_zh": "右膝沿左右水平轴做屈伸。",
+      "confidence": "high",
+      "needs_calibration": true
+    },
+    {
+      "id": 4,
+      "channel": 3,
+      "joint": "r_hip_pitch",
+      "label_zh": "右髋前后摆轴",
+      "label_en": "right hip pitch",
+      "axis_type": "pitch_lateral",
+      "motion_zh": "右腿以前后摆为主，沿左右水平轴抬腿/后摆。",
+      "confidence": "high",
+      "needs_calibration": true
+    },
+    {
+      "id": 5,
+      "channel": 4,
+      "joint": "r_hip_roll",
+      "label_zh": "右髋侧抬轴",
+      "label_en": "right hip roll",
+      "axis_type": "roll_longitudinal",
+      "motion_zh": "右腿绕前后水平轴做侧抬/侧摆。",
+      "confidence": "high",
+      "needs_calibration": true
+    },
+    {
+      "id": 6,
+      "channel": 5,
+      "joint": "r_elbow",
+      "label_zh": "右肘屈伸轴",
+      "label_en": "right elbow pitch",
+      "axis_type": "pitch_lateral",
+      "motion_zh": "右肘沿左右水平轴做屈伸。",
+      "confidence": "high",
+      "needs_calibration": true
+    },
+    {
+      "id": 7,
+      "channel": 6,
+      "joint": "r_shoulder_axis_2",
+      "label_zh": "右肩第二轴",
+      "label_en": "right shoulder axis 2",
+      "axis_type": "unknown_yaw_or_roll",
+      "motion_zh": "右肩双轴中的第二轴，当前只确认位于肩根总成，待单舵机实测区分 yaw 或 roll。",
+      "confidence": "low",
+      "needs_calibration": true
+    },
+    {
+      "id": 8,
+      "channel": 7,
+      "joint": "r_shoulder_pitch",
+      "label_zh": "右肩前后摆轴",
+      "label_en": "right shoulder pitch",
+      "axis_type": "pitch_lateral",
+      "motion_zh": "右臂沿左右水平轴前抬/后摆。",
+      "confidence": "medium",
+      "needs_calibration": true
+    },
+    {
+      "id": 9,
+      "channel": 8,
+      "joint": "l_hip_yaw",
+      "label_zh": "左髋水平旋转轴",
+      "label_en": "left hip yaw",
+      "axis_type": "yaw_vertical",
+      "motion_zh": "左髋绕垂直轴做水平旋转，用于转向和开胯。",
+      "confidence": "medium",
+      "needs_calibration": true
+    },
+    {
+      "id": 10,
+      "channel": 9,
+      "joint": "l_ankle_axis",
+      "label_zh": "左踝轴",
+      "label_en": "left ankle axis",
+      "axis_type": "unknown_pitch_or_roll",
+      "motion_zh": "左踝单轴，当前只确认位于踝部，未实测前不写死为 pitch 或 roll。",
+      "confidence": "low",
+      "needs_calibration": true
+    },
+    {
+      "id": 11,
+      "channel": 10,
+      "joint": "l_knee",
+      "label_zh": "左膝屈伸轴",
+      "label_en": "left knee pitch",
+      "axis_type": "pitch_lateral",
+      "motion_zh": "左膝沿左右水平轴做屈伸。",
+      "confidence": "high",
+      "needs_calibration": true
+    },
+    {
+      "id": 12,
+      "channel": 11,
+      "joint": "l_hip_pitch",
+      "label_zh": "左髋前后摆轴",
+      "label_en": "left hip pitch",
+      "axis_type": "pitch_lateral",
+      "motion_zh": "左腿以前后摆为主，沿左右水平轴抬腿/后摆。",
+      "confidence": "high",
+      "needs_calibration": true
+    },
+    {
+      "id": 13,
+      "channel": 12,
+      "joint": "l_hip_roll",
+      "label_zh": "左髋侧抬轴",
+      "label_en": "left hip roll",
+      "axis_type": "roll_longitudinal",
+      "motion_zh": "左腿绕前后水平轴做侧抬/侧摆。",
+      "confidence": "high",
+      "needs_calibration": true
+    },
+    {
+      "id": 14,
+      "channel": 13,
+      "joint": "l_elbow",
+      "label_zh": "左肘屈伸轴",
+      "label_en": "left elbow pitch",
+      "axis_type": "pitch_lateral",
+      "motion_zh": "左肘沿左右水平轴做屈伸。",
+      "confidence": "high",
+      "needs_calibration": true
+    },
+    {
+      "id": 15,
+      "channel": 14,
+      "joint": "l_shoulder_axis_2",
+      "label_zh": "左肩第二轴",
+      "label_en": "left shoulder axis 2",
+      "axis_type": "unknown_yaw_or_roll",
+      "motion_zh": "左肩双轴中的第二轴，当前只确认位于肩根总成，待单舵机实测区分 yaw 或 roll。",
+      "confidence": "low",
+      "needs_calibration": true
+    },
+    {
+      "id": 16,
+      "channel": 15,
+      "joint": "l_shoulder_pitch",
+      "label_zh": "左肩前后摆轴",
+      "label_en": "left shoulder pitch",
+      "axis_type": "pitch_lateral",
+      "motion_zh": "左臂沿左右水平轴前抬/后摆。",
+      "confidence": "medium",
+      "needs_calibration": true
+    }
+  ]
+}

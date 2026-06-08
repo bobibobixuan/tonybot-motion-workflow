@@ -39,20 +39,20 @@
   "console_mouse": "鼠标拖动旋转 | 滚轮缩放 | 右键平移",
   "channel_labels": {
     "0": "ID1 r_hip_yaw",
-    "1": "ID2 r_ankle",
+    "1": "ID2 r_ankle_axis",
     "2": "ID3 r_knee",
     "3": "ID4 r_hip_pitch",
     "4": "ID5 r_hip_roll",
     "5": "ID6 r_elbow",
-    "6": "ID7 r_shoulder_roll",
+    "6": "ID7 r_shoulder_axis_2",
     "7": "ID8 r_shoulder_pitch",
     "8": "ID9 l_hip_yaw",
-    "9": "ID10 l_ankle",
+    "9": "ID10 l_ankle_axis",
     "10": "ID11 l_knee",
     "11": "ID12 l_hip_pitch",
     "12": "ID13 l_hip_roll",
     "13": "ID14 l_elbow",
-    "14": "ID15 l_shoulder_roll",
+    "14": "ID15 l_shoulder_axis_2",
     "15": "ID16 l_shoulder_pitch"
   }
 }
