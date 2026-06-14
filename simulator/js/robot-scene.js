@@ -9,10 +9,65 @@ import {
   SHOULDER_HALF_WIDTH,
   HIP_BASE_HEIGHT,
   poseToJointAngles,
+  SERVO_LAYOUT,
 } from "./config.js";
 
-function pyOffsetToThree(offsetPy) {
-  return new THREE.Vector3(-offsetPy[1], offsetPy[2], offsetPy[0]);
+const AXIS_BY_JOINT = {
+  r_hip_yaw: "y",
+  r_ankle: "x",
+  r_knee: "x",
+  r_hip_pitch: "x",
+  r_hip_roll: "z",
+  l_elbow: "x",
+  l_shoulder_roll: "z",
+  l_shoulder_pitch: "x",
+  l_hip_yaw: "y",
+  l_ankle: "x",
+  l_knee: "x",
+  l_hip_pitch: "x",
+  l_hip_roll: "z",
+  r_elbow: "x",
+  r_shoulder_roll: "z",
+  r_shoulder_pitch: "x",
+};
+
+const VISUAL_SIGN_BY_JOINT = {
+  r_hip_yaw: 1,
+  r_ankle: 1,
+  r_knee: 1,
+  r_hip_pitch: 1,
+  r_hip_roll: 1,
+  l_elbow: 1,
+  l_shoulder_roll: -1,
+  l_shoulder_pitch: 1,
+  l_hip_yaw: 1,
+  l_ankle: 1,
+  l_knee: 1,
+  l_hip_pitch: 1,
+  l_hip_roll: -1,
+  r_elbow: 1,
+  r_shoulder_roll: 1,
+  r_shoulder_pitch: 1,
+};
+
+const JOINT_TO_SERVO_ID = Object.fromEntries(
+  SERVO_LAYOUT.map((servo) => [servo.joint, servo.id]),
+);
+
+const SERVO_META = Object.fromEntries(
+  SERVO_LAYOUT.map((servo) => [
+    servo.id,
+    {
+      joint: servo.joint,
+      axis: AXIS_BY_JOINT[servo.joint],
+      axisType: servo.axisType,
+      visualSign: VISUAL_SIGN_BY_JOINT[servo.joint] ?? 1,
+    },
+  ]),
+);
+
+function v3(x = 0, y = 0, z = 0) {
+  return new THREE.Vector3(x, y, z);
 }
 
 export class RobotScene {
@@ -24,6 +79,7 @@ export class RobotScene {
     this.robotParts = {};
     this.jointParts = {};
     this.servoParts = {};
+    this.servoActuators = {};
     this.robotRig = { pivots: {}, markers: {} };
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -86,6 +142,7 @@ export class RobotScene {
       roughness: 0.85,
       metalness: 0.05,
     });
+
     const ground = new THREE.Mesh(groundGeo, groundMat);
     ground.rotation.x = -Math.PI / 2;
     ground.position.y = -0.02;
@@ -99,28 +156,35 @@ export class RobotScene {
 
   createMaterials() {
     this.materials = {
-      right: new THREE.MeshStandardMaterial({ color: 0xe06c75, roughness: 0.32, metalness: 0.34 }),
-      left: new THREE.MeshStandardMaterial({ color: 0x58a6ff, roughness: 0.32, metalness: 0.34 }),
-      rightDark: new THREE.MeshStandardMaterial({ color: 0x9f4b53, roughness: 0.45, metalness: 0.22 }),
-      leftDark: new THREE.MeshStandardMaterial({ color: 0x3e7fb7, roughness: 0.45, metalness: 0.22 }),
-      torso: new THREE.MeshStandardMaterial({ color: 0x4a5568, roughness: 0.42, metalness: 0.34 }),
-      chest: new THREE.MeshStandardMaterial({ color: 0x66758a, roughness: 0.38, metalness: 0.35 }),
-      pelvis: new THREE.MeshStandardMaterial({ color: 0x3d4758, roughness: 0.46, metalness: 0.28 }),
-      head: new THREE.MeshStandardMaterial({ color: 0x9aa6b5, roughness: 0.3, metalness: 0.42 }),
+      shellWhite: new THREE.MeshStandardMaterial({ color: 0xf2f5f7, roughness: 0.42, metalness: 0.16 }),
+      shellWarm: new THREE.MeshStandardMaterial({ color: 0xe3e8ef, roughness: 0.48, metalness: 0.12 }),
+      bracket: new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.36, metalness: 0.22 }),
+      bracketDark: new THREE.MeshStandardMaterial({ color: 0xcbd5e1, roughness: 0.48, metalness: 0.18 }),
+
+      servoBody: new THREE.MeshStandardMaterial({ color: 0x111318, roughness: 0.55, metalness: 0.28 }),
+      servoLabel: new THREE.MeshStandardMaterial({ color: 0x2d333d, roughness: 0.58, metalness: 0.2 }),
+      horn: new THREE.MeshStandardMaterial({ color: 0xdbe3ed, roughness: 0.28, metalness: 0.42 }),
+      hornCenter: new THREE.MeshStandardMaterial({ color: 0xffb86c, roughness: 0.24, metalness: 0.46 }),
+      screw: new THREE.MeshStandardMaterial({ color: 0x0b0d11, roughness: 0.6, metalness: 0.3 }),
+
+      torsoPanel: new THREE.MeshStandardMaterial({ color: 0xf3f6fa, roughness: 0.42, metalness: 0.16 }),
+      darkPanel: new THREE.MeshStandardMaterial({ color: 0x161b22, roughness: 0.58, metalness: 0.22 }),
       face: new THREE.MeshStandardMaterial({
-        color: 0x111827,
-        roughness: 0.55,
-        metalness: 0.12,
+        color: 0x0f172a,
+        roughness: 0.5,
+        metalness: 0.15,
         emissive: 0x0d1b2a,
-        emissiveIntensity: 0.2,
+        emissiveIntensity: 0.25,
       }),
-      joint: new THREE.MeshStandardMaterial({ color: 0xb8c1ce, roughness: 0.22, metalness: 0.55 }),
-      jointDark: new THREE.MeshStandardMaterial({ color: 0x6d7888, roughness: 0.35, metalness: 0.38 }),
-      foot: new THREE.MeshStandardMaterial({ color: 0x4d5869, roughness: 0.52, metalness: 0.22 }),
-      servoBody: new THREE.MeshStandardMaterial({ color: 0x20242b, roughness: 0.5, metalness: 0.25 }),
-      servoFace: new THREE.MeshStandardMaterial({ color: 0xd8dde6, roughness: 0.28, metalness: 0.35 }),
-      servoAxis: new THREE.MeshStandardMaterial({ color: 0xffb86c, roughness: 0.24, metalness: 0.45 }),
-      screw: new THREE.MeshStandardMaterial({ color: 0x0f1116, roughness: 0.55, metalness: 0.25 }),
+
+      rightAccent: new THREE.MeshStandardMaterial({ color: 0xe06c75, roughness: 0.38, metalness: 0.18 }),
+      leftAccent: new THREE.MeshStandardMaterial({ color: 0x58a6ff, roughness: 0.38, metalness: 0.18 }),
+      guide: new THREE.MeshBasicMaterial({
+        color: 0x9aa6b5,
+        transparent: true,
+        opacity: 0.35,
+        depthWrite: false,
+      }),
     };
   }
 
@@ -136,20 +200,6 @@ export class RobotScene {
     return mesh;
   }
 
-  registerServo(id, group, parent = this.robotGroup) {
-    this.servoParts[id] = group;
-    parent.add(group);
-    return group;
-  }
-
-  registerPivot(name, parent, position = new THREE.Vector3()) {
-    const pivot = new THREE.Group();
-    pivot.position.copy(position);
-    parent.add(pivot);
-    this.robotRig.pivots[name] = pivot;
-    return pivot;
-  }
-
   registerMarker(name, parent, position = new THREE.Vector3()) {
     const marker = new THREE.Group();
     marker.position.copy(position);
@@ -158,10 +208,19 @@ export class RobotScene {
     return marker;
   }
 
+  createGroup(name, parent, position = new THREE.Vector3()) {
+    const group = new THREE.Group();
+    group.name = name;
+    group.position.copy(position);
+    parent.add(group);
+    return group;
+  }
+
   createLabelSprite(text, color = "#ffbd75") {
     const canvas = document.createElement("canvas");
     canvas.width = 192;
     canvas.height = 80;
+
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.font = '700 34px "Segoe UI", Arial, sans-serif';
@@ -176,87 +235,30 @@ export class RobotScene {
     const texture = new THREE.CanvasTexture(canvas);
     texture.minFilter = THREE.LinearFilter;
     texture.magFilter = THREE.LinearFilter;
+
     const material = new THREE.SpriteMaterial({
       map: texture,
       transparent: true,
       depthTest: false,
       depthWrite: false,
     });
+
     const sprite = new THREE.Sprite(material);
     sprite.scale.set(2.35, 0.98, 1);
     sprite.renderOrder = 9;
     return sprite;
   }
 
-  createServoModule(id, side = "r") {
-    const group = new THREE.Group();
-    group.userData.id = id;
-    group.userData.side = side;
-
-    const body = new THREE.Mesh(new THREE.BoxGeometry(1.02, 0.58, 0.34), this.materials.servoBody);
-    body.castShadow = true;
-    body.receiveShadow = true;
-    group.add(body);
-
-    const face = new THREE.Mesh(new THREE.BoxGeometry(0.76, 0.42, 0.08), this.materials.servoFace);
-    face.position.z = 0.20;
-    face.castShadow = true;
-    group.add(face);
-
-    const axis = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.10, 20), this.materials.servoAxis);
-    axis.rotation.x = Math.PI / 2;
-    axis.position.z = 0.29;
-    axis.castShadow = true;
-    group.add(axis);
-
-    for (const sx of [-0.31, 0.31]) {
-      for (const sy of [-0.15, 0.15]) {
-        const screw = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.045, 0.04, 10), this.materials.screw);
-        screw.rotation.x = Math.PI / 2;
-        screw.position.set(sx, sy, 0.255);
-        group.add(screw);
-      }
-    }
-
-    const label = this.createLabelSprite(`ID${id}`, side === "r" ? "#ff9aa2" : "#8fd0ff");
-    label.position.set(0, 0.88, 0.05);
-    group.add(label);
-    group.userData.label = label;
-    return group;
-  }
-
-  lookServoOutward(group, side = "r", yawExtra = 0) {
-    const yaw = side === "r" ? Math.PI / 2 : -Math.PI / 2;
-    group.rotation.set(0, yaw + yawExtra, 0);
-  }
-
-  attachServo(id, parent, side = "r", offsetPy = [0, 0, 0], scale = 1, yawExtra = 0) {
-    const group = this.createServoModule(id, side);
-    group.position.copy(pyOffsetToThree(offsetPy));
-    group.scale.setScalar(scale);
-    this.lookServoOutward(group, side, yawExtra);
-    group.visible = this.showServoLabels;
-    if (group.userData.label) group.userData.label.visible = this.showServoLabels;
-    return this.registerServo(id, group, parent);
-  }
-
-  createBoneMesh(material, radialSegments = 20) {
-    const mesh = new THREE.Mesh(new THREE.CylinderGeometry(1, 1, 1, radialSegments), material);
+  createBox(width, height, depth, material) {
+    const mesh = new THREE.Mesh(new THREE.BoxGeometry(width, height, depth), material);
     mesh.castShadow = true;
     mesh.receiveShadow = true;
     return mesh;
   }
 
-  createBoxMesh(material) {
-    const mesh = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), material);
-    mesh.castShadow = true;
-    mesh.receiveShadow = true;
-    return mesh;
-  }
-
-  createSphereMesh(material, segments = 20) {
+  createCylinder(radiusTop, radiusBottom, height, radialSegments, material) {
     const mesh = new THREE.Mesh(
-      new THREE.SphereGeometry(1, segments, Math.max(12, Math.floor(segments * 0.75))),
+      new THREE.CylinderGeometry(radiusTop, radiusBottom, height, radialSegments),
       material,
     );
     mesh.castShadow = true;
@@ -264,83 +266,281 @@ export class RobotScene {
     return mesh;
   }
 
-  createRingMesh(color) {
-    const material = new THREE.MeshBasicMaterial({
-      color,
-      transparent: true,
-      opacity: 0.45,
-      depthWrite: false,
-    });
-    const mesh = new THREE.Mesh(new THREE.TorusGeometry(1, 0.035, 8, 48), material);
+  createSphere(radius, material, segments = 24) {
+    const mesh = new THREE.Mesh(
+      new THREE.SphereGeometry(radius, segments, Math.max(12, Math.floor(segments * 0.75))),
+      material,
+    );
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    return mesh;
+  }
+
+  orientCylinderToAxis(mesh, axis) {
+    mesh.rotation.set(0, 0, 0);
+
+    if (axis === "x") {
+      mesh.rotation.z = Math.PI / 2;
+    }
+
+    if (axis === "z") {
+      mesh.rotation.x = Math.PI / 2;
+    }
+  }
+
+  createRingMesh() {
+    const mesh = new THREE.Mesh(new THREE.TorusGeometry(1, 0.035, 8, 48), this.materials.guide);
     mesh.renderOrder = 2;
     return mesh;
   }
 
-  createScaledBone(length, radius, material, radialSegments = 20) {
-    const mesh = this.createBoneMesh(material, radialSegments);
-    mesh.scale.set(radius, length, radius);
-    mesh.position.y = -length * 0.5;
-    return mesh;
+  createServoCase(id, side = "r", scale = 1) {
+    const group = new THREE.Group();
+
+    const body = this.createBox(1.04 * scale, 0.62 * scale, 0.46 * scale, this.materials.servoBody);
+    group.add(body);
+
+    const sticker = this.createBox(0.72 * scale, 0.36 * scale, 0.035 * scale, this.materials.servoLabel);
+    sticker.position.z = 0.248 * scale;
+    group.add(sticker);
+
+    const earTop = this.createBox(1.24 * scale, 0.12 * scale, 0.52 * scale, this.materials.bracket);
+    earTop.position.y = 0.39 * scale;
+    group.add(earTop);
+
+    const earBottom = this.createBox(1.24 * scale, 0.12 * scale, 0.52 * scale, this.materials.bracket);
+    earBottom.position.y = -0.39 * scale;
+    group.add(earBottom);
+
+    const clampA = this.createBox(0.12 * scale, 0.92 * scale, 0.56 * scale, this.materials.bracketDark);
+    clampA.position.x = -0.62 * scale;
+    group.add(clampA);
+
+    const clampB = this.createBox(0.12 * scale, 0.92 * scale, 0.56 * scale, this.materials.bracketDark);
+    clampB.position.x = 0.62 * scale;
+    group.add(clampB);
+
+    const label = this.createLabelSprite(`ID${id}`, side === "r" ? "#ff9aa2" : "#8fd0ff");
+    label.position.set(0, 0.93 * scale, 0.08 * scale);
+    label.visible = this.showServoLabels;
+    group.add(label);
+    group.userData.label = label;
+
+    return group;
   }
 
-  createScaledBox(width, height, depth, material) {
-    const mesh = this.createBoxMesh(material);
-    mesh.scale.set(width, height, depth);
-    return mesh;
+  createServoHorn(axis = "x", scale = 1) {
+    const group = new THREE.Group();
+
+    const disk = this.createCylinder(0.30 * scale, 0.30 * scale, 0.12 * scale, 32, this.materials.horn);
+    this.orientCylinderToAxis(disk, axis);
+    group.add(disk);
+
+    const center = this.createCylinder(0.11 * scale, 0.11 * scale, 0.145 * scale, 20, this.materials.hornCenter);
+    this.orientCylinderToAxis(center, axis);
+    group.add(center);
+
+    const screwRadius = 0.20 * scale;
+    for (let i = 0; i < 4; i += 1) {
+      const a = (Math.PI / 2) * i;
+      const screw = this.createCylinder(0.035 * scale, 0.035 * scale, 0.155 * scale, 10, this.materials.screw);
+      this.orientCylinderToAxis(screw, axis);
+
+      if (axis === "x") {
+        screw.position.set(0, Math.cos(a) * screwRadius, Math.sin(a) * screwRadius);
+      } else if (axis === "y") {
+        screw.position.set(Math.cos(a) * screwRadius, 0, Math.sin(a) * screwRadius);
+      } else {
+        screw.position.set(Math.cos(a) * screwRadius, Math.sin(a) * screwRadius, 0);
+      }
+
+      group.add(screw);
+    }
+
+    return group;
   }
 
-  createScaledSphere(radius, material, segments = 20) {
-    const mesh = this.createSphereMesh(material, segments);
-    mesh.scale.setScalar(radius);
-    return mesh;
+  createServoActuator(id, parent, options = {}) {
+    const meta = SERVO_META[id] ?? {};
+    const side = options.side ?? (id <= 8 ? "r" : "l");
+    const sideSign = side === "r" ? 1 : -1;
+    const axis = options.axis ?? meta.axis ?? "x";
+    const scale = options.scale ?? 1;
+    const rootPosition = options.position ?? new THREE.Vector3();
+    const caseOffset = options.caseOffset ?? new THREE.Vector3(sideSign * 0.52, 0, 0);
+    const caseRotation = options.caseRotation ?? new THREE.Euler(0, 0, 0);
+
+    const root = new THREE.Group();
+    root.name = `servo_ID${id}_${meta.joint ?? "unknown"}`;
+    root.position.copy(rootPosition);
+    root.userData.id = id;
+    root.userData.joint = meta.joint;
+    root.userData.axis = axis;
+    root.userData.axisType = options.axisType ?? meta.axisType ?? "unknown";
+    parent.add(root);
+
+    const caseGroup = this.createServoCase(id, side, scale);
+    caseGroup.name = `servo_ID${id}_case_fixed`;
+    caseGroup.position.copy(caseOffset);
+    caseGroup.rotation.copy(caseRotation);
+    root.add(caseGroup);
+
+    const hornGroup = new THREE.Group();
+    hornGroup.name = `servo_ID${id}_horn_rotates`;
+    root.add(hornGroup);
+
+    const hornVisual = this.createServoHorn(axis, scale);
+    hornGroup.add(hornVisual);
+
+    const shaft = this.createCylinder(0.07 * scale, 0.07 * scale, Math.abs(caseOffset.x) + 0.06, 16, this.materials.hornCenter);
+    shaft.rotation.z = Math.PI / 2;
+    shaft.position.x = caseOffset.x * 0.5;
+    root.add(shaft);
+
+    const childRoot = new THREE.Group();
+    childRoot.name = `servo_ID${id}_childRoot`;
+    hornGroup.add(childRoot);
+
+    const actuator = {
+      id,
+      root,
+      caseGroup,
+      hornGroup,
+      childRoot,
+      axis,
+      axisType: options.axisType ?? meta.axisType ?? "unknown",
+      label: caseGroup.userData.label,
+      visualSign: options.visualSign ?? meta.visualSign ?? 1,
+    };
+
+    this.servoActuators[id] = actuator;
+    this.servoParts[id] = root;
+
+    return actuator;
+  }
+
+  applyServoAngle(id, angle) {
+    const actuator = this.servoActuators[id];
+    if (!actuator) return;
+
+    const finalAngle = angle * actuator.visualSign;
+    actuator.hornGroup.rotation.set(0, 0, 0);
+
+    if (actuator.axis === "x") actuator.hornGroup.rotation.x = finalAngle;
+    if (actuator.axis === "y") actuator.hornGroup.rotation.y = finalAngle;
+    if (actuator.axis === "z") actuator.hornGroup.rotation.z = finalAngle;
+  }
+
+  createLimbPlate(name, parent, length, width, depth, material, options = {}) {
+    const group = new THREE.Group();
+    group.name = name;
+    parent.add(group);
+
+    const zSpread = options.zSpread ?? depth * 0.7;
+    const railWidth = options.railWidth ?? width * 0.42;
+
+    const railA = this.createBox(railWidth, length, depth, material);
+    railA.position.set(0, -length * 0.5, -zSpread * 0.5);
+    group.add(railA);
+
+    const railB = this.createBox(railWidth, length, depth, material);
+    railB.position.set(0, -length * 0.5, zSpread * 0.5);
+    group.add(railB);
+
+    const capTop = this.createBox(width, 0.18, depth * 1.5, this.materials.bracketDark);
+    capTop.position.y = -0.12;
+    group.add(capTop);
+
+    const capBottom = this.createBox(width, 0.18, depth * 1.5, this.materials.bracketDark);
+    capBottom.position.y = -length + 0.12;
+    group.add(capBottom);
+
+    const holeCount = Math.max(2, Math.floor(length / 1.6));
+    for (let i = 0; i < holeCount; i += 1) {
+      const t = (i + 1) / (holeCount + 1);
+      const y = -length * t;
+
+      for (const z of [-zSpread * 0.5, zSpread * 0.5]) {
+        const hole = this.createCylinder(0.075, 0.075, 0.018, 16, this.materials.screw);
+        hole.rotation.x = Math.PI / 2;
+        hole.position.set(0, y, z + Math.sign(z) * (depth * 0.52));
+        group.add(hole);
+      }
+    }
+
+    return group;
   }
 
   createFootMesh(side = "r") {
-    const mesh = this.createScaledBox(
-      FOOT_PLATE.halfWidth * 2.0,
+    const group = new THREE.Group();
+    const sign = side === "r" ? 1 : -1;
+
+    const plate = this.createBox(
+      FOOT_PLATE.halfWidth * 2.15,
       FOOT_PLATE.thickness,
-      FOOT_PLATE.halfLength * 2.0,
-      this.materials.foot,
+      FOOT_PLATE.halfLength * 2.2,
+      this.materials.shellWhite,
     );
-    mesh.position.set(side === "r" ? 0.05 : -0.05, -FOOT_PLATE.thickness * 0.5, FOOT_CENTER_FORWARD);
-    return mesh;
+    plate.position.set(sign * 0.05, -FOOT_PLATE.thickness * 0.5, FOOT_CENTER_FORWARD);
+    group.add(plate);
+
+    const toe = this.createBox(
+      FOOT_PLATE.halfWidth * 1.8,
+      FOOT_PLATE.thickness * 0.62,
+      0.46,
+      this.materials.bracketDark,
+    );
+    toe.position.set(sign * 0.05, -FOOT_PLATE.thickness * 0.18, FOOT_CENTER_FORWARD + FOOT_PLATE.halfLength * 0.92);
+    group.add(toe);
+
+    const heel = this.createBox(
+      FOOT_PLATE.halfWidth * 1.65,
+      FOOT_PLATE.thickness * 0.55,
+      0.36,
+      this.materials.bracketDark,
+    );
+    heel.position.set(sign * 0.05, -FOOT_PLATE.thickness * 0.14, FOOT_CENTER_FORWARD - FOOT_PLATE.halfLength * 0.92);
+    group.add(heel);
+
+    return group;
   }
 
-  createHandMesh(material) {
-    const mesh = this.createScaledBox(0.52, 0.36, 0.44, material);
-    mesh.position.y = -0.20;
-    return mesh;
+  createHandMesh(side = "r") {
+    const group = new THREE.Group();
+    const sign = side === "r" ? 1 : -1;
+
+    const palm = this.createBox(0.52, 0.36, 0.44, this.materials.shellWhite);
+    palm.position.y = -0.18;
+    group.add(palm);
+
+    const fingerA = this.createBox(0.14, 0.52, 0.12, this.materials.bracketDark);
+    fingerA.position.set(sign * 0.16, -0.56, 0.12);
+    group.add(fingerA);
+
+    const fingerB = this.createBox(0.14, 0.52, 0.12, this.materials.bracketDark);
+    fingerB.position.set(-sign * 0.16, -0.56, 0.12);
+    group.add(fingerB);
+
+    return group;
   }
 
-  getMeshWorldMinY(mesh) {
-    if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox();
-    const box = mesh.geometry.boundingBox;
-    const corners = [
-      new THREE.Vector3(box.min.x, box.min.y, box.min.z),
-      new THREE.Vector3(box.min.x, box.min.y, box.max.z),
-      new THREE.Vector3(box.min.x, box.max.y, box.min.z),
-      new THREE.Vector3(box.min.x, box.max.y, box.max.z),
-      new THREE.Vector3(box.max.x, box.min.y, box.min.z),
-      new THREE.Vector3(box.max.x, box.min.y, box.max.z),
-      new THREE.Vector3(box.max.x, box.max.y, box.min.z),
-      new THREE.Vector3(box.max.x, box.max.y, box.max.z),
-    ];
+  getMeshWorldMinY(object3d) {
+    if (!object3d) return 0;
 
-    let minY = Infinity;
-    for (const corner of corners) {
-      corner.applyMatrix4(mesh.matrixWorld);
-      minY = Math.min(minY, corner.y);
-    }
-    return minY;
+    object3d.updateMatrixWorld(true);
+    const box = new THREE.Box3().setFromObject(object3d);
+    return box.min.y;
   }
 
   clearRobotGroup() {
     while (this.robotGroup.children.length > 0) {
       this.robotGroup.remove(this.robotGroup.children[0]);
     }
+
     this.robotParts = {};
     this.jointParts = {};
     this.servoParts = {};
+    this.servoActuators = {};
     this.robotRig = { pivots: {}, markers: {} };
   }
 
@@ -348,128 +548,282 @@ export class RobotScene {
     this.clearRobotGroup();
     const m = this.materials;
 
-    const bodyRoot = this.registerPivot("bodyRoot", this.robotGroup, new THREE.Vector3(0, HIP_BASE_HEIGHT, 0));
+    const bodyRoot = this.createGroup("bodyRoot", this.robotGroup, new THREE.Vector3(0, HIP_BASE_HEIGHT, 0));
+    this.robotRig.pivots.bodyRoot = bodyRoot;
 
-    this.registerPart("spine", this.createScaledBone(SEGMENTS.torso.length, 0.32, m.torso, 24), bodyRoot).position.y = SEGMENTS.torso.length * 0.5;
-    this.registerPart("pelvis", this.createScaledBox(HIP_HALF_WIDTH * 1.24, 0.95, 0.82, m.pelvis), bodyRoot).position.y = 0.62;
-    this.registerPart("hipBar", this.createScaledBox(HIP_HALF_WIDTH * 2.0, 0.32, 0.36, m.pelvis), bodyRoot).position.y = 0.14;
-    this.registerPart("chest", this.createScaledBox(SHOULDER_HALF_WIDTH * 1.16, 1.45, 1.00, m.chest), bodyRoot).position.y = SEGMENTS.torso.length * 0.58;
-    this.registerPart("shoulderBar", this.createScaledBox(SHOULDER_HALF_WIDTH * 2.0, 0.34, 0.34, m.torso), bodyRoot).position.y = SEGMENTS.torso.length;
-    this.registerPart("neck", this.createScaledBone(0.85, 0.24, m.jointDark, 16), bodyRoot).position.y = SEGMENTS.torso.length + 0.425;
+    const pelvis = this.registerPart("pelvis", this.createBox(HIP_HALF_WIDTH * 1.55, 0.78, 0.86, m.shellWhite), bodyRoot);
+    pelvis.position.y = 0.35;
 
-    const head = this.registerPart("head", this.createScaledSphere(1.08, m.head, 28), bodyRoot);
-    head.position.y = SEGMENTS.torso.length + 1.85;
-    const face = this.registerPart("face", this.createScaledBox(0.78, 0.42, 0.06, m.face), head);
-    face.position.set(0, 0.05, 0.86);
+    const pelvisCore = this.registerPart("pelvisCore", this.createBox(HIP_HALF_WIDTH * 1.1, 0.48, 0.58, m.darkPanel), bodyRoot);
+    pelvisCore.position.y = 0.38;
+    pelvisCore.position.z = 0.06;
 
-    const shoulderGuide = this.registerPart("shoulderGuide", this.createRingMesh(0x9aa6b5), bodyRoot);
+    const spinePanel = this.registerPart("spinePanel", this.createBox(1.22, SEGMENTS.torso.length * 0.76, 0.58, m.darkPanel), bodyRoot);
+    spinePanel.position.y = SEGMENTS.torso.length * 0.47;
+    spinePanel.position.z = -0.08;
+
+    const chest = this.registerPart("chest", this.createBox(SHOULDER_HALF_WIDTH * 1.16, 1.65, 1.02, m.torsoPanel), bodyRoot);
+    chest.position.y = SEGMENTS.torso.length * 0.67;
+
+    const chestCore = this.registerPart("chestCore", this.createBox(1.48, 1.2, 0.18, m.darkPanel), bodyRoot);
+    chestCore.position.y = SEGMENTS.torso.length * 0.67;
+    chestCore.position.z = 0.56;
+
+    const shoulderBar = this.registerPart("shoulderBar", this.createBox(SHOULDER_HALF_WIDTH * 2.1, 0.38, 0.42, m.shellWhite), bodyRoot);
+    shoulderBar.position.y = SEGMENTS.torso.length;
+
+    const neck = this.registerPart("neck", this.createCylinder(0.22, 0.22, 0.72, 20, m.bracketDark), bodyRoot);
+    neck.position.y = SEGMENTS.torso.length + 0.44;
+
+    const head = this.registerPart("head", this.createBox(1.55, 1.28, 1.18, m.shellWhite), bodyRoot);
+    head.position.y = SEGMENTS.torso.length + 1.45;
+
+    const face = this.registerPart("face", this.createBox(0.86, 0.34, 0.075, m.face), head);
+    face.position.set(0, 0.05, 0.61);
+
+    const eyeL = this.registerPart("leftEyeGlow", this.createBox(0.16, 0.08, 0.03, m.leftAccent), face);
+    eyeL.position.set(-0.22, 0.02, 0.045);
+
+    const eyeR = this.registerPart("rightEyeGlow", this.createBox(0.16, 0.08, 0.03, m.rightAccent), face);
+    eyeR.position.set(0.22, 0.02, 0.045);
+
+    const shoulderGuide = this.registerPart("shoulderGuide", this.createRingMesh(), bodyRoot);
     shoulderGuide.position.y = SEGMENTS.torso.length;
-    shoulderGuide.scale.set(2.60, 2.60, 1);
+    shoulderGuide.scale.set(2.6, 2.6, 1);
     shoulderGuide.rotation.x = Math.PI / 2;
 
-    const pelvisGuide = this.registerPart("pelvisGuide", this.createRingMesh(0x9aa6b5), bodyRoot);
-    pelvisGuide.position.y = 0.14;
+    const pelvisGuide = this.registerPart("pelvisGuide", this.createRingMesh(), bodyRoot);
+    pelvisGuide.position.y = 0.15;
     pelvisGuide.scale.set(1.65, 1.65, 1);
     pelvisGuide.rotation.x = Math.PI / 2;
 
-    this.buildLeg("right", bodyRoot, m.right, m.rightDark);
-    this.buildLeg("left", bodyRoot, m.left, m.leftDark);
-    this.buildArm("right", bodyRoot, m.right, m.rightDark);
-    this.buildArm("left", bodyRoot, m.left, m.leftDark);
+    this.buildLeg("right", bodyRoot);
+    this.buildLeg("left", bodyRoot);
+    this.buildArm("right", bodyRoot);
+    this.buildArm("left", bodyRoot);
   }
 
-  buildLeg(side, bodyRoot, upperMaterial, lowerMaterial) {
+  buildLeg(side, bodyRoot) {
     const isRight = side === "right";
     const sign = isRight ? 1 : -1;
     const prefix = isRight ? "r" : "l";
-    const anchor = this.registerPivot(`${side}HipAnchor`, bodyRoot, new THREE.Vector3(HIP_HALF_WIDTH * sign, 0, 0));
+    const sideKey = isRight ? "r" : "l";
 
-    this.registerJoint(`${prefix}Hip`, this.createScaledSphere(0.52, this.materials.joint, 20), anchor);
-    const yaw = this.registerPivot(`${side}HipYawPivot`, anchor);
-    const roll = this.registerPivot(`${side}HipRollPivot`, yaw);
-    const pitch = this.registerPivot(`${side}HipPitchPivot`, roll);
-    this.registerMarker(`${prefix}Hip`, pitch);
-    this.registerPart(`${prefix}UpperLeg`, this.createScaledBone(SEGMENTS.upper_leg.length, 0.36, upperMaterial, 22), pitch);
+    const ids = isRight
+      ? { hipYaw: 1, ankle: 2, knee: 3, hipPitch: 4, hipRoll: 5 }
+      : { hipYaw: 9, ankle: 10, knee: 11, hipPitch: 12, hipRoll: 13 };
 
-    const knee = this.registerPivot(`${side}KneePivot`, pitch, new THREE.Vector3(0, -SEGMENTS.upper_leg.length, 0));
-    this.registerJoint(`${prefix}Knee`, this.createScaledSphere(0.46, this.materials.joint, 20), knee);
-    this.registerMarker(`${prefix}Knee`, knee);
-    this.registerPart(`${prefix}LowerLeg`, this.createScaledBone(SEGMENTS.lower_leg.length, 0.30, lowerMaterial, 22), knee);
+    const hipAnchor = this.createGroup(
+      `${side}HipAnchor`,
+      bodyRoot,
+      new THREE.Vector3(HIP_HALF_WIDTH * sign, 0.15, 0),
+    );
 
-    const ankle = this.registerPivot(`${side}AnklePivot`, knee, new THREE.Vector3(0, -SEGMENTS.lower_leg.length, 0));
-    this.registerJoint(`${prefix}Ankle`, this.createScaledSphere(0.38, this.materials.joint, 20), ankle);
-    this.registerMarker(`${prefix}Ankle`, ankle);
-    this.registerPart(`${prefix}FootBox`, this.createFootMesh(isRight ? "r" : "l"), ankle);
-    this.registerMarker(`${prefix}Foot`, ankle, new THREE.Vector3(0, -FOOT_PLATE.thickness * 0.5, FOOT_CENTER_FORWARD));
+    this.registerMarker(`${prefix}Hip`, hipAnchor);
 
-    this.attachServo(isRight ? 1 : 9, yaw, isRight ? "r" : "l", [0.04, isRight ? -0.52 : 0.52, 0.42], 0.60, 0.00);
-    this.attachServo(isRight ? 5 : 13, roll, isRight ? "r" : "l", [-0.16, isRight ? -0.48 : 0.48, 0.20], 0.64, 0.00);
-    this.attachServo(isRight ? 4 : 12, pitch, isRight ? "r" : "l", [0.08, isRight ? -0.45 : 0.45, -0.70], 0.66, 0.00);
-    this.attachServo(isRight ? 3 : 11, knee, isRight ? "r" : "l", [0.00, isRight ? -0.42 : 0.42, 0.00], 0.66, 0.00);
-    this.attachServo(isRight ? 2 : 10, ankle, isRight ? "r" : "l", [0.00, isRight ? -0.38 : 0.38, 0.30], 0.60, 0.00);
+    const hipYaw = this.createServoActuator(ids.hipYaw, hipAnchor, {
+      side: sideKey,
+      axis: "y",
+      scale: 0.76,
+      caseOffset: v3(sign * 0.62, 0.02, 0.08),
+      caseRotation: new THREE.Euler(0, 0, Math.PI / 2),
+    });
+
+    const hipYawBracket = this.createBox(0.42, 0.34, 0.88, this.materials.bracket);
+    hipYawBracket.position.set(0, -0.14, 0);
+    hipYaw.childRoot.add(hipYawBracket);
+
+    const hipRoll = this.createServoActuator(ids.hipRoll, hipYaw.childRoot, {
+      side: sideKey,
+      axis: "z",
+      scale: 0.74,
+      position: v3(0, -0.42, 0),
+      caseOffset: v3(sign * 0.55, 0, -0.02),
+      caseRotation: new THREE.Euler(0, 0, Math.PI / 2),
+    });
+
+    const hipRollBracket = this.createBox(0.54, 0.42, 0.92, this.materials.bracket);
+    hipRollBracket.position.set(0, -0.08, 0);
+    hipRoll.childRoot.add(hipRollBracket);
+
+    const hipPitch = this.createServoActuator(ids.hipPitch, hipRoll.childRoot, {
+      side: sideKey,
+      axis: "x",
+      scale: 0.76,
+      position: v3(0, -0.48, 0),
+      caseOffset: v3(sign * 0.58, 0.02, 0.02),
+      caseRotation: new THREE.Euler(0, 0, Math.PI / 2),
+    });
+
+    this.createLimbPlate(
+      `${prefix}UpperLegPlate`,
+      hipPitch.childRoot,
+      SEGMENTS.upper_leg.length,
+      0.68,
+      0.22,
+      this.materials.shellWhite,
+      { zSpread: 0.62 },
+    );
+
+    const kneeAnchor = this.createGroup(
+      `${side}KneeServoMount`,
+      hipPitch.childRoot,
+      new THREE.Vector3(0, -SEGMENTS.upper_leg.length, 0),
+    );
+    this.registerMarker(`${prefix}Knee`, kneeAnchor);
+
+    const knee = this.createServoActuator(ids.knee, kneeAnchor, {
+      side: sideKey,
+      axis: "x",
+      scale: 0.76,
+      caseOffset: v3(sign * 0.56, 0, 0),
+      caseRotation: new THREE.Euler(0, 0, Math.PI / 2),
+    });
+
+    const kneeBracket = this.createBox(0.58, 0.54, 0.96, this.materials.bracket);
+    kneeBracket.position.set(0, -0.08, 0);
+    knee.childRoot.add(kneeBracket);
+
+    this.createLimbPlate(
+      `${prefix}LowerLegPlate`,
+      knee.childRoot,
+      SEGMENTS.lower_leg.length,
+      0.58,
+      0.20,
+      this.materials.shellWarm,
+      { zSpread: 0.58 },
+    );
+
+    const ankleAnchor = this.createGroup(
+      `${side}AnkleServoMount`,
+      knee.childRoot,
+      new THREE.Vector3(0, -SEGMENTS.lower_leg.length, 0),
+    );
+    this.registerMarker(`${prefix}Ankle`, ankleAnchor);
+
+    const ankle = this.createServoActuator(ids.ankle, ankleAnchor, {
+      side: sideKey,
+      axis: "x",
+      scale: 0.70,
+      caseOffset: v3(sign * 0.52, 0.02, 0.08),
+      caseRotation: new THREE.Euler(0, 0, Math.PI / 2),
+    });
+
+    const footMount = this.createBox(0.82, 0.30, 0.88, this.materials.bracket);
+    footMount.position.set(0, -0.18, 0.14);
+    ankle.childRoot.add(footMount);
+
+    const foot = this.createFootMesh(sideKey);
+    ankle.childRoot.add(foot);
+    this.robotParts[`${prefix}FootBox`] = foot;
+    this.registerMarker(`${prefix}Foot`, ankle.childRoot, new THREE.Vector3(0, -FOOT_PLATE.thickness * 0.5, FOOT_CENTER_FORWARD));
   }
 
-  buildArm(side, bodyRoot, upperMaterial, lowerMaterial) {
+  buildArm(side, bodyRoot) {
     const isRight = side === "right";
     const sign = isRight ? 1 : -1;
     const prefix = isRight ? "r" : "l";
-    const anchor = this.registerPivot(`${side}ShoulderAnchor`, bodyRoot, new THREE.Vector3(SHOULDER_HALF_WIDTH * sign, SEGMENTS.torso.length, 0));
+    const sideKey = isRight ? "r" : "l";
 
-    this.registerJoint(`${prefix}Shoulder`, this.createScaledSphere(0.50, this.materials.joint, 20), anchor);
-    const axis1 = this.registerPivot(`${side}ShoulderAxis1Pivot`, anchor);
-    const axis2 = this.registerPivot(`${side}ShoulderAxis2Pivot`, axis1);
-    this.registerMarker(`${prefix}Shoulder`, axis2);
-    this.registerPart(`${prefix}UpperArm`, this.createScaledBone(SEGMENTS.upper_arm.length, 0.30, upperMaterial, 22), axis2);
+    const ids = isRight
+      ? { shoulderPitch: 8, shoulderAxis2: 7, elbow: 6 }
+      : { shoulderPitch: 16, shoulderAxis2: 15, elbow: 14 };
 
-    const elbow = this.registerPivot(`${side}ElbowPivot`, axis2, new THREE.Vector3(0, -SEGMENTS.upper_arm.length, 0));
-    this.registerJoint(`${prefix}Elbow`, this.createScaledSphere(0.42, this.materials.joint, 20), elbow);
-    this.registerMarker(`${prefix}Elbow`, elbow);
-    this.registerPart(`${prefix}Forearm`, this.createScaledBone(SEGMENTS.forearm.length, 0.24, lowerMaterial, 22), elbow);
+    const shoulderAnchor = this.createGroup(
+      `${side}ShoulderAnchor`,
+      bodyRoot,
+      new THREE.Vector3(SHOULDER_HALF_WIDTH * sign, SEGMENTS.torso.length, 0),
+    );
 
-    const wrist = this.registerPivot(`${side}WristAnchor`, elbow, new THREE.Vector3(0, -SEGMENTS.forearm.length, 0));
-    this.registerJoint(`${prefix}Wrist`, this.createScaledSphere(0.32, this.materials.joint, 18), wrist);
-    this.registerMarker(`${prefix}Hand`, wrist);
-    this.registerPart(`${prefix}Hand`, this.createHandMesh(lowerMaterial), wrist);
+    this.registerMarker(`${prefix}Shoulder`, shoulderAnchor);
 
-    this.attachServo(isRight ? 8 : 16, axis1, isRight ? "r" : "l", [0.10, isRight ? -0.52 : 0.52, 0.38], 0.68, 0.00);
-    this.attachServo(isRight ? 7 : 15, axis2, isRight ? "r" : "l", [0.02, isRight ? -0.52 : 0.52, -0.38], 0.64, 0.00);
-    this.attachServo(isRight ? 6 : 14, elbow, isRight ? "r" : "l", [0.00, isRight ? -0.42 : 0.42, 0.00], 0.60, 0.00);
+    const shoulderPitch = this.createServoActuator(ids.shoulderPitch, shoulderAnchor, {
+      side: sideKey,
+      axis: "x",
+      scale: 0.72,
+      caseOffset: v3(sign * 0.56, 0, 0.05),
+      caseRotation: new THREE.Euler(0, 0, Math.PI / 2),
+    });
+
+    const shoulderYoke = this.createBox(0.54, 0.42, 0.92, this.materials.bracket);
+    shoulderYoke.position.set(0, -0.12, 0);
+    shoulderPitch.childRoot.add(shoulderYoke);
+
+    const shoulderAxis2 = this.createServoActuator(ids.shoulderAxis2, shoulderPitch.childRoot, {
+      side: sideKey,
+      axis: "z",
+      scale: 0.70,
+      position: v3(0, -0.56, 0),
+      caseOffset: v3(sign * 0.54, 0, -0.06),
+      caseRotation: new THREE.Euler(0, 0, Math.PI / 2),
+    });
+
+    this.createLimbPlate(
+      `${prefix}UpperArmPlate`,
+      shoulderAxis2.childRoot,
+      SEGMENTS.upper_arm.length,
+      0.54,
+      0.18,
+      this.materials.shellWhite,
+      { zSpread: 0.50 },
+    );
+
+    const elbowAnchor = this.createGroup(
+      `${side}ElbowServoMount`,
+      shoulderAxis2.childRoot,
+      new THREE.Vector3(0, -SEGMENTS.upper_arm.length, 0),
+    );
+    this.registerMarker(`${prefix}Elbow`, elbowAnchor);
+
+    const elbow = this.createServoActuator(ids.elbow, elbowAnchor, {
+      side: sideKey,
+      axis: "x",
+      scale: 0.68,
+      caseOffset: v3(sign * 0.50, 0, 0),
+      caseRotation: new THREE.Euler(0, 0, Math.PI / 2),
+    });
+
+    const elbowBracket = this.createBox(0.50, 0.42, 0.78, this.materials.bracket);
+    elbowBracket.position.set(0, -0.10, 0);
+    elbow.childRoot.add(elbowBracket);
+
+    this.createLimbPlate(
+      `${prefix}ForearmPlate`,
+      elbow.childRoot,
+      SEGMENTS.forearm.length,
+      0.44,
+      0.16,
+      this.materials.shellWarm,
+      { zSpread: 0.42 },
+    );
+
+    const handAnchor = this.createGroup(
+      `${side}HandMount`,
+      elbow.childRoot,
+      new THREE.Vector3(0, -SEGMENTS.forearm.length, 0),
+    );
+    this.registerMarker(`${prefix}Hand`, handAnchor);
+
+    const hand = this.createHandMesh(sideKey);
+    handAnchor.add(hand);
+    this.robotParts[`${prefix}Hand`] = hand;
   }
 
   setPose(pose) {
     const angles = poseToJointAngles(pose);
-    const pivots = this.robotRig.pivots;
 
-    pivots.rightHipYawPivot.rotation.set(0, angles.r_hip_yaw || 0, 0);
-    pivots.rightHipRollPivot.rotation.set(0, 0, angles.r_hip_roll || 0);
-    pivots.rightHipPitchPivot.rotation.set(angles.r_hip_pitch || 0, 0, 0);
-    pivots.rightKneePivot.rotation.set(angles.r_knee || 0, 0, 0);
-    // ID2 轴向仍需实测确认，目前只临时按单轴 hinge 渲染，避免恢复到万向近似。
-    pivots.rightAnklePivot.rotation.set(angles.r_ankle_axis || 0, 0, 0);
-
-    pivots.leftHipYawPivot.rotation.set(0, angles.l_hip_yaw || 0, 0);
-    pivots.leftHipRollPivot.rotation.set(0, 0, -(angles.l_hip_roll || 0));
-    pivots.leftHipPitchPivot.rotation.set(angles.l_hip_pitch || 0, 0, 0);
-    pivots.leftKneePivot.rotation.set(angles.l_knee || 0, 0, 0);
-    // ID10 轴向仍需实测确认，目前只临时按单轴 hinge 渲染，避免恢复到万向近似。
-    pivots.leftAnklePivot.rotation.set(angles.l_ankle_axis || 0, 0, 0);
-
-    pivots.rightShoulderAxis1Pivot.rotation.set(angles.r_shoulder_pitch || 0, 0, 0);
-    // ID7 轴向仍需实测确认，目前只临时按单轴侧抬渲染，不宣称已确认是 yaw 或 roll。
-    pivots.rightShoulderAxis2Pivot.rotation.set(0, 0, -(angles.r_shoulder_axis_2 || 0));
-    pivots.rightElbowPivot.rotation.set(angles.r_elbow || 0, 0, 0);
-
-    pivots.leftShoulderAxis1Pivot.rotation.set(angles.l_shoulder_pitch || 0, 0, 0);
-    // ID15 轴向仍需实测确认，目前只临时按单轴侧抬渲染，不宣称已确认是 yaw 或 roll。
-    pivots.leftShoulderAxis2Pivot.rotation.set(0, 0, angles.l_shoulder_axis_2 || 0);
-    pivots.leftElbowPivot.rotation.set(angles.l_elbow || 0, 0, 0);
+    for (const [jointName, servoId] of Object.entries(JOINT_TO_SERVO_ID)) {
+      this.applyServoAngle(servoId, angles[jointName] || 0);
+    }
 
     this.robotGroup.position.set(0, 0, 0);
     this.robotGroup.updateMatrixWorld(true);
+
     const minFootY = Math.min(
       this.getMeshWorldMinY(this.robotParts.rFootBox),
       this.getMeshWorldMinY(this.robotParts.lFootBox),
     );
+
     this.robotGroup.position.y = -minFootY + 0.02;
     this.robotGroup.updateMatrixWorld(true);
   }
@@ -482,10 +836,13 @@ export class RobotScene {
 
   toggleServoLabels() {
     this.showServoLabels = !this.showServoLabels;
-    Object.values(this.servoParts).forEach((group) => {
-      group.visible = this.showServoLabels;
-      if (group.userData.label) group.userData.label.visible = this.showServoLabels;
+
+    Object.values(this.servoActuators).forEach((actuator) => {
+      if (actuator.label) {
+        actuator.label.visible = this.showServoLabels;
+      }
     });
+
     return this.showServoLabels;
   }
 
@@ -508,6 +865,7 @@ export class RobotScene {
       this.controls.update();
       this.renderer.render(this.scene, this.camera);
     };
+
     renderLoop();
   }
 }

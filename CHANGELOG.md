@@ -1,5 +1,76 @@
 # Changelog
 
+## 0.7.7 - 2026-06-14
+
+### Changed
+
+- **模拟器按实测关节表重构**：`simulator/index.html` 改为三栏校对结构，新增实时 Pose、当前舵机详情、镜像对照和 16 路映射速查卡片，不再只是单纯的滑块面板。
+- **配置层对象化**：`simulator/js/config.js` 重写为以 `SERVO_LAYOUT` 为核心的 16 路舵机对象数组，再派生 `neutral/direction/channel/joint/group`，避免多处散落硬编码。
+- **数据源补齐校对字段**：`data/servo-map.json` 现包含 `neutral`、`direction_sign`、`tested_change`、`tested_motion_zh`、`group`、`mirror_id`，可直接用于页面与文档交叉审核。
+- **渲染层去重**：`simulator/js/robot-scene.js` 改为从 `SERVO_LAYOUT` 派生 `JOINT_TO_SERVO_ID` 和渲染元数据，不再单独维护第二套舵机定义。
+- **文档重写**：`simulator/README.md`、`knowledge/docs/13-3D动作预览器规范.md`、`knowledge/docs/14-servo-layout.md` 已按新关节映射和新页面结构重写；`README.md` 的启动方式与版本说明同步更新。
+
+### Verified
+
+- `node --check` 验证 `simulator/js/config.js`、`i18n.js`、`rob-parser.js`、`robot-scene.js`、`simulator-app.js`、`main.js`
+- `ConvertFrom-Json` 验证 `data/servo-map.json`、`simulator/i18n/zh-CN.json`、`simulator/i18n/en-US.json`
+- `python -m py_compile tools/python/tonybot_physics.py`
+- 本地打开 `http://127.0.0.1:8126/simulator/`，确认页面可加载、映射卡片与滑块名称一致、控制台无错误
+
+## 0.7.6 - 2026-06-14
+
+### Changed
+
+- **舵机映射结论落库**：`data/servo-map.json` 现将 `ID2/ID10` 明确为踝俯仰轴，`ID7/ID15` 明确为肩侧向轴，`ID8/ID16` 明确为肩根部旋转轴，并同步更新中英文标签与说明。
+- **模拟器命名与分组同步**：`simulator/js/config.js`、`robot-scene.js`、`i18n/*.json` 与 `index.html` 已改用新的关节命名和中文标签；腿部滑块分组现直接展示全部 5 个腿部舵机，不再把 `ID1/5/9/13` 归为“未使用”。
+- **规范文档更新**：`knowledge/docs/09-Python开发指南.md`、`12-motion-json格式规范.md`、`13-3D动作预览器规范.md`、`14-servo-layout.md` 已统一为新的实测结论，并保留 `ID1/2/9/10` 正方向细节需按真机重心微调的保守说明。
+- **物理模型注释校正**：`tools/python/tonybot_physics.py` 去除了踝轴“未确认”的旧注释，使代码注释与当前实测结论一致。
+
+### Verified
+
+- `node --check` 验证 `simulator/js/config.js`、`i18n.js`、`rob-parser.js`、`robot-scene.js`、`simulator-app.js`、`main.js`
+- `ConvertFrom-Json` 验证 `data/servo-map.json`、`simulator/i18n/zh-CN.json`、`simulator/i18n/en-US.json`
+- `python -m py_compile tools/python/tonybot_physics.py`
+
+## 0.7.5 - 2026-06-08
+
+### Changed
+
+- **FK 骨架升级为舵机驱动模型**：`simulator/js/robot-scene.js` 不再只把层级节点当普通关节 pivot，而是将每个 ID 渲染为 `servoCase + servoHorn + childRoot`。
+- **setPose 语义修正**：当前姿态更新直接驱动各舵机的 `hornGroup.rotation`，例如 `ID3/ID11` 驱动膝舵机输出，`ID6/ID14` 驱动肘舵机输出，而不是转动抽象关节球。
+- **串联机构重构**：腿部现在按 `ID1 -> ID5 -> ID4 -> ID3 -> ID2` / `ID9 -> ID13 -> ID12 -> ID11 -> ID10` 的舵机串联装配；手臂按 `ID8 -> ID7 -> ID6` / `ID16 -> ID15 -> ID14` 的舵机串联装配。
+- **未确认轴仍保守处理**：`ID2/ID10` 与 `ID7/ID15` 继续保留为待实测轴向，但渲染层也已改成舵盘单轴输出，不再用普通万向关节近似。
+- **文档同步**：`knowledge/docs/14-servo-layout.md` 已改为明确说明 3D 预览器当前采用的是分层单轴 FK 的舵机驱动模型。
+
+### Verified
+
+- 对 `simulator/js/config.js`、`i18n.js`、`rob-parser.js`、`robot-scene.js`、`simulator-app.js`、`main.js` 建立临时 `.mjs` 镜像后执行 Node `--check`，结果 `syntax_check=ok`。
+
+## 0.7.4 - 2026-06-08
+
+### Changed
+
+- **新增本地启动脚本**：添加 `simulator/start-simulator.ps1` 和 `simulator/start-simulator.cmd`，可从仓库根目录启动本地静态服务并打开 `http://127.0.0.1:8123/simulator/`。
+- **启动说明更新**：`simulator/README.md` 现优先推荐使用启动脚本，而不是只依赖双击 `index.html`。
+
+### Verified
+
+- `pwsh -NoLogo -NoProfile -File .\simulator\start-simulator.ps1 -NoBrowser -Port 8125 -AutoStopAfterSec 2`
+- `Invoke-WebRequest http://127.0.0.1:8125/simulator/ | Select-Object StatusCode`
+
+## 0.7.3 - 2026-06-08
+
+### Changed
+
+- **模拟器入口拆模块**：`simulator/index.html` 改为通过 `./js/main.js` 启动，FK 骨架、i18n、`.rob` 解析和交互逻辑拆分到独立模块，便于后续维护。
+- **FK 骨架实现落地**：3D 预览器现已使用分层单轴 FK；腿部层级为 `ID1 -> ID5 -> ID4 -> ID3 -> ID2` / `ID9 -> ID13 -> ID12 -> ID11 -> ID10`，手臂层级为 `ID8 -> ID7 -> ID6` / `ID16 -> ID15 -> ID14`。
+- **未确认轴保守渲染**：`ID2/ID10` 与 `ID7/ID15` 继续保留为待实测轴向，但渲染层已统一改为临时单轴近似，不再回退到万向近似。
+- **文档结论同步**：`knowledge/docs/14-servo-layout.md` 已从“当前仍使用简化 FK”更新为“已采用分层单轴 FK，未确认轴仍为临时单轴近似”。
+
+### Verified
+
+- 对 `simulator/js/config.js`、`i18n.js`、`rob-parser.js`、`robot-scene.js`、`simulator-app.js`、`main.js` 建立临时 `.mjs` 镜像后执行 Node `--check`，结果 `syntax_check=ok`。
+
 ## 0.7.2 - 2026-06-08
 
 ### Changed

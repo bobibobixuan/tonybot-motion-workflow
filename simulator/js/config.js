@@ -8,88 +8,270 @@ export const SEGMENTS = {
   hand: { length: 1.5, mass: 0.01 },
 };
 
-export const SERVO_NEUTRAL = {
-  r_hip_yaw: 500,
-  r_ankle_axis: 387,
-  r_knee: 500,
-  r_hip_pitch: 593,
-  r_hip_roll: 500,
-  r_elbow: 575,
-  r_shoulder_axis_2: 800,
-  r_shoulder_pitch: 724,
-  l_hip_yaw: 500,
-  l_ankle_axis: 612,
-  l_knee: 500,
-  l_hip_pitch: 406,
-  l_hip_roll: 500,
-  l_elbow: 425,
-  l_shoulder_axis_2: 200,
-  l_shoulder_pitch: 275,
-};
+export const SERVO_LAYOUT = [
+  {
+    id: 1,
+    channel: 0,
+    joint: "r_hip_yaw",
+    labelZh: "右髋旋转轴",
+    labelEn: "right hip yaw",
+    axisType: "yaw_vertical",
+    neutral: 500,
+    direction: +1,
+    testedChange: "increase",
+    testedMotionZh: "右腿及右脚尖发生旋转",
+    motionZh: "控制右腿及右脚尖内旋、外旋",
+    group: "r_leg",
+    mirrorId: 9,
+  },
+  {
+    id: 2,
+    channel: 1,
+    joint: "r_ankle",
+    labelZh: "右踝俯仰轴",
+    labelEn: "right ankle pitch",
+    axisType: "pitch_lateral",
+    neutral: 387,
+    direction: -1,
+    testedChange: "increase",
+    testedMotionZh: "右踝前后角度改变",
+    motionZh: "控制右脚掌前后倾斜，补偿身体前后重心",
+    group: "r_leg",
+    mirrorId: 10,
+  },
+  {
+    id: 3,
+    channel: 2,
+    joint: "r_knee",
+    labelZh: "右膝轴",
+    labelEn: "right knee",
+    axisType: "pitch_lateral",
+    neutral: 500,
+    direction: -1,
+    testedChange: "increase",
+    testedMotionZh: "右膝弯曲",
+    motionZh: "控制右膝弯曲和伸直",
+    group: "r_leg",
+    mirrorId: 11,
+  },
+  {
+    id: 4,
+    channel: 3,
+    joint: "r_hip_pitch",
+    labelZh: "右髋前后轴",
+    labelEn: "right hip pitch",
+    axisType: "pitch_lateral",
+    neutral: 593,
+    direction: +1,
+    testedChange: "increase",
+    testedMotionZh: "右大腿向前抬",
+    motionZh: "控制右大腿向前抬或向后摆",
+    group: "r_leg",
+    mirrorId: 12,
+  },
+  {
+    id: 5,
+    channel: 4,
+    joint: "r_hip_roll",
+    labelZh: "右髋侧摆轴",
+    labelEn: "right hip roll",
+    axisType: "roll_longitudinal",
+    neutral: 500,
+    direction: +1,
+    testedChange: "increase",
+    testedMotionZh: "右腿侧向展开、身体侧倾",
+    motionZh: "控制右腿向外展开、向内收回，以及身体侧倾",
+    group: "r_leg",
+    mirrorId: 13,
+  },
+  {
+    id: 6,
+    channel: 5,
+    joint: "l_elbow",
+    labelZh: "左肘轴",
+    labelEn: "left elbow",
+    axisType: "pitch_lateral",
+    neutral: 575,
+    direction: +1,
+    testedChange: "increase",
+    testedMotionZh: "左肘弯曲",
+    motionZh: "控制左小臂弯曲和伸直",
+    group: "l_arm",
+    mirrorId: 14,
+  },
+  {
+    id: 7,
+    channel: 6,
+    joint: "l_shoulder_roll",
+    labelZh: "左肩侧向轴",
+    labelEn: "left shoulder roll",
+    axisType: "roll_longitudinal",
+    neutral: 800,
+    direction: -1,
+    testedChange: "decrease",
+    testedMotionZh: "左臂侧向展开",
+    motionZh: "控制左臂侧向展开、向身体收回",
+    group: "l_arm",
+    mirrorId: 15,
+  },
+  {
+    id: 8,
+    channel: 7,
+    joint: "l_shoulder_pitch",
+    labelZh: "左肩根部旋转轴",
+    labelEn: "left shoulder root pitch",
+    axisType: "pitch_lateral",
+    neutral: 724,
+    direction: -1,
+    testedChange: "decrease",
+    testedMotionZh: "左臂向前、向上旋转",
+    motionZh: "控制整条左臂前后转动、上举和下放",
+    group: "l_arm",
+    mirrorId: 16,
+  },
+  {
+    id: 9,
+    channel: 8,
+    joint: "l_hip_yaw",
+    labelZh: "左髋旋转轴",
+    labelEn: "left hip yaw",
+    axisType: "yaw_vertical",
+    neutral: 500,
+    direction: +1,
+    testedChange: "decrease",
+    testedMotionZh: "左腿及左脚尖发生镜像旋转",
+    motionZh: "控制左腿及左脚尖内旋、外旋",
+    group: "l_leg",
+    mirrorId: 1,
+  },
+  {
+    id: 10,
+    channel: 9,
+    joint: "l_ankle",
+    labelZh: "左踝俯仰轴",
+    labelEn: "left ankle pitch",
+    axisType: "pitch_lateral",
+    neutral: 612,
+    direction: +1,
+    testedChange: "decrease",
+    testedMotionZh: "左踝前后角度改变",
+    motionZh: "控制左脚掌前后倾斜，补偿身体前后重心",
+    group: "l_leg",
+    mirrorId: 2,
+  },
+  {
+    id: 11,
+    channel: 10,
+    joint: "l_knee",
+    labelZh: "左膝轴",
+    labelEn: "left knee",
+    axisType: "pitch_lateral",
+    neutral: 500,
+    direction: +1,
+    testedChange: "decrease",
+    testedMotionZh: "左膝弯曲",
+    motionZh: "控制左膝弯曲和伸直",
+    group: "l_leg",
+    mirrorId: 3,
+  },
+  {
+    id: 12,
+    channel: 11,
+    joint: "l_hip_pitch",
+    labelZh: "左髋前后轴",
+    labelEn: "left hip pitch",
+    axisType: "pitch_lateral",
+    neutral: 406,
+    direction: -1,
+    testedChange: "decrease",
+    testedMotionZh: "左大腿向前抬",
+    motionZh: "控制左大腿向前抬或向后摆",
+    group: "l_leg",
+    mirrorId: 4,
+  },
+  {
+    id: 13,
+    channel: 12,
+    joint: "l_hip_roll",
+    labelZh: "左髋侧摆轴",
+    labelEn: "left hip roll",
+    axisType: "roll_longitudinal",
+    neutral: 500,
+    direction: +1,
+    testedChange: "decrease",
+    testedMotionZh: "左腿侧向展开、身体侧倾",
+    motionZh: "控制左腿向外展开、向内收回，以及身体侧倾",
+    group: "l_leg",
+    mirrorId: 5,
+  },
+  {
+    id: 14,
+    channel: 13,
+    joint: "r_elbow",
+    labelZh: "右肘轴",
+    labelEn: "right elbow",
+    axisType: "pitch_lateral",
+    neutral: 425,
+    direction: +1,
+    testedChange: "decrease",
+    testedMotionZh: "右肘弯曲",
+    motionZh: "控制右小臂弯曲和伸直",
+    group: "r_arm",
+    mirrorId: 6,
+  },
+  {
+    id: 15,
+    channel: 14,
+    joint: "r_shoulder_roll",
+    labelZh: "右肩侧向轴",
+    labelEn: "right shoulder roll",
+    axisType: "roll_longitudinal",
+    neutral: 200,
+    direction: +1,
+    testedChange: "increase",
+    testedMotionZh: "右臂侧向展开",
+    motionZh: "控制右臂侧向展开、向身体收回",
+    group: "r_arm",
+    mirrorId: 7,
+  },
+  {
+    id: 16,
+    channel: 15,
+    joint: "r_shoulder_pitch",
+    labelZh: "右肩根部旋转轴",
+    labelEn: "right shoulder root pitch",
+    axisType: "pitch_lateral",
+    neutral: 275,
+    direction: +1,
+    testedChange: "increase",
+    testedMotionZh: "右臂向前、向上旋转",
+    motionZh: "控制整条右臂前后转动、上举和下放",
+    group: "r_arm",
+    mirrorId: 8,
+  },
+];
 
-export const SERVO_DIRECTION = {
-  r_hip_yaw: +1,
-  r_ankle_axis: -1,
-  r_knee: -1,
-  r_hip_pitch: +1,
-  r_hip_roll: +1,
-  r_elbow: +1,
-  r_shoulder_axis_2: -1,
-  r_shoulder_pitch: -1,
-  l_hip_yaw: +1,
-  l_ankle_axis: +1,
-  l_knee: +1,
-  l_hip_pitch: -1,
-  l_hip_roll: +1,
-  l_elbow: +1,
-  l_shoulder_axis_2: +1,
-  l_shoulder_pitch: +1,
-};
+export const SERVO_NEUTRAL = Object.fromEntries(
+  SERVO_LAYOUT.map((servo) => [servo.joint, servo.neutral]),
+);
 
-export const CHANNEL_TO_JOINT = {
-  0: "r_hip_yaw",
-  1: "r_ankle_axis",
-  2: "r_knee",
-  3: "r_hip_pitch",
-  4: "r_hip_roll",
-  5: "r_elbow",
-  6: "r_shoulder_axis_2",
-  7: "r_shoulder_pitch",
-  8: "l_hip_yaw",
-  9: "l_ankle_axis",
-  10: "l_knee",
-  11: "l_hip_pitch",
-  12: "l_hip_roll",
-  13: "l_elbow",
-  14: "l_shoulder_axis_2",
-  15: "l_shoulder_pitch",
-};
+export const SERVO_DIRECTION = Object.fromEntries(
+  SERVO_LAYOUT.map((servo) => [servo.joint, servo.direction]),
+);
 
-export const CHANNEL_LABELS = {
-  0: "ID1 r_hip_yaw",
-  1: "ID2 r_ankle_axis",
-  2: "ID3 r_knee",
-  3: "ID4 r_hip_pitch",
-  4: "ID5 r_hip_roll",
-  5: "ID6 r_elbow",
-  6: "ID7 r_shoulder_axis_2",
-  7: "ID8 r_shoulder_pitch",
-  8: "ID9 l_hip_yaw",
-  9: "ID10 l_ankle_axis",
-  10: "ID11 l_knee",
-  11: "ID12 l_hip_pitch",
-  12: "ID13 l_hip_roll",
-  13: "ID14 l_elbow",
-  14: "ID15 l_shoulder_axis_2",
-  15: "ID16 l_shoulder_pitch",
-};
+export const CHANNEL_TO_JOINT = Object.fromEntries(
+  SERVO_LAYOUT.map((servo) => [servo.channel, servo.joint]),
+);
+
+export const CHANNEL_LABELS = Object.fromEntries(
+  SERVO_LAYOUT.map((servo) => [servo.channel, `ID${servo.id} ${servo.joint}`]),
+);
 
 export const SLIDER_GROUPS = [
-  { titleKey: "group_r_arm", cls: "group-r", channels: [7, 6, 5] },
-  { titleKey: "group_l_arm", cls: "group-l", channels: [15, 14, 13] },
-  { titleKey: "group_r_leg", cls: "group-r", channels: [3, 2, 1] },
-  { titleKey: "group_l_leg", cls: "group-l", channels: [11, 10, 9] },
-  { titleKey: "group_unused", cls: "group-u", channels: [0, 4, 8, 12] },
+  { key: "r_arm", titleKey: "group_r_arm", cls: "group-r", channels: [15, 14, 13] },
+  { key: "l_arm", titleKey: "group_l_arm", cls: "group-l", channels: [7, 6, 5] },
+  { key: "r_leg", titleKey: "group_r_leg", cls: "group-r", channels: [0, 4, 3, 2, 1] },
+  { key: "l_leg", titleKey: "group_l_leg", cls: "group-l", channels: [8, 12, 11, 10, 9] },
 ];
 
 export const PRESET_I18N_KEYS = {
@@ -132,31 +314,47 @@ export const HIP_HALF_WIDTH = 1.5;
 export const SHOULDER_HALF_WIDTH = 2.5;
 export const HIP_BASE_HEIGHT = SEGMENTS.upper_leg.length + SEGMENTS.lower_leg.length + FOOT_PLATE.thickness;
 
-export function getChannelGroup(ch) {
-  if (ch >= 5 && ch <= 7) return "r";
-  if (ch >= 13 && ch <= 15) return "l";
-  if (ch >= 0 && ch <= 4) return "r";
-  if (ch >= 8 && ch <= 12) return "l";
+export function getChannelGroup(channel) {
+  if (channel >= 13 && channel <= 15) return "r";
+  if (channel >= 5 && channel <= 7) return "l";
+  if (channel >= 0 && channel <= 4) return "r";
+  if (channel >= 8 && channel <= 12) return "l";
   return "u";
 }
 
-export function formatServoAngle(ch, value) {
-  const jointName = CHANNEL_TO_JOINT[ch];
-  if (!jointName) return "";
-  const neutral = SERVO_NEUTRAL[jointName] ?? 500;
-  const direction = SERVO_DIRECTION[jointName] ?? 1;
-  const deg = (value - neutral) * direction / 1000 * 180;
+export function getServoByChannel(channel) {
+  return SERVO_LAYOUT.find((servo) => servo.channel === channel) ?? null;
+}
+
+export function getServoById(id) {
+  return SERVO_LAYOUT.find((servo) => servo.id === id) ?? null;
+}
+
+export function getServoByJoint(joint) {
+  return SERVO_LAYOUT.find((servo) => servo.joint === joint) ?? null;
+}
+
+export function formatServoAngle(channel, value) {
+  const servo = getServoByChannel(channel);
+  if (!servo) return "";
+  const deg = ((value - servo.neutral) * servo.direction / 1000) * 180;
   const sign = deg > 0 ? "+" : "";
   return `${sign}${deg.toFixed(0)}°`;
 }
 
+export function formatServoOffset(channel, value) {
+  const servo = getServoByChannel(channel);
+  if (!servo) return "";
+  const delta = value - servo.neutral;
+  const sign = delta > 0 ? "+" : "";
+  return `${sign}${delta}`;
+}
+
 export function poseToJointAngles(pose) {
   const angles = {};
-  for (const [channelIndex, jointName] of Object.entries(CHANNEL_TO_JOINT)) {
-    const neutral = SERVO_NEUTRAL[jointName];
-    const direction = SERVO_DIRECTION[jointName];
-    const delta = (pose[parseInt(channelIndex, 10)] - neutral) * direction;
-    angles[jointName] = delta / 1000.0 * Math.PI;
+  for (const servo of SERVO_LAYOUT) {
+    const delta = (pose[servo.channel] - servo.neutral) * servo.direction;
+    angles[servo.joint] = delta / 1000.0 * Math.PI;
   }
   return angles;
 }

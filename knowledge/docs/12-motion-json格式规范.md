@@ -79,20 +79,20 @@
 | pose 索引 | 舵机 ID | joint | axis_type | 中位值 |
 |-----------|---------|-------|-----------|--------|
 | pose[0] | ID1 | `r_hip_yaw` | `yaw_vertical` | 500 |
-| pose[1] | ID2 | `r_ankle_axis` | `unknown_pitch_or_roll` | 387 |
+| pose[1] | ID2 | `r_ankle` | `pitch_lateral` | 387 |
 | pose[2] | ID3 | `r_knee` | `pitch_lateral` | 500 |
 | pose[3] | ID4 | `r_hip_pitch` | `pitch_lateral` | 593 |
 | pose[4] | ID5 | `r_hip_roll` | `roll_longitudinal` | 500 |
 | pose[5] | ID6 | `r_elbow` | `pitch_lateral` | 575 |
-| pose[6] | ID7 | `r_shoulder_axis_2` | `unknown_yaw_or_roll` | 800 |
+| pose[6] | ID7 | `r_shoulder_roll` | `roll_longitudinal` | 800 |
 | pose[7] | ID8 | `r_shoulder_pitch` | `pitch_lateral` | 724 |
 | pose[8] | ID9 | `l_hip_yaw` | `yaw_vertical` | 500 |
-| pose[9] | ID10 | `l_ankle_axis` | `unknown_pitch_or_roll` | 612 |
+| pose[9] | ID10 | `l_ankle` | `pitch_lateral` | 612 |
 | pose[10] | ID11 | `l_knee` | `pitch_lateral` | 500 |
 | pose[11] | ID12 | `l_hip_pitch` | `pitch_lateral` | 406 |
 | pose[12] | ID13 | `l_hip_roll` | `roll_longitudinal` | 500 |
 | pose[13] | ID14 | `l_elbow` | `pitch_lateral` | 425 |
-| pose[14] | ID15 | `l_shoulder_axis_2` | `unknown_yaw_or_roll` | 200 |
+| pose[14] | ID15 | `l_shoulder_roll` | `roll_longitudinal` | 200 |
 | pose[15] | ID16 | `l_shoulder_pitch` | `pitch_lateral` | 275 |
 
 ## 约束规则

@@ -13,10 +13,19 @@ Tonybot Action Simulator 以 **动作模拟器** 为核心，围绕 Tonybot 官�
 
 ### 打开模拟器
 
-双击 `simulator/index.html`，在浏览器中打开 3D 动作模拟器。
+推荐运行本地启动脚本后打开模拟器：
+
+```powershell
+pwsh -NoLogo -NoProfile -File .\simulator\start-simulator.ps1
+```
+
+默认地址：
+
+- `http://127.0.0.1:8123/simulator/`
 
 - 拖拽 `.rob` 文件到视口即可加载播放
 - 16 舵机滑块实时驱动骨骼姿态
+- 左侧映射面板可交叉核对 `ID / 站立值 / 镜像 / 方向`
 - 7 组预设姿态一键切换
 - 支持 ACT-40 明文和 EYPT 加密文件
 
@@ -64,7 +73,7 @@ wondercode-toolkit/     # 原 WonderCode 工具（保留）
 
 ## 版本
 
-- 当前版本：`0.7.0`
+- 当前版本：`0.7.7`
 - 仓库状态：`Public / Active`
 - 默认分支：`main`
 

@@ -40,11 +40,11 @@ JOINT_NEUTRAL = {
     # 右腿
     "r_hip_pitch":    0.0,    # ID4: 髋前后，正=前
     "r_knee":         0.0,    # ID3: 膝，正=后弯
-    "r_ankle":        0.0,    # ID2: 踝，正=前屈
+    "r_ankle":        0.0,    # ID2: 踝俯仰，正=脚掌前后倾斜
     # 左腿
     "l_hip_pitch":    0.0,    # ID12: 髋前后，正=前 (注意 ID12 减小=前)
     "l_knee":         0.0,    # ID11: 膝，正=后弯 (注意 ID11 减小=弯)
-    "l_ankle":        0.0,    # ID10: 踝
+    "l_ankle":        0.0,    # ID10: 踝俯仰，正=脚掌前后倾斜
     # 右臂
     "r_shoulder_pitch": 0.0,  # ID8: 肩前后，正=前 (ID8 减小=前)
     "r_shoulder_roll":  0.0,  # ID7: 肩内外，正=外展 (ID7 减小=外展)
@@ -75,10 +75,10 @@ SERVO_NEUTRAL = {
 SERVO_DIRECTION = {
     "r_hip_pitch":    +1,   # ID4↑ = 腿前抬
     "r_knee":         -1,   # ID3↑ = 膝后弯
-    "r_ankle":        -1,   # ID2↓ = 踝前屈? 待验证
+    "r_ankle":        -1,   # ID2 与右踝俯仰同向，脚尖上翘/下压细节按真机微调
     "l_hip_pitch":    -1,   # ID12↓ = 腿前抬  
-    "l_knee":         +1,   # ID11↓ = 膝后弯? 实际是 ID11↓=弯
-    "l_ankle":        +1,   # ID10↑ = 踝?
+    "l_knee":         +1,   # ID11↓ = 弯；此处方向系数按 pose_to_joint_angles 的正向定义保留
+    "l_ankle":        +1,   # ID10 与左踝俯仰同向，脚尖上翘/下压细节按真机微调
     "r_shoulder_pitch": -1, # ID8↓ = 臂前抬
     "r_shoulder_roll":  -1, # ID7↓ = 臂外展
     "r_elbow":         +1,  # ID6↑ = 肘弯
